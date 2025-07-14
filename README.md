@@ -7,7 +7,7 @@ Students must implement features such as:
 - Interactive prompt for command input
 - Built-in commands like echo, cd, pwd, export, unset, env, and exit
 - Redirections (>, >>, <) and pipes (|)
-- Environment variable expansion (\$VAR, \$?)
+- Environment variable expansion
 - Signal handling for Ctrl-C, Ctrl-D, and Ctrl-\
 - Heredoc support (<<) for multi-line input
 
