@@ -1,7 +1,7 @@
 # 42 - Minishell
 
 ## About
-Minishell is a project from the 42-cursus curriculum that introduces students to the inner workings of Unix-like shells. The goal is to build a minimalist shell in C that mimics the behavior of Bash, handling user input, executing commands, and managing processes—all while respecting strict syntax and system-level constraints.
+Minishell is a project from the 42-cursus curriculum that introduces students to the inner workings of Unix-like shells. The goal is to build a minimalist shell in C that mimics the behavior of Bash, handling user input, executing commands, and managing processes - all while respecting strict syntax and system-level constraints.
 
 Students must implement features such as:
 - Interactive prompt for command input
