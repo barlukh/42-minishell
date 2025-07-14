@@ -13,4 +13,6 @@ Students must implement features such as:
 
 The project emphasizes robust parsing, process creation, and error handling, pushing students to understand how shells interpret and execute commands. It’s a deep dive into system programming, and a rite of passage for anyone serious about mastering OS-level development.
 
+Minishell project is a team effort and is currently being worked on by me and my classmate [Eduardo](https://github.com/EzLucca).
+
 This repository is mostly just an archive of my studies, and can serve as a reference for future students in a time of need. However, I strongly encourage students to avoid just copy-pasting.
