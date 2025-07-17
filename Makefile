@@ -5,42 +5,62 @@
 #                                                     +:+ +:+         +:+      #
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/07/14 09:44:15 by bgazur            #+#    #+#              #
-#    Updated: 2025/07/14 09:44:53 by bgazur           ###   ########.fr        #
+#    Created: 2025/07/17 08:53:07 by bgazur            #+#    #+#              #
+#    Updated: 2025/07/17 08:56:56 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME =		minishell
-CC =		cc
-CFLAGS =	-Wall -Werror -Wextra
-RM =		rm -f
+NAME =			minishell
 
-INC_DIR =	include
-OBJ_DIR =	objects
-SRC_DIR =	src
+DIR_SRC =		src
+DIR_OBJ =		objects
+DIR_LIBFT =		lib/libft
+DIR_LIBFT_INC =	$(DIR_LIBFT)/include
 
-HDR =		$(INC_DIR)/minishell.h
+COMPILER =		cc
+CFLAGS =		-Wall -Wextra -Werror
+HEADERS =		-Iinclude -I$(DIR_LIBFT_INC)
+LIBFT_FLAGS =	-L$(DIR_LIBFT) -lft
+RM =			rm -rf
 
-OBJ =		$(SRC:%.c=$(OBJ_DIR)/%.o)
+MAIN_SRC =		main.c \
 
-SRC =		main.c
+SRC = $(addprefix $(DIR_SRC)/, $(MAIN_SRC))
 
-$(NAME): $(OBJ_DIR) $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+OBJECTS = $(SRC:%.c=$(DIR_OBJ)/%.o)
 
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
+LIBFT = $(DIR_LIBFT)/libft.a
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HDR)
-	$(CC) $(CFLAGS) -c $< -o $@
+GREEN = \033[0;32m
+NC = \033[0m
 
-all: $(OBJ_DIR) $(NAME)
+all:  $(NAME)
+
+$(LIBFT):
+	@make --no-print-directory -C $(DIR_LIBFT)
+
+$(NAME): $(LIBFT) $(OBJECTS) 
+	@$(COMPILER) $(CFLAGS) $(OBJECTS) -o $@ $(LIBFT_FLAGS)
+	@echo "✅ Build $(GREEN)$(NAME)$(NC) successfully! 🎉"
+
+
+$(DIR_OBJ)/%.o: %.c | $(DIR_OBJ)
+	@mkdir -p $(dir $@)
+	@$(COMPILER) $(CFLAGS) $(HEADERS) -c $< -o $@
+	@echo "... 🛠️ compiling $<"
+
+$(DIR_OBJ):
+	@mkdir -p $(DIR_OBJ)
 
 clean:
-	$(RM) $(OBJ)
+	@$(RM) $(DIR_OBJ)
+	@make --no-print-directory clean -C $(DIR_LIBFT)
+	@echo "🧹 Cleaned object files."
 
 fclean: clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
+	@make --no-print-directory fclean -C $(DIR_LIBFT)
+	@echo "🧹 Removed executables."
 
 re: fclean all
 
