@@ -1,22 +1,29 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/07/17 10:50:25 by bgazur            #+#    #+#              #
+#    Updated: 2025/07/17 11:14:38 by bgazur           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME =			libft.a
-
-DIR_SRC =		.
-DIR_OBJ =		$(DIR_SRC)/objects
-HEADERS =		include/
-
-LIBFT_FLAGS =	-L $(DIR_LIB) -lft
 
 COMPILER =		cc
 CFLAGS =		-Wall -Wextra -Werror
 AR =			ar rcs
 RM =			rm -rf
 
-# Submodules directory
-GNL_DIR =		./gnl
-FT_PRINTF_DIR =	./ft_printf
+DIR_HDR =		include
+DIR_OBJ =		objects
+DIR_SRC =		src
 
-# Files
-LIBFT_FILES = 	ft_isalpha.c \
+HDR =			$(DIR_HDR)/libft.h
+OBJ =			$(SRC:%.c=$(DIR_OBJ)/%.o)
+SRC = 			ft_isalpha.c \
 				ft_isdigit.c \
 				ft_isalnum.c \
 				ft_strlen.c \
@@ -61,40 +68,19 @@ LIBFT_FILES = 	ft_isalpha.c \
 				ft_lstmap_bonus.c \
 				ft_free_array.c
 
-GNL_FILES = $(GNL_DIR)/get_next_line.c \
-			$(GNL_DIR)/get_next_line_utils.c
+all: $(DIR_OBJ) $(NAME)
 
-FT_PRINTF_FILES = $(FT_PRINTF_DIR)/ft_printf.c \
-				  $(FT_PRINTF_DIR)/ft_printf_chars.c \
-				  $(FT_PRINTF_DIR)/ft_printf_hex.c 
-
-# Objects
-LIBFT_OBJECTS = $(patsubst %.c, $(DIR_OBJ)/%.o, $(LIBFT_FILES))
-GNL_OBJECTS = $(patsubst $(GNL_DIR)/%.c, $(DIR_OBJ)/%.o, $(GNL_FILES))
-FT_PRINTF_OBJECTS = $(patsubst $(FT_PRINTF_DIR)/%.c, $(DIR_OBJ)/%.o, $(FT_PRINTF_FILES))
-
-# Targets
-all: $(NAME)
-
-$(NAME): $(LIBFT_OBJECTS) $(FT_PRINTF_OBJECTS) $(GNL_OBJECTS)
+$(NAME): $(OBJ)
 	@$(AR) $@ $^
 	@echo "✅ Build $(GREEN)$(NAME) $(NC)successfully! 🎉"
-
-$(DIR_OBJ)/%.o: %.c | $(DIR_OBJ)
-	@$(COMPILER) $(CFLAGS) -I $(HEADERS) -c $< -o $@
-	@echo "... 🛠️ compiling $<"
-
-$(DIR_OBJ)/%.o: $(GNL_DIR)/%.c | $(DIR_OBJ)
-	@$(COMPILER) $(CFLAGS) -I $(HEADERS) -c $< -o $@
-	@echo "... 🛠️ compiling $<"
-
-$(DIR_OBJ)/%.o: $(FT_PRINTF_DIR)/%.c | $(DIR_OBJ)
-	@$(COMPILER) $(CFLAGS) -I $(HEADERS) -c $< -o $@
-	@echo "... 🛠️ compiling $<"
 
 $(DIR_OBJ):
 	@mkdir -p $(DIR_OBJ)
 	@echo "📁 Creating directory for $(NAME) objects"
+
+$(DIR_OBJ)/%.o: $(DIR_SRC)/%.c $(HDR)
+	@$(COMPILER) $(CFLAGS) -I $(DIR_HDR) -c $< -o $@
+	@echo "... 🛠️ compiling $<"
 
 clean:
 	@$(RM) $(DIR_OBJ)
