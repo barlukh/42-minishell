@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 08:53:07 by bgazur            #+#    #+#              #
-#    Updated: 2025/07/17 11:18:29 by bgazur           ###   ########.fr        #
+#    Updated: 2025/07/17 14:30:14 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,11 +24,10 @@ DIR_LIBFT =		lib/libft
 HDR =			$(DIR_HDR)/minishell.h
 HDR_LIBFT =		$(DIR_LIBFT)/$(DIR_HDR)/libft.h
 OBJ =			$(SRC:%.c=$(DIR_OBJ)/%.o)
-SRC =			main.c \
+SRC =			main.c
 
 LIBFT =			$(DIR_LIBFT)/libft.a
 LIBFT_FLAGS =	-L$(DIR_LIBFT) -lft
-
 
 all: $(DIR_OBJ) $(LIBFT) $(NAME)
 
@@ -48,13 +47,15 @@ $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c $(HDR)
 	@echo "... 🛠️ compiling $<"
 
 clean:
-	@$(RM) $(DIR_OBJ)
 	@$(MAKE) -C $(DIR_LIBFT) clean
+	@$(RM) $(DIR_OBJ)
 	@echo "🧹 Objects of $(NAME) are removed! -> 🗑️"
 
-fclean: clean
-	@$(RM) $(NAME)
+fclean:
 	@$(MAKE) -C $(DIR_LIBFT) fclean
+	@$(RM) $(DIR_OBJ)
+	@echo "🧹 Objects of $(NAME) are removed! -> 🗑️"
+	@$(RM) $(NAME)
 	@echo "🧹 Executable $(NAME) is removed! -> 🗑️ "
 
 re: fclean all

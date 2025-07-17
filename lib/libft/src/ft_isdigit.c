@@ -6,19 +6,15 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 10:19:23 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/17 11:04:53 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/17 13:12:58 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-// Checks for a digit (0 through 9)
-
 int	ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
-	{
-		return (c);
-	}
+		return (1);
 	return (0);
 }

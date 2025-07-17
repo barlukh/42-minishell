@@ -6,16 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 18:30:59 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/17 11:05:31 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/17 13:32:52 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
-
-// Fill the n bytes of the memory area pointed by s with the constant type c
-// The memset() function returns a pointer to the memory area s.
-// The casting on the void * ensure the type of unsigned char *
-// The char is used to be byte by byte.
 
 void	*ft_memset(void *s, int c, size_t n)
 {

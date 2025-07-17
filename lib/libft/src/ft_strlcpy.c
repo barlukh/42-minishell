@@ -6,17 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 10:22:02 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/17 11:05:59 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/17 13:49:23 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
-
-// The strlcpy() function copies up to size - 1 characters 
-// from the NUL-terminated string
-// src to dst, NUL-terminating the result.
-// The strlcpy() function return the total length of the string
-// For strlcpy() that means the length of src.
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {

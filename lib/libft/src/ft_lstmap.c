@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 10:29:01 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/17 11:05:13 by bgazur           ###   ########.fr       */
+/*   Created: 2025/04/25 17:23:39 by edlucca           #+#    #+#             */
+/*   Updated: 2025/07/17 13:24:44 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-// Iterate all the next pointer of the nodes until the last node is NULL
-// lst is a pointer to the first node of the linked list
-// The while loop checks for the content of the next pointer
-// The tmp_lst is created to don't change the head of the linked list
-// Returns the last node of the list.
-
-t_list	*ft_lstlast(t_list *lst)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*tmp_lst;
+	t_list	*new_list;
+	t_list	*new_node;
 
-	if (!lst)
+	if (!lst || !f || !del)
 		return (NULL);
-	tmp_lst = lst;
-	while (tmp_lst->next != NULL)
+	new_list = NULL;
+	while (lst)
 	{
-		tmp_lst = tmp_lst->next;
+		new_node = ft_lstnew(f(lst->content));
+		if (!new_node)
+		{
+			ft_lstclear(&new_list, del);
+			return (NULL);
+		}
+		ft_lstadd_back(&new_list, new_node);
+		lst = lst->next;
 	}
-	return (tmp_lst);
+	return (new_list);
 }

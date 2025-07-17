@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 10:29:37 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/17 11:05:11 by bgazur           ###   ########.fr       */
+/*   Created: 2025/04/15 10:28:50 by edlucca           #+#    #+#             */
+/*   Updated: 2025/07/17 13:27:26 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-// lst: The address of a pointer to a node.
-// f: The address of the function to apply to each node’s content.
-//
-// Iterates through the ’lst’ and applies the f to the content of each node.
-
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+int	ft_lstsize(t_list *lst)
 {
-	t_list	*tmp;
+	int	size;
 
-	if (!lst || !f)
-		return ;
-	tmp = lst;
-	while (tmp)
+	size = 0;
+	while (lst != NULL)
 	{
-		f(tmp->content);
-		tmp = tmp->next;
+		++size;
+		lst = lst->next;
 	}
+	return (size);
 }

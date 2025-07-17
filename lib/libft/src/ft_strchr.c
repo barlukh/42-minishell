@@ -6,15 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 10:22:45 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/17 11:05:46 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/17 13:42:39 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
-
-// The  strchr()  function  returns a pointer to the first occurrence of the
-// character c in the string s.
-// if c is specified as '\0', the functions return a pointer to the terminator.
 
 char	*ft_strchr(const char *s, int c)
 {

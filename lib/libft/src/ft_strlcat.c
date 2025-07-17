@@ -6,17 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 10:22:26 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/17 11:05:56 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/17 13:48:11 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
-
-// Concatenate the src after dest. Return the total length string concatenated.
-// That means the initial length of dst plus the length of src.
-// If dst_len is bigger or equal than size it return size plus src_len 
-// If the src is smaller than the space we concatenate including the null.
-// Otherwise we copy the src -1 and manually null terminate.
 
 size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {

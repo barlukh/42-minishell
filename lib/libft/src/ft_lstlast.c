@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 10:27:07 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/17 11:06:17 by bgazur           ###   ########.fr       */
+/*   Created: 2025/04/15 10:29:01 by edlucca           #+#    #+#             */
+/*   Updated: 2025/07/17 13:24:38 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-// Allocates memory (using malloc(3)) and returns a copy of ’s1’ with
-// characters from ’set’ removed from the beginning and the end.
-
-char	*ft_strtrim(char const *s1, char const *set)
+t_list	*ft_lstlast(t_list *lst)
 {
-	int	start;
-	int	len;
+	t_list	*tmp_lst;
 
-	start = 0;
-	len = ft_strlen(s1);
-	if (!s1)
+	if (!lst)
 		return (NULL);
-	while (start < len && ft_strchr(set, s1[start]))
-		start++;
-	while (len > start && ft_strchr(set, s1[len - 1]))
-		len--;
-	return (ft_substr(s1, start, len - start));
+	tmp_lst = lst;
+	while (tmp_lst->next != NULL)
+	{
+		tmp_lst = tmp_lst->next;
+	}
+	return (tmp_lst);
 }

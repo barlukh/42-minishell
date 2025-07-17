@@ -6,81 +6,89 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 10:27:20 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/17 11:05:43 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/17 13:43:11 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-//This should return the len of the substring
-static int	substr_len(char const *s, char c)
-{
-	int	len;
+static size_t	word_count(char const *s, char c);
+static char		**allocate_array(char const *s, char c, char **arr);
+static void		free_array(char **arr, size_t i);
 
-	len = 0;
-	while (*s && *s != c)
-	{
-		len++;
-		s++;
-	}
-	return (len);
+char	**ft_split(char const *s, char c)
+{
+	size_t	count;
+	char	**arr;
+
+	if (!s)
+		return (NULL);
+	count = word_count(s, c);
+	arr = malloc(sizeof(char *) * (count + 1));
+	if (!arr)
+		return (NULL);
+	arr = allocate_array(s, c, arr);
+	if (!arr)
+		return (NULL);
+	arr[count] = NULL;
+	return (arr);
 }
 
-//This function count the word of the string
-static int	count_words(const char *s, char c)
+// Counts how many words to split the string into.
+static size_t	word_count(char const *s, char c)
 {
-	int	count;
+	size_t	count;
 
 	count = 0;
 	while (*s)
 	{
-		if (*s != c)
+		while (*s == c)
+			s++;
+		if (*s)
 		{
 			count++;
-			s += substr_len(s, c);
+			while (*s && *s != c)
+				s++;
 		}
-		else
-			s++;
 	}
 	return (count);
 }
 
-//Free every array if one of them are not properly allocated
-static void	*free_array(char **array)
+// Allocates each single word into its array.
+static char	**allocate_array(char const *s, char c, char **arr)
 {
-	int	i;
+	size_t	word_len;
+	size_t	i;
 
-	i = 0;
-	while (array[i])
-		free(array[i++]);
-	free(array);
-	return (NULL);
-}
-
-//Split the string in substring
-char	**ft_split(char const *s, char c)
-{
-	char	**array;
-	int		i;
-
-	if (!s)
-		return (NULL);
-	array = malloc(sizeof(char *) * (count_words(s, c) + 1));
-	if (!array)
-		return (NULL);
 	i = 0;
 	while (*s)
 	{
-		if (*s != c)
-		{
-			array[i] = ft_substr(s, 0, substr_len(s, c));
-			if (!array[i++])
-				return (free_array(array));
-			s += substr_len(s, c);
-		}
-		else
+		while (*s == c)
 			s++;
+		if (*s)
+		{
+			if (ft_strchr(s, c))
+				word_len = ft_strchr(s, c) - s;
+			else
+				word_len = ft_strlen(s);
+			arr[i] = ft_substr(s, 0, word_len);
+			if (!arr[i])
+			{
+				free_array(arr, i);
+				return (NULL);
+			}
+			s += word_len;
+			i++;
+		}
 	}
-	array[i] = NULL;
-	return (array);
+	return (arr);
+}
+
+// Frees all allocated arrays.
+static void	free_array(char **arr, size_t i)
+{
+	while (i > 0)
+		free(arr[i--]);
+	free(arr[i]);
+	free(arr);
 }

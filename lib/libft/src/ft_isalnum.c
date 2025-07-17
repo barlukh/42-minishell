@@ -6,20 +6,16 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 10:18:59 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/17 11:04:40 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/17 13:11:44 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-//Checks for alphnumeric character
-
 int	ft_isalnum(int c)
 {
 	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
 		|| (c >= '0' && c <= '9'))
-	{
-		return (c);
-	}
+		return (1);
 	return (0);
 }
