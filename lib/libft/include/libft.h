@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/17 14:29:29 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/17 16:06:14 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	*ft_memset(void *s, int c, size_t n);
 
 /**
- * @brief Outputs a character to a specified file descriptor .
+ * @brief Outputs a character to a specified file descriptor.
  * @param c Character to output.
  * @param fd File descriptor.
  * @return None.
@@ -304,16 +304,16 @@ char	*ft_strrchr(const char *s, int c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 /**
- * @brief Converts uppercase letter to lowercase .
+ * @brief Converts uppercase letter to lowercase.
  * @param c Character to convert, passed as an int.
  * @return Converted character.
  */
 int		ft_tolower(int c);
 
 /**
- * @brief Converts lowercase letter to uppercase
- * @param c Character to convert, passed as an int
- * @return Converted character
+ * @brief Converts lowercase letter to uppercase.
+ * @param c Character to convert, passed as an int.
+ * @return Converted character.
  */
 int		ft_toupper(int c);
 

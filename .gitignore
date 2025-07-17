@@ -1,5 +1,6 @@
 .vscode
 /lib/libft/objects
+/lib/libft/libft.a
 /objects
 minishell
 subject.pdf

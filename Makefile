@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 08:53:07 by bgazur            #+#    #+#              #
-#    Updated: 2025/07/17 14:30:14 by bgazur           ###   ########.fr        #
+#    Updated: 2025/07/17 16:10:37 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,9 @@ DIR_LIBFT =		lib/libft
 HDR =			$(DIR_HDR)/minishell.h
 HDR_LIBFT =		$(DIR_LIBFT)/$(DIR_HDR)/libft.h
 OBJ =			$(SRC:%.c=$(DIR_OBJ)/%.o)
-SRC =			main.c
+
+SRC =			lexing.c \
+				main.c
 
 LIBFT =			$(DIR_LIBFT)/libft.a
 LIBFT_FLAGS =	-L$(DIR_LIBFT) -lft

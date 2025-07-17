@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/14 09:40:06 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/17 16:02:26 by bgazur           ###   ########.fr       */
+/*   Created: 2025/07/17 15:57:43 by bgazur            #+#    #+#             */
+/*   Updated: 2025/07/17 16:02:18 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	main(void)
+void	lexing(void)
 {
-	lexing();
-	return (SUCCESS);
+	ft_putendl_fd("Hello world", 1);
 }

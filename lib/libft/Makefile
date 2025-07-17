@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 10:50:25 by bgazur            #+#    #+#              #
-#    Updated: 2025/07/17 14:25:02 by bgazur           ###   ########.fr        #
+#    Updated: 2025/07/17 16:10:26 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ DIR_SRC =		src
 
 HDR =			$(DIR_HDR)/libft.h
 OBJ =			$(SRC:%.c=$(DIR_OBJ)/%.o)
+
 SRC = 			ft_bzero.c \
 				ft_calloc.c \
 				ft_free_array.c \
