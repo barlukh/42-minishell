@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/17 16:06:14 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/18 14:05:38 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 // Library Headers
 //------------------------------------------------------------------------------
 
+# include <stdbool.h>
 # include <stdlib.h>
 # include <unistd.h>
 
@@ -51,11 +52,19 @@ void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t nmemb, size_t size);
 
 /**
- * @brief Frees an array of arrays.
+ * @brief Fully frees an array of arrays.
  * @param array Array to free.
  * @return None.
  */
-void	ft_free_array(char **array);
+void	ft_free_array_full(char **array);
+
+/**
+ * @brief Frees an array of arrays up to a specified index.
+ * @param array Array to free.
+ * @param i Index of how many arrays to free within the main array.
+ * @return None.
+ */
+void	ft_free_array_index(char **array, size_t i);
 
 /**
  * @brief Checks for an alphanumeric character.
@@ -213,12 +222,20 @@ void	ft_putnbr_fd(int n, int fd);
 void	ft_putstr_fd(char *s, int fd);
 
 /**
+ * @brief Splits a string according to specified delimiters.
+ * @param s String to split.
+ * @param charset Delimiters.
+ * @return Array of new strings, NULL if the allocation fails.
+ */
+char	**ft_split_multiple(char const *s, char *charset);
+
+/**
  * @brief Splits a string according to a specified delimiter.
  * @param s String to split.
  * @param c Delimiter.
  * @return Array of new strings, NULL if the allocation fails.
  */
-char	**ft_split(char const *s, char c);
+char	**ft_split_single(char const *s, char c);
 
 /**
  * @brief Scans a string for the first instance of a character.
@@ -244,7 +261,7 @@ char	*ft_strdup(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 
 /**
- * @brief Concatenates two strings and NUL-terminates the result.
+ * @brief Concatenates two strings and NULL-terminates the result.
  * @param dst Destination string.
  * @param src String to append to the destination string.
  * @param size Number of bytes to append (includes byte for NUL).
@@ -253,7 +270,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 
 /**
- * @brief Copies a string and NUL-terminates the result.
+ * @brief Copies a string and NULL-terminates the result.
  * @param dst Destination array.
  * @param scr Source string to copy to the detination array.
  * @param size Number of byte to copy.

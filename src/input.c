@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/14 09:40:06 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/18 13:58:28 by bgazur           ###   ########.fr       */
+/*   Created: 2025/07/18 07:52:40 by bgazur            #+#    #+#             */
+/*   Updated: 2025/07/18 13:58:10 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	main(void)
+void	parse_input(void)
 {
-	parse_input();
-	return (SUCCESS);
+	char	*input_line;
+
+	input_line = readline("minishell$ ");
+	tokenize_input(input_line);
 }

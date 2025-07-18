@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_split_single.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 10:27:20 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/17 13:43:11 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/18 14:32:43 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-static size_t	word_count(char const *s, char c);
+static size_t	count_words(char const *s, char c);
 static char		**allocate_array(char const *s, char c, char **arr);
-static void		free_array(char **arr, size_t i);
 
-char	**ft_split(char const *s, char c)
+char	**ft_split_single(char const *s, char c)
 {
-	size_t	count;
 	char	**arr;
+	size_t	count;
 
 	if (!s)
 		return (NULL);
-	count = word_count(s, c);
+	count = count_words(s, c);
 	arr = malloc(sizeof(char *) * (count + 1));
 	if (!arr)
 		return (NULL);
@@ -35,7 +34,7 @@ char	**ft_split(char const *s, char c)
 }
 
 // Counts how many words to split the string into.
-static size_t	word_count(char const *s, char c)
+static size_t	count_words(char const *s, char c)
 {
 	size_t	count;
 
@@ -74,7 +73,7 @@ static char	**allocate_array(char const *s, char c, char **arr)
 			arr[i] = ft_substr(s, 0, word_len);
 			if (!arr[i])
 			{
-				free_array(arr, i);
+				ft_free_array_index(arr, i);
 				return (NULL);
 			}
 			s += word_len;
@@ -82,13 +81,4 @@ static char	**allocate_array(char const *s, char c, char **arr)
 		}
 	}
 	return (arr);
-}
-
-// Frees all allocated arrays.
-static void	free_array(char **arr, size_t i)
-{
-	while (i > 0)
-		free(arr[i--]);
-	free(arr[i]);
-	free(arr);
 }

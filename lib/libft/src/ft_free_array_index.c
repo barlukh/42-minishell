@@ -1,30 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_array.c                                    :+:      :+:    :+:   */
+/*   ft_free_array_specified.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/25 10:16:56 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/17 11:04:38 by bgazur           ###   ########.fr       */
+/*   Created: 2025/07/18 12:48:00 by bgazur            #+#    #+#             */
+/*   Updated: 2025/07/18 13:29:57 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-void	ft_free_array(char **array)
+void	ft_free_array_index(char **arr, size_t i)
 {
-	int	i;
-
-	i = 0;
-	if (array)
-	{
-		while (array[i])
-		{
-			free (array[i]);
-			array[i] = NULL;
-			i++;
-		}
-		free (array);
-	}
+	while (i > 0)
+		free(arr[i--]);
+	free(arr[i]);
+	free(arr);
 }

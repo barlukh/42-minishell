@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/17 16:09:12 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/18 14:34:05 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,14 @@
 
 # include "../lib/libft/include/libft.h"
 
+# include <readline/readline.h>
+# include <stdbool.h>
+
 //------------------------------------------------------------------------------
 // Macro Definitions
 //------------------------------------------------------------------------------
+
+# define DELIMS "|&<> \t\n"
 
 # define SUCCESS 0
 
@@ -38,7 +43,6 @@ typedef enum e_token_type
 	TOKEN_REDIR_OUT,
 	TOKEN_REDIR_APPEND,
 	TOKEN_REDIR_HEREDOC,
-	TOKEN_ENV_VAR,
 }	t_token_type;
 
 // Token structure
@@ -53,11 +57,13 @@ typedef struct s_token
 // Function Prototypes
 //------------------------------------------------------------------------------
 
+void	parse_input(void);
+
 /**
  * @brief Converts a command line input into tokens.
- * @param void None.
+ * @param input_line Line received from the command line.
  * @return None.
  */
-void	lexing(void);
+void	tokenize_input(char *input_line);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 10:50:25 by bgazur            #+#    #+#              #
-#    Updated: 2025/07/17 16:10:26 by bgazur           ###   ########.fr        #
+#    Updated: 2025/07/18 13:55:19 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ NAME =			libft.a
 
 CC =			cc
 CFLAGS =		-Wall -Wextra -Werror
-RM =			rm -rf
 AR =			ar rcs
+RM =			rm -rf
 
 DIR_HDR =		include
 DIR_OBJ =		objects
@@ -26,7 +26,8 @@ OBJ =			$(SRC:%.c=$(DIR_OBJ)/%.o)
 
 SRC = 			ft_bzero.c \
 				ft_calloc.c \
-				ft_free_array.c \
+				ft_free_array_full.c \
+				ft_free_array_index.c \
 				ft_isalnum.c \
 				ft_isalpha.c \
 				ft_isascii.c \
@@ -47,7 +48,8 @@ SRC = 			ft_bzero.c \
 				ft_putendl_fd.c \
 				ft_putnbr_fd.c \
 				ft_putstr_fd.c \
-				ft_split.c \
+				ft_split_multiple.c \
+				ft_split_single.c \
 				ft_strchr.c \
 				ft_strdup.c \
 				ft_strjoin.c \

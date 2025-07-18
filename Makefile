@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 08:53:07 by bgazur            #+#    #+#              #
-#    Updated: 2025/07/17 16:10:37 by bgazur           ###   ########.fr        #
+#    Updated: 2025/07/18 13:56:37 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME =			minishell
 
 CC =			cc
 CFLAGS =		-Wall -Werror -Wextra
+LINKER_FLAGS =	-L$(DIR_LIBFT) -lft -lreadline
 RM =			rm -rf
 
 DIR_HDR  =		include
@@ -21,20 +22,20 @@ DIR_OBJ  =		objects
 DIR_SRC  =		src
 DIR_LIBFT =		lib/libft
 
+LIBFT =			$(DIR_LIBFT)/libft.a
+
 HDR =			$(DIR_HDR)/minishell.h
 HDR_LIBFT =		$(DIR_LIBFT)/$(DIR_HDR)/libft.h
 OBJ =			$(SRC:%.c=$(DIR_OBJ)/%.o)
 
-SRC =			lexing.c \
-				main.c
-
-LIBFT =			$(DIR_LIBFT)/libft.a
-LIBFT_FLAGS =	-L$(DIR_LIBFT) -lft
+SRC =			input.c \
+				main.c \
+				tokenizer.c
 
 all: $(DIR_OBJ) $(LIBFT) $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBFT_FLAGS)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LINKER_FLAGS)
 	@echo "✅ Build $(GREEN)$(NAME) $(NC)successfully! 🎉"
 
 $(LIBFT): $(HDR_LIBFT)
