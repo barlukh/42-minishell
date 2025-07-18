@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/18 14:05:38 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/18 17:51:10 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,7 @@ void	*ft_calloc(size_t nmemb, size_t size);
  * @param array Array to free.
  * @return None.
  */
-void	ft_free_array_full(char **array);
-
-/**
- * @brief Frees an array of arrays up to a specified index.
- * @param array Array to free.
- * @param i Index of how many arrays to free within the main array.
- * @return None.
- */
-void	ft_free_array_index(char **array, size_t i);
+void	ft_free_array(char **array);
 
 /**
  * @brief Checks for an alphanumeric character.
@@ -103,59 +95,26 @@ int		ft_isprint(int c);
 
 /**
  * @brief Adds a node at the end of a linked list.
- * @param lst The address of a pointer to the first node of a list.
- * @param node The address of a pointer to the node to be added.
+ * @param lst Address of a pointer to the first node of a list.
+ * @param node Pointer to the node to be added.
  * @return None.
  */
 void	ft_lstadd_back(t_list **lst, t_list *node);
 
 /**
  * @brief Adds a node at the beginning of a linked list.
- * @param lst The address of a pointer to the first node of a list.
- * @param node The address of a pointer to the node to be added.
+ * @param lst Address of a pointer to the first node of a list.
+ * @param node Pointer to the node to be added.
  * @return None.
  */
 void	ft_lstadd_front(t_list **lst, t_list *node);
 
 /**
- * @brief Deletes and frees a given node and all its successors.
- * @param lst The address of a pointer to the node.
- * @param del The address of the function used to delete the content.
+ * @brief Deletes and frees a given node, its content and all its successors.
+ * @param lst Address of a pointer to the node.
  * @return None.
  */
-void	ft_lstclear(t_list **lst, void (*del)(void *));
-
-/**
- * @brief Frees a content using passed function then frees a node itself.
- * @param lst The node to free.
- * @param del The address of the function used to delete the content.
- * @return None.
- */
-void	ft_lstdelone(t_list *lst, void (*del)(void *));
-
-/**
- * @brief Iterates through a list and applies a function to a content.
- * @param lst The address of a pointer to a node.
- * @param f The address of the function to apply to each node’s content.
- * @return None.
- */
-void	ft_lstiter(t_list *lst, void (*f)(void *));
-
-/**
- * @brief Returns the last node of the list.
- * @param lst The beginning of the list.
- * @return Last node of the list.
- */
-t_list	*ft_lstlast(t_list *lst);
-
-/**
- * @brief Applies a function to each node's content creating a new list.
- * @param lst The address of a pointer to a node.
- * @param f The address of the function applied to each node’s content.
- * @param del The address of the function used to delete a node’s content.
- * @return New list, NULL if the allocation fails.
- */
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+void	ft_lstclear(t_list **lst);
 
 /**
  * @brief Creates a new node in a linked list.
@@ -166,8 +125,8 @@ t_list	*ft_lstnew(void *content);
 
 /**
  * @brief Counts the number of nodes in a linked list.
- * @param lst The beginning of the list.
- * @return The length of the list.
+ * @param lst Pointer to the first node.
+ * @return Length of the list.
  */
 int		ft_lstsize(t_list *lst);
 
@@ -222,20 +181,12 @@ void	ft_putnbr_fd(int n, int fd);
 void	ft_putstr_fd(char *s, int fd);
 
 /**
- * @brief Splits a string according to specified delimiters.
- * @param s String to split.
- * @param charset Delimiters.
- * @return Array of new strings, NULL if the allocation fails.
- */
-char	**ft_split_multiple(char const *s, char *charset);
-
-/**
  * @brief Splits a string according to a specified delimiter.
  * @param s String to split.
  * @param c Delimiter.
  * @return Array of new strings, NULL if the allocation fails.
  */
-char	**ft_split_single(char const *s, char c);
+char	**ft_split(char const *s, char c);
 
 /**
  * @brief Scans a string for the first instance of a character.

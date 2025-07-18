@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/18 14:34:05 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/18 17:27:31 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ typedef struct s_token
 // Function Prototypes
 //------------------------------------------------------------------------------
 
-void	parse_input(void);
+void	parse_input(t_list **input_head);
 
 /**
  * @brief Converts a command line input into tokens.
  * @param input_line Line received from the command line.
  * @return None.
  */
-void	tokenize_input(char *input_line);
+void	tokenize_input(t_list **input_head, char *input_line);
 
 #endif
