@@ -6,15 +6,15 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 10:20:15 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/18 17:44:09 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/19 13:46:37 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-void	ft_lstclear(t_list **lst)
+void	ft_lstclear(t_token **lst)
 {
-	t_list	*tmp;
+	t_token	*tmp;
 
 	if (!lst)
 		return ;
@@ -23,7 +23,9 @@ void	ft_lstclear(t_list **lst)
 		tmp = *lst;
 		*lst = (*lst)->next;
 		free(tmp->content);
+		tmp->content = NULL;
 		free(tmp);
+		tmp = NULL;
 	}
 	*lst = NULL;
 }

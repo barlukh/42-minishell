@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 08:53:07 by bgazur            #+#    #+#              #
-#    Updated: 2025/07/18 13:56:37 by bgazur           ###   ########.fr        #
+#    Updated: 2025/07/19 10:37:56 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ HDR =			$(DIR_HDR)/minishell.h
 HDR_LIBFT =		$(DIR_LIBFT)/$(DIR_HDR)/libft.h
 OBJ =			$(SRC:%.c=$(DIR_OBJ)/%.o)
 
-SRC =			input.c \
+SRC =			errors.c \
+				input.c \
 				main.c \
 				tokenizer.c
 

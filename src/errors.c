@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_array.c                                    :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/25 10:16:56 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/19 11:27:04 by bgazur           ###   ########.fr       */
+/*   Created: 2025/07/19 10:52:37 by bgazur            #+#    #+#             */
+/*   Updated: 2025/07/19 13:58:18 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "../include/minishell.h"
 
-void	ft_free_array(char **array)
+int	error_tok(char *input_line, t_token **lst, char *content)
 {
-	size_t	i;
-
-	i = 0;
-	if (array)
-	{
-		while (array[i])
-		{
-			free(array[i]);
-			array[i] = NULL;
-			i++;
-		}
-		free(array);
-		array = NULL;
-	}
+	free(input_line);
+	input_line = NULL;
+	ft_lstclear(lst);
+	lst = NULL;
+	free(content);
+	content = NULL;
+	ft_putendl_fd("Error allocating memory", 2);
+	exit(1);
 }

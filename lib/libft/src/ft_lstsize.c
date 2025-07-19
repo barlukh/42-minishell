@@ -6,13 +6,13 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 10:28:50 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/17 13:27:26 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/19 13:46:23 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-int	ft_lstsize(t_list *lst)
+int	ft_lstsize(t_token *lst)
 {
 	int	size;
 

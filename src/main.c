@@ -6,33 +6,38 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:40:06 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/18 17:45:26 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/19 15:31:34 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static void	test(t_list **input_head);
+static void	test(t_token **lst);
 
 int	main(void)
 {
-	t_list	*input_head;
+	char	*input_line;
+	t_token	*lst;
 
-	input_head = NULL;
-	parse_input(&input_head);
-	test(&input_head);
-	ft_lstclear(&input_head);
+	lst = NULL;
+	read_input(&input_line);
+	parse_input(input_line, &lst);
+	test(&lst);
+	ft_lstclear(&lst);
 	return (SUCCESS);
 }
 
-static void	test(t_list **input_head)
+static void	test(t_token **lst)
 {
-	t_list	*current;
+	t_token	*current;
 
-	current = *input_head;
+	current = *lst;
 	while (current != NULL)
 	{
-		ft_putendl_fd(current->content, 1);
+		ft_putstr_fd(current->content, 1);
+		// write(1, "@", 1);
+		// ft_putnbr_fd(current->type, 1);
+		write(1, "\n", 1);
 		current = current->next;
 	}
 }

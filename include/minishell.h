@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/18 17:27:31 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/19 13:58:18 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,36 +34,40 @@
 // Type Definitions
 //------------------------------------------------------------------------------
 
-// Token type enumeration
-typedef enum e_token_type
-{
-	TOKEN_WORD,
-	TOKEN_PIPE,
-	TOKEN_REDIR_IN,
-	TOKEN_REDIR_OUT,
-	TOKEN_REDIR_APPEND,
-	TOKEN_REDIR_HEREDOC,
-}	t_token_type;
-
-// Token structure
-typedef struct s_token
-{
-	t_token_type	type;
-	char			*value;
-	struct s_token	*next;
-}	t_token;
-
 //------------------------------------------------------------------------------
 // Function Prototypes
 //------------------------------------------------------------------------------
 
-void	parse_input(t_list **input_head);
+/**
+ * @brief Handles errors in tokenizing phase.
+ * @param input_line Input string received from a command line.
+ * @param lst Pointer to the head pointer of a linked list of tokens.
+ * @param content Allocated substring from the input_line.
+ * @return Exit code.
+ */
+int		error_tok(char *input_line, t_token **lst, char *content);
 
 /**
- * @brief Converts a command line input into tokens.
- * @param input_line Line received from the command line.
+ * @brief Parses command line input string.
+ * @param input_line Input string received from a command line.
+ * @param lst Pointer to the head pointer of a linked list of tokens.
  * @return None.
  */
-void	tokenize_input(t_list **input_head, char *input_line);
+void	parse_input(char *input_line, t_token **lst);
+
+/**
+ * @brief Reads input from a command line.
+ * @param input_line Pointer to a string in which to store the input.
+ * @return None.
+ */
+void	read_input(char **input_line);
+
+/**
+ * @brief Tokenizes command line input string.
+ * @param input_line Input string received from a command line.
+ * @param lst Pointer to the head pointer of a linked list of tokens.
+ * @return None.
+ */
+void	tokenizer(char *input_line, t_token **lst);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 10:50:25 by bgazur            #+#    #+#              #
-#    Updated: 2025/07/18 17:46:44 by bgazur           ###   ########.fr        #
+#    Updated: 2025/07/19 09:51:19 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC = 			ft_bzero.c \
 				ft_lstadd_back.c \
 				ft_lstadd_front.c \
 				ft_lstclear.c \
+				ft_lstlast.c \
 				ft_lstnew.c \
 				ft_lstsize.c \
 				ft_memcpy.c  \

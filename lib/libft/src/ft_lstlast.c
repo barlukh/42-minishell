@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_array.c                                    :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/25 10:16:56 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/19 11:27:04 by bgazur           ###   ########.fr       */
+/*   Created: 2025/04/25 14:26:01 by bgazur            #+#    #+#             */
+/*   Updated: 2025/07/19 13:46:09 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-void	ft_free_array(char **array)
+t_token	*ft_lstlast(t_token *lst)
 {
-	size_t	i;
-
-	i = 0;
-	if (array)
+	if (lst == NULL)
+		return (NULL);
+	while (lst->next != NULL)
 	{
-		while (array[i])
-		{
-			free(array[i]);
-			array[i] = NULL;
-			i++;
-		}
-		free(array);
-		array = NULL;
+		lst = lst->next;
 	}
+	return (lst);
 }

@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 16:19:25 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/18 16:23:48 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/19 11:28:07 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,13 @@ static char	**allocate_array(char const *s, char c, char **arr)
 static void	free_array(char **arr, size_t i)
 {
 	while (i > 0)
-		free(arr[i--]);
+	{
+		free(arr[i]);
+		arr[i] = NULL;
+		i--;
+	}
 	free(arr[i]);
+	arr[i] = NULL;
 	free(arr);
+	arr = NULL;
 }

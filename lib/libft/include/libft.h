@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/18 17:51:10 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/19 13:57:17 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,24 @@
 // Type Definitions
 //------------------------------------------------------------------------------
 
-typedef struct s_list
+// Token type enumeration.
+typedef enum e_token_type
 {
-	void			*content;
-	struct s_list	*next;
-}	t_list;
+	TOKEN_WORD,
+	TOKEN_PIPE,
+	TOKEN_REDIR_IN,
+	TOKEN_REDIR_OUT,
+	TOKEN_REDIR_APPEND,
+	TOKEN_REDIR_HEREDOC,
+}	t_token_type;
+
+// Token structure.
+typedef struct s_token
+{
+	t_token_type	type;
+	char			*content;
+	struct s_token	*next;
+}	t_token;
 
 //------------------------------------------------------------------------------
 // Function Prototypes
@@ -95,40 +108,46 @@ int		ft_isprint(int c);
 
 /**
  * @brief Adds a node at the end of a linked list.
- * @param lst Address of a pointer to the first node of a list.
- * @param node Pointer to the node to be added.
+ * @param lst Pointer to the head pointer of a linked list.
+ * @param node Pointer to a node to be added.
  * @return None.
  */
-void	ft_lstadd_back(t_list **lst, t_list *node);
+void	ft_lstadd_back(t_token **lst, t_token *node);
 
 /**
  * @brief Adds a node at the beginning of a linked list.
- * @param lst Address of a pointer to the first node of a list.
- * @param node Pointer to the node to be added.
+ * @param lst Pointer to the head pointer of a linked list.
+ * @param node Pointer to a node to be added.
  * @return None.
  */
-void	ft_lstadd_front(t_list **lst, t_list *node);
+void	ft_lstadd_front(t_token **lst, t_token *node);
 
 /**
- * @brief Deletes and frees a given node, its content and all its successors.
- * @param lst Address of a pointer to the node.
+ * @brief Frees a given node, its content, and all its successors.
+ * @param lst Pointer to the pointer of a node.
  * @return None.
  */
-void	ft_lstclear(t_list **lst);
+void	ft_lstclear(t_token **lst);
+
+/** Returns a last node of a list.
+ * @param lst Pointer to a first node of a linked list.
+ * @return Pointer to a last node.
+ */
+t_token	*ft_lstlast(t_token *lst);
 
 /**
  * @brief Creates a new node in a linked list.
- * @param content Content to store in the new node.
- * @return Pointer to the new node.
+ * @param content Content to store in a new node.
+ * @return Pointer to a node, NULL if allocatiion fails.
  */
-t_list	*ft_lstnew(void *content);
+t_token	*ft_lstnew(void *content);
 
 /**
  * @brief Counts the number of nodes in a linked list.
- * @param lst Pointer to the first node.
- * @return Length of the list.
+ * @param lst Pointer to a first node of a linked list.
+ * @return Length of a list.
  */
-int		ft_lstsize(t_list *lst);
+int		ft_lstsize(t_token *lst);
 
 /**
  * @brief Copies bytes from one memory area to another.
