@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:40:06 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/19 15:31:34 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/20 15:25:37 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,17 @@ static void	test(t_token **lst);
 
 int	main(void)
 {
-	char	*input_line;
+	char	*input;
 	t_token	*lst;
 
 	lst = NULL;
-	read_input(&input_line);
-	parse_input(input_line, &lst);
-	test(&lst);
-	ft_lstclear(&lst);
+	while (true)
+	{
+		read_input(&input);
+		parse_input(input, &lst);
+		test(&lst);
+		ft_lstclear(&lst);
+	}
 	return (SUCCESS);
 }
 

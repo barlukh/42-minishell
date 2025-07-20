@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 10:50:25 by bgazur            #+#    #+#              #
-#    Updated: 2025/07/19 09:51:19 by bgazur           ###   ########.fr        #
+#    Updated: 2025/07/20 14:16:39 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC = 			ft_bzero.c \
 				ft_isalpha.c \
 				ft_isascii.c \
 				ft_isdigit.c \
+				ft_isifs.c \
 				ft_isprint.c \
 				ft_lstadd_back.c \
 				ft_lstadd_front.c \

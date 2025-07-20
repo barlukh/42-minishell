@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/19 13:57:17 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/20 14:16:15 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef enum e_token_type
 	TOKEN_REDIR_IN,
 	TOKEN_REDIR_OUT,
 	TOKEN_REDIR_APPEND,
-	TOKEN_REDIR_HEREDOC,
+	TOKEN_REDIR_HEREDOC
 }	t_token_type;
 
 // Token structure.
@@ -74,35 +74,42 @@ void	ft_free_array(char **array);
 /**
  * @brief Checks for an alphanumeric character.
  * @param c Character to check, passed as an int.
- * @return 1 on True, 0 on False.
+ * @return Bool true or false.
  */
 int		ft_isalnum(int c);
 
 /**
  * @brief Checks for an alphabetic character.
  * @param c Character to check, passed as an int.
- * @return 1 on True, 0 on False.
+ * @return Bool true or false.
  */
 int		ft_isalpha(int c);
 
 /**
  * @brief Checks whether character fits into the ASCII character set (0 - 127).
  * @param c Character to check, passed as an int.
- * @return 1 on True, 0 on False.
+ * @return Bool true or false.
  */
 int		ft_isascii(int c);
 
 /**
  * @brief Checks if a character is a digit.
  * @param c Character to check, passed as an int.
- * @return 1 on True, 0 on False.
+ * @return Bool true or false.
  */
 int		ft_isdigit(int c);
 
 /**
+ * @brief Checks if a character is an input field separator.
+ * @param c Character to check, passed as an int.
+ * @return Bool true or false.
+ */
+int		ft_isifs(int c);
+
+/**
  * @brief Checks if a character is printable.
  * @param c Character to check, passed as an int.
- * @return 1 on True, 0 on False.
+ * @return Bool true or false.
  */
 int		ft_isprint(int c);
 
