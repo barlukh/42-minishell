@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:40:06 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/20 15:25:37 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/20 17:37:13 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	test(t_token **lst)
 	t_token	*current;
 
 	current = *lst;
-	while (current != NULL)
+	while (current)
 	{
 		ft_putstr_fd(current->content, 1);
 		// write(1, "@", 1);

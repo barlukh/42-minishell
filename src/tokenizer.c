@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 15:57:43 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/20 15:26:51 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/21 09:26:49 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void	tokenizer(char *input, t_token **lst)
 	size_t	len;
 
 	i = 0;
-	while (input[i] != '\0')
+	while (input[i])
 	{
 		len = 0;
-		if (input[i] == '"')
+		if (ft_isquote(input[i]))
 			define_quoted_token(input, i, &len);
 		else if (ft_isifs(input[i]))
 		{
@@ -43,11 +43,14 @@ void	tokenizer(char *input, t_token **lst)
 
 static void	define_quoted_token(char *input, size_t i, size_t *len)
 {
-	while (input[i] != '\0')
+	char	quote_type;
+
+	quote_type = input[i];
+	while (input[i])
 	{
 		i++;
 		(*len)++;
-		if (input[i] == '"')
+		if (input[i] == quote_type)
 		{
 			(*len)++;
 			break ;
@@ -57,21 +60,10 @@ static void	define_quoted_token(char *input, size_t i, size_t *len)
 
 static void	define_unquoted_token(char *input, size_t i, size_t *len)
 {
-	size_t	j;
-
-	while (input[i] != '\0' && input[i] != '"')
+	while (input[i] && !ft_isquote(input[i]))
 	{
-		j = 0;
-		while (DELIMITERS[j] != '\0')
-		{
-			if (input[i] == DELIMITERS[j])
-			{
-				if (*len == 0)
-					*len = 1;
-				return ;
-			}
-			j++;
-		}
+		if (ft_isdelimiter(input, i, len))
+			return ;
 		i++;
 		(*len)++;
 	}

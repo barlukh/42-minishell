@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/20 14:16:15 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/21 09:29:51 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@
 # include <stdbool.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+//------------------------------------------------------------------------------
+// Macro Definitions
+//------------------------------------------------------------------------------
+
+# define DELIMITERS "|&<> \t\n"
 
 //------------------------------------------------------------------------------
 // Type Definitions
@@ -93,6 +99,15 @@ int		ft_isalpha(int c);
 int		ft_isascii(int c);
 
 /**
+ * @brief Checks if a character is a delimiter.
+ * @param s String to check.
+ * @param i Index of a character.
+ * @param len Length of a token.
+ * @return Bool true or false.
+ */
+int		ft_isdelimiter(char *s, size_t i, size_t *len);
+
+/**
  * @brief Checks if a character is a digit.
  * @param c Character to check, passed as an int.
  * @return Bool true or false.
@@ -112,6 +127,13 @@ int		ft_isifs(int c);
  * @return Bool true or false.
  */
 int		ft_isprint(int c);
+
+/**
+ * @brief Checks if a character is a quote (single or double).
+ * @param c Character to check, passed as an int.
+ * @return Bool true or false.
+ */
+int		ft_isquote(int c);
 
 /**
  * @brief Adds a node at the end of a linked list.
