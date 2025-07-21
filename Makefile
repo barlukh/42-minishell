@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 08:53:07 by bgazur            #+#    #+#              #
-#    Updated: 2025/07/19 10:37:56 by bgazur           ###   ########.fr        #
+#    Updated: 2025/07/21 14:30:55 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,12 +25,12 @@ DIR_LIBFT =		lib/libft
 LIBFT =			$(DIR_LIBFT)/libft.a
 
 HDR =			$(DIR_HDR)/minishell.h
-HDR_LIBFT =		$(DIR_LIBFT)/$(DIR_HDR)/libft.h
 OBJ =			$(SRC:%.c=$(DIR_OBJ)/%.o)
 
 SRC =			errors.c \
 				input.c \
 				main.c \
+				parser.c \
 				tokenizer.c
 
 all: $(DIR_OBJ) $(LIBFT) $(NAME)
@@ -39,7 +39,7 @@ $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LINKER_FLAGS)
 	@echo "✅ Build $(GREEN)$(NAME) $(NC)successfully! 🎉"
 
-$(LIBFT): $(HDR_LIBFT)
+$(LIBFT):
 	@$(MAKE) -C $(DIR_LIBFT)
 
 $(DIR_OBJ):

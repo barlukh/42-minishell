@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/18 07:52:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/21 15:44:42 by bgazur           ###   ########.fr       */
+/*   Created: 2025/07/21 13:59:02 by bgazur            #+#    #+#             */
+/*   Updated: 2025/07/21 15:10:06 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	read_input(char **input)
+void	parser(t_token **lst)
 {
-	*input = readline("minishell$ ");
-	add_history(*input);
+	t_token	*current;
+
+	current = *lst;
+	while (current)
+	{
+		// if (current->type == TOKEN_WORD)
+		// 	check_unclosed_quotes(current->content);
+		current = current->next;
+	}
 }
 
-void	parse_input(char *input, t_token **lst)
-{
-	tokenizer(input, lst);
-	parser(lst);
-}
+// static void	check_unclosed_quotes(char *content)
+// {
+
+// }

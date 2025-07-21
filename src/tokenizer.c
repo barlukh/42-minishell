@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 15:57:43 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/21 11:26:13 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/21 15:16:48 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	tokenizer(char *input, t_token **lst)
 	input = NULL;
 }
 
+// Defines a length of a quoted token.
 static void	define_quoted_token(char *input, size_t i, size_t *len)
 {
 	char	quote_type;
@@ -59,6 +60,7 @@ static void	define_quoted_token(char *input, size_t i, size_t *len)
 	}
 }
 
+// Defines a length of an unquoted token.
 static void	define_unquoted_token(char *input, size_t i, size_t *len)
 {
 	while (input[i] && !ft_isquote(input[i]))
@@ -70,6 +72,7 @@ static void	define_unquoted_token(char *input, size_t i, size_t *len)
 	}
 }
 
+// Creates a token using ft_substr() and appends it as a node to a linked list.
 static void	create_token(char *input, t_token **lst, size_t i, size_t len)
 {
 	char	*content;
@@ -85,6 +88,7 @@ static void	create_token(char *input, t_token **lst, size_t i, size_t len)
 	ft_lstadd_back(lst, node);
 }
 
+// Assigns each token its type.
 static void	assign_token_type(char *content, t_token *node)
 {
 	if (ft_strcmp(content, "|") == 0)

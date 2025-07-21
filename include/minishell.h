@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/21 10:14:25 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/21 14:43:20 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@
 
 # include "../lib/libft/include/libft.h"
 
+# include <readline/history.h>
 # include <readline/readline.h>
 # include <stdbool.h>
+
+# include <stdio.h> // UNUSED, REMOVE BEFORE SUBMISSION !!!!!!!!!!!!!!!!!!!!!
 
 //------------------------------------------------------------------------------
 // Macro Definitions
@@ -44,12 +47,19 @@
 int		error_tok(char *input, t_token **lst, char *content);
 
 /**
- * @brief Parses command line input string.
+ * @brief Parses command line input string with tokenizer and parser.
  * @param input Input string received from a command line.
  * @param lst Pointer to the head pointer of a linked list of tokens.
  * @return None.
  */
 void	parse_input(char *input, t_token **lst);
+
+/**
+ * @brief Parses tokens created by tokenizer.
+ * @param lst Pointer to the head pointer of a linked list of tokens.
+ * @return None.
+ */
+void	parser(t_token **lst);
 
 /**
  * @brief Reads input from a command line.

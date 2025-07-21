@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:40:06 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/21 12:01:06 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/21 13:28:32 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int	main(void)
 		test(&lst);
 		ft_lstclear(&lst);
 	}
+	clear_history();
 	return (EXIT_SUCCESS);
 }
 
-#include <stdio.h>
 static void	test(t_token **lst)
 {
 	t_token	*current;
