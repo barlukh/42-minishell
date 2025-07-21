@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/21 09:29:51 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/21 11:33:20 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@
 // Token type enumeration.
 typedef enum e_token_type
 {
-	TOKEN_WORD,
 	TOKEN_PIPE,
 	TOKEN_REDIR_IN,
 	TOKEN_REDIR_OUT,
+	TOKEN_REDIR_HEREDOC,
 	TOKEN_REDIR_APPEND,
-	TOKEN_REDIR_HEREDOC
+	TOKEN_WORD
 }	t_token_type;
 
 // Token structure.
@@ -245,6 +245,14 @@ char	**ft_split(char const *s, char c);
 char	*ft_strchr(const char *s, int c);
 
 /**
+ * @brief Compares two strings.
+ * @param s1 First string.
+ * @param s2 Second string.
+ * @return 0 if equal, negative if s1 < s2, positive if s1 > s2.
+ */
+int		ft_strcmp(const char *s1, const char *s2);
+
+/**
  * @brief Duplicates a string using dynamic memory allocation.
  * @param s String to duplicate.
  * @return Pointer to the duplicated string, NULL if the allocation fails.
@@ -285,7 +293,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlen(const char *s);
 
 /**
- * @brief Compares two strings.
+ * @brief Compares two strings limited by the number of bytes.
  * @param s1 First string.
  * @param s2 Second string.
  * @param n Number of bytes to compare.

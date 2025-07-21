@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/19 10:52:37 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/21 10:16:11 by bgazur           ###   ########.fr       */
+/*   Created: 2025/04/15 10:23:00 by edlucca           #+#    #+#             */
+/*   Updated: 2025/07/21 10:28:29 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../include/libft.h"
 
-int	error_tok(char *input, t_token **lst, char *content)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	free(input);
-	input = NULL;
-	ft_lstclear(lst);
-	lst = NULL;
-	free(content);
-	content = NULL;
-	ft_putendl_fd("Error allocating memory", 2);
-	exit(EXIT_FAILURE);
+	size_t	i;
+
+	i = 0;
+	while ((unsigned char)s1[i] || (unsigned char)s2[i])
+	{
+		if ((unsigned char)s1[i] != (unsigned char)s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 10:50:25 by bgazur            #+#    #+#              #
-#    Updated: 2025/07/21 08:46:47 by bgazur           ###   ########.fr        #
+#    Updated: 2025/07/21 11:34:16 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ SRC = 			ft_bzero.c \
 				ft_putstr_fd.c \
 				ft_split.c \
 				ft_strchr.c \
+				ft_strcmp.c \
 				ft_strdup.c \
 				ft_strjoin.c \
 				ft_strlcat.c \

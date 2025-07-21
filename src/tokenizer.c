@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 15:57:43 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/21 09:26:49 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/21 11:26:13 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	define_quoted_token(char *input, size_t i, size_t *len);
 static void	define_unquoted_token(char *input, size_t i, size_t *len);
 static void	create_token(char *input, t_token **lst, size_t i, size_t len);
+static void	assign_token_type(char *content, t_token *node);
 
 void	tokenizer(char *input, t_token **lst)
 {
@@ -80,5 +81,22 @@ static void	create_token(char *input, t_token **lst, size_t i, size_t len)
 	node = ft_lstnew(content);
 	if (!node)
 		exit(error_tok(input, lst, content));
+	assign_token_type(content, node);
 	ft_lstadd_back(lst, node);
+}
+
+static void	assign_token_type(char *content, t_token *node)
+{
+	if (ft_strcmp(content, "|") == 0)
+		node->type = TOKEN_PIPE;
+	else if (ft_strcmp(content, "<") == 0)
+		node->type = TOKEN_REDIR_IN;
+	else if (ft_strcmp(content, ">") == 0)
+		node->type = TOKEN_REDIR_OUT;
+	else if (ft_strcmp(content, "<<") == 0)
+		node->type = TOKEN_REDIR_HEREDOC;
+	else if (ft_strcmp(content, ">>") == 0)
+		node->type = TOKEN_REDIR_APPEND;
+	else
+		node->type = TOKEN_WORD;
 }
