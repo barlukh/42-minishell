@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:40:06 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/21 13:28:32 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/22 08:44:05 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(void)
 		ft_lstclear(&lst);
 	}
 	clear_history();
-	return (EXIT_SUCCESS);
+	return (SUCCESS);
 }
 
 static void	test(t_token **lst)
@@ -39,17 +39,17 @@ static void	test(t_token **lst)
 	while (current)
 	{
 		if (current->type == 0)
-			printf("%-14s | %s\n", "PIPE", current->content);
+			printf("%-14s %s\n", "PIPE", current->content);
 		else if (current->type == 1)
-			printf("%-14s | %s\n", "REDIR_IN", current->content);
+			printf("%-14s %s\n", "REDIR_IN", current->content);
 		else if (current->type == 2)
-			printf("%-14s | %s\n", "REDIT_OUT", current->content);
+			printf("%-14s %s\n", "REDIT_OUT", current->content);
 		else if (current->type == 3)
-			printf("%-14s | %s\n", "REDIR_HEREDOC", current->content);
+			printf("%-14s %s\n", "REDIR_HEREDOC", current->content);
 		else if (current->type == 4)
-			printf("%-14s | %s\n", "REDIR_APPEND", current->content);
+			printf("%-14s %s\n", "REDIR_APPEND", current->content);
 		else if (current->type == 5)
-			printf("%-14s | %s\n", "WORD", current->content);
+			printf("%-14s %s\n", "WORD", current->content);
 		current = current->next;
 	}
 }

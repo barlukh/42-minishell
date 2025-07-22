@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 15:57:43 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/21 15:16:48 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/22 08:53:23 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,10 @@ static void	create_token(char *input, t_token **lst, size_t i, size_t len)
 
 	content = ft_substr(input, i, len);
 	if (!content)
-		exit(error_tok(input, lst, content));
+		exit(error_tokenizer(input, lst, content));
 	node = ft_lstnew(content);
 	if (!node)
-		exit(error_tok(input, lst, content));
+		exit(error_tokenizer(input, lst, content));
 	assign_token_type(content, node);
 	ft_lstadd_back(lst, node);
 }

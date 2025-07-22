@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/21 14:43:20 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/22 08:55:28 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@
 // Macro Definitions
 //------------------------------------------------------------------------------
 
+// Exit values.
+# define SUCCESS 0
+# define FAILURE 1
+# define ERR_SYNTAX 2
+
 //------------------------------------------------------------------------------
 // Type Definitions
 //------------------------------------------------------------------------------
@@ -38,13 +43,20 @@
 //------------------------------------------------------------------------------
 
 /**
+ * @brief Handles errors in parsing phase.
+ * @param lst Pointer to the head pointer of a linked list of tokens.
+ * @return Exit code.
+ */
+int		error_parser(t_token **lst);
+
+/**
  * @brief Handles errors in tokenizing phase.
  * @param input Input string received from a command line.
  * @param lst Pointer to the head pointer of a linked list of tokens.
  * @param content Allocated substring from the input.
  * @return Exit code.
  */
-int		error_tok(char *input, t_token **lst, char *content);
+int		error_tokenizer(char *input, t_token **lst, char *content);
 
 /**
  * @brief Parses command line input string with tokenizer and parser.

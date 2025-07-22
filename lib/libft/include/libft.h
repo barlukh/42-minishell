@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/21 11:33:20 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/22 08:13:47 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int		ft_isalpha(int c);
 int		ft_isascii(int c);
 
 /**
- * @brief Checks if a character is a delimiter.
+ * @brief Checks if a character is a delimiter and sets len accordingly.
  * @param s String to check.
  * @param i Index of a character.
  * @param len Length of a token.
