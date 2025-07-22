@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_lst_env_new.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 10:28:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/21 13:50:34 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/22 15:08:36 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-t_token	*ft_lstnew(void *content)
+t_env	*ft_lst_env_new(void *key, void *value)
 {
-	t_token	*new_node;
+	t_env	*new_node;
 
-	new_node = malloc(sizeof(t_token));
+	new_node = malloc(sizeof(t_env));
 	if (!new_node)
 		return (NULL);
-	new_node->content = content;
+	new_node->key = key;
+	new_node->value = value;
 	new_node->next = NULL;
 	return (new_node);
 }

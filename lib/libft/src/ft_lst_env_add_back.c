@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isascii.c                                       :+:      :+:    :+:   */
+/*   ft_lst_env_add_back.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 10:19:13 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/20 14:15:02 by bgazur           ###   ########.fr       */
+/*   Created: 2025/04/15 10:19:51 by edlucca           #+#    #+#             */
+/*   Updated: 2025/07/22 15:01:10 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-int	ft_isascii(int c)
+void	ft_lst_env_add_back(t_env **lst, t_env *node)
 {
-	if (c >= 0 && c <= 127)
-		return (true);
-	return (false);
+	t_env	*last;
+
+	if (!lst || !node)
+		return ;
+	if (*lst == NULL)
+	{
+		*lst = node;
+		return ;
+	}
+	last = ft_lst_env_last(*lst);
+	last->next = node;
 }

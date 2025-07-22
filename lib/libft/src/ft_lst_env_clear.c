@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_lst_env_clear.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 10:19:51 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/19 13:46:45 by bgazur           ###   ########.fr       */
+/*   Created: 2025/04/15 10:20:15 by edlucca           #+#    #+#             */
+/*   Updated: 2025/07/22 16:36:23 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-void	ft_lstadd_back(t_token **lst, t_token *node)
+void	ft_lst_env_clear(t_env **lst)
 {
-	t_token	*last;
+	t_env	*tmp;
 
-	if (!lst || !node)
+	if (!lst)
 		return ;
-	if (*lst == NULL)
+	while (*lst)
 	{
-		*lst = node;
-		return ;
+		tmp = *lst;
+		*lst = (*lst)->next;
+		free(tmp->key);
+		tmp->key = NULL;
+		free(tmp->value);
+		tmp->value = NULL;
+		free(tmp);
+		tmp = NULL;
 	}
-	last = ft_lstlast(*lst);
-	last->next = node;
+	*lst = NULL;
 }

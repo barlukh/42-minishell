@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/22 08:55:28 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/22 15:52:59 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,35 +43,52 @@
 //------------------------------------------------------------------------------
 
 /**
- * @brief Handles errors in parsing phase.
- * @param lst Pointer to the head pointer of a linked list of tokens.
+ * @brief Copies environment variables, storing them as a linked list.
+ * @param env Environment variables.
+ * @param lst_env Pointer to the head pointer of a linked list of env variables.
+ * @return None.
+ */
+void	create_lst_env(char **env, t_env **lst_env);
+
+/**
+ * @brief Handles errors when creating list of environment variables.
+ * @param lst_env Pointer to the head pointer of a linked list of env variables.
  * @return Exit code.
  */
-int		error_parser(t_token **lst);
+int		error_lst_env(t_env **lst_env);
+
+/**
+ * @brief Handles errors in parsing phase.
+ * @param lst_tok Pointer to the head pointer of a linked list of tokens.
+ * @return Exit code.
+ */
+int		error_parser(t_token **lst_tok);
 
 /**
  * @brief Handles errors in tokenizing phase.
  * @param input Input string received from a command line.
- * @param lst Pointer to the head pointer of a linked list of tokens.
- * @param content Allocated substring from the input.
+ * @param lst_tok Pointer to the head pointer of a linked list of tokens.
+ * @param lst_env Pointer to the head pointer of a linked list of env vars.
  * @return Exit code.
  */
-int		error_tokenizer(char *input, t_token **lst, char *content);
+int		error_tokenizer(char *input, t_token **lst_tok, t_env **lst_env);
 
 /**
  * @brief Parses command line input string with tokenizer and parser.
  * @param input Input string received from a command line.
- * @param lst Pointer to the head pointer of a linked list of tokens.
+ * @param lst_tok Pointer to the head pointer of a linked list of tokens.
+ * @param lst_env Pointer to the head pointer of a linked list of env vars.
  * @return None.
  */
-void	parse_input(char *input, t_token **lst);
+void	parse_input(char *input, t_token **lst_tok, t_env **lst_env);
 
 /**
  * @brief Parses tokens created by tokenizer.
- * @param lst Pointer to the head pointer of a linked list of tokens.
+ * @param lst_tok Pointer to the head pointer of a linked list of tokens.
+ * @param lst_env Pointer to the head pointer of a linked list of env vars.
  * @return None.
  */
-void	parser(t_token **lst);
+void	parser(t_token **lst_tok, t_env **env);
 
 /**
  * @brief Reads input from a command line.
@@ -83,9 +100,10 @@ void	read_input(char **input);
 /**
  * @brief Tokenizes command line input string.
  * @param input Input string received from a command line.
- * @param lst Pointer to the head pointer of a linked list of tokens.
+ * @param lst_tok Pointer to the head pointer of a linked list of tokens.
+ * @param lst_env Pointer to the head pointer of a linked list of env vars.
  * @return None.
  */
-void	tokenizer(char *input, t_token **lst);
+void	tokenizer(char *input, t_token **lst_tok, t_env **lst_env);
 
 #endif

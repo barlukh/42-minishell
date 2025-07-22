@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/22 08:13:47 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/22 15:05:27 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@ typedef enum e_token_type
 	TOKEN_REDIR_APPEND,
 	TOKEN_WORD
 }	t_token_type;
+
+// Environmental variable structure.
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
 
 // Token structure.
 typedef struct s_token
@@ -78,27 +86,6 @@ void	*ft_calloc(size_t nmemb, size_t size);
 void	ft_free_array(char **array);
 
 /**
- * @brief Checks for an alphanumeric character.
- * @param c Character to check, passed as an int.
- * @return Bool true or false.
- */
-int		ft_isalnum(int c);
-
-/**
- * @brief Checks for an alphabetic character.
- * @param c Character to check, passed as an int.
- * @return Bool true or false.
- */
-int		ft_isalpha(int c);
-
-/**
- * @brief Checks whether character fits into the ASCII character set (0 - 127).
- * @param c Character to check, passed as an int.
- * @return Bool true or false.
- */
-int		ft_isascii(int c);
-
-/**
  * @brief Checks if a character is a delimiter and sets len accordingly.
  * @param s String to check.
  * @param i Index of a character.
@@ -122,13 +109,6 @@ int		ft_isdigit(int c);
 int		ft_isifs(int c);
 
 /**
- * @brief Checks if a character is printable.
- * @param c Character to check, passed as an int.
- * @return Bool true or false.
- */
-int		ft_isprint(int c);
-
-/**
  * @brief Checks if a character is a quote (single or double).
  * @param c Character to check, passed as an int.
  * @return Bool true or false.
@@ -141,42 +121,56 @@ int		ft_isquote(int c);
  * @param node Pointer to a node to be added.
  * @return None.
  */
-void	ft_lstadd_back(t_token **lst, t_token *node);
-
-/**
- * @brief Adds a node at the beginning of a linked list.
- * @param lst Pointer to the head pointer of a linked list.
- * @param node Pointer to a node to be added.
- * @return None.
- */
-void	ft_lstadd_front(t_token **lst, t_token *node);
+void	ft_lst_env_add_back(t_env **lst, t_env *node);
 
 /**
  * @brief Frees a given node, its content, and all its successors.
  * @param lst Pointer to the pointer of a node.
  * @return None.
  */
-void	ft_lstclear(t_token **lst);
+void	ft_lst_env_clear(t_env **lst);
 
 /** Returns a last node of a list.
  * @param lst Pointer to a first node of a linked list.
  * @return Pointer to a last node.
  */
-t_token	*ft_lstlast(t_token *lst);
+t_env	*ft_lst_env_last(t_env *lst);
 
 /**
  * @brief Creates a new node in a linked list.
- * @param content Content to store in a new node.
+ * @param key Key string.
+ * @param value Value string.
  * @return Pointer to a node, NULL if allocatiion fails.
  */
-t_token	*ft_lstnew(void *content);
+t_env	*ft_lst_env_new(void *key, void *value);
 
 /**
- * @brief Counts the number of nodes in a linked list.
- * @param lst Pointer to a first node of a linked list.
- * @return Length of a list.
+ * @brief Adds a node at the end of a linked list.
+ * @param lst Pointer to the head pointer of a linked list.
+ * @param node Pointer to a node to be added.
+ * @return None.
  */
-int		ft_lstsize(t_token *lst);
+void	ft_lst_tok_add_back(t_token **lst, t_token *node);
+
+/**
+ * @brief Frees a given node, its content, and all its successors.
+ * @param lst Pointer to the pointer of a node.
+ * @return None.
+ */
+void	ft_lst_tok_clear(t_token **lst);
+
+/** Returns a last node of a list.
+ * @param lst Pointer to a first node of a linked list.
+ * @return Pointer to a last node.
+ */
+t_token	*ft_lst_tok_last(t_token *lst);
+
+/**
+ * @brief Creates a new node in a linked list.
+ * @param content Token string.
+ * @return Pointer to a node, NULL if allocatiion fails.
+ */
+t_token	*ft_lst_tok_new(void *content);
 
 /**
  * @brief Copies bytes from one memory area to another.

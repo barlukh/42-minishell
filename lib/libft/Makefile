@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 10:50:25 by bgazur            #+#    #+#              #
-#    Updated: 2025/07/21 11:34:16 by bgazur           ###   ########.fr        #
+#    Updated: 2025/07/22 15:11:40 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,20 +27,18 @@ OBJ =			$(SRC:%.c=$(DIR_OBJ)/%.o)
 SRC = 			ft_bzero.c \
 				ft_calloc.c \
 				ft_free_array.c \
-				ft_isalnum.c \
-				ft_isalpha.c \
-				ft_isascii.c \
 				ft_isdelimiter.c \
 				ft_isdigit.c \
 				ft_isifs.c \
-				ft_isprint.c \
 				ft_isquote.c \
-				ft_lstadd_back.c \
-				ft_lstadd_front.c \
-				ft_lstclear.c \
-				ft_lstlast.c \
-				ft_lstnew.c \
-				ft_lstsize.c \
+				ft_lst_env_add_back.c \
+				ft_lst_env_clear.c \
+				ft_lst_env_last.c \
+				ft_lst_env_new.c \
+				ft_lst_tok_add_back.c \
+				ft_lst_tok_clear.c \
+				ft_lst_tok_last.c \
+				ft_lst_tok_new.c \
 				ft_memcpy.c  \
 				ft_memset.c  \
 				ft_putchar_fd.c \

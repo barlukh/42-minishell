@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 15:57:43 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/22 08:53:23 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/22 15:54:15 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static void	define_quoted_token(char *input, size_t i, size_t *len);
 static void	define_unquoted_token(char *input, size_t i, size_t *len);
-static void	create_token(char *input, t_token **lst, size_t i, size_t len);
+static int	create_token(char *input, t_token **lst_tok, size_t i, size_t len);
 static void	assign_token_type(char *content, t_token *node);
 
-void	tokenizer(char *input, t_token **lst)
+void	tokenizer(char *input, t_token **lst_tok, t_env **lst_env)
 {
 	size_t	i;
 	size_t	len;
@@ -35,7 +35,8 @@ void	tokenizer(char *input, t_token **lst)
 		}
 		else
 			define_unquoted_token(input, i, &len);
-		create_token(input, lst, i, len);
+		if (create_token(input, lst_tok, i, len) == FAILURE)
+			exit(error_tokenizer(input, lst_tok, lst_env));
 		i += len;
 	}
 	free(input);
@@ -45,14 +46,14 @@ void	tokenizer(char *input, t_token **lst)
 // Defines a length of a quoted token.
 static void	define_quoted_token(char *input, size_t i, size_t *len)
 {
-	char	quote_type;
+	char	quote;
 
-	quote_type = input[i];
+	quote = input[i];
 	while (input[i])
 	{
 		i++;
 		(*len)++;
-		if (input[i] == quote_type)
+		if (input[i] == quote)
 		{
 			(*len)++;
 			break ;
@@ -73,19 +74,23 @@ static void	define_unquoted_token(char *input, size_t i, size_t *len)
 }
 
 // Creates a token using ft_substr() and appends it as a node to a linked list.
-static void	create_token(char *input, t_token **lst, size_t i, size_t len)
+static int	create_token(char *input, t_token **lst_tok, size_t i, size_t len)
 {
 	char	*content;
 	t_token	*node;
 
 	content = ft_substr(input, i, len);
 	if (!content)
-		exit(error_tokenizer(input, lst, content));
-	node = ft_lstnew(content);
+		return (FAILURE);
+	node = ft_lst_tok_new(content);
 	if (!node)
-		exit(error_tokenizer(input, lst, content));
+	{
+		free(content);
+		return (FAILURE);
+	}
 	assign_token_type(content, node);
-	ft_lstadd_back(lst, node);
+	ft_lst_tok_add_back(lst_tok, node);
+	return (SUCCESS);
 }
 
 // Assigns each token its type.

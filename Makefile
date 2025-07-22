@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 08:53:07 by bgazur            #+#    #+#              #
-#    Updated: 2025/07/21 14:30:55 by bgazur           ###   ########.fr        #
+#    Updated: 2025/07/22 15:45:03 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ SRC =			errors.c \
 				input.c \
 				main.c \
 				parser.c \
-				tokenizer.c
+				tokenizer.c \
+				utility.c
 
 all: $(DIR_OBJ) $(LIBFT) $(NAME)
 

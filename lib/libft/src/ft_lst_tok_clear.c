@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   ft_lst_tok_clear.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 10:28:50 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/19 13:46:23 by bgazur           ###   ########.fr       */
+/*   Created: 2025/04/15 10:20:15 by edlucca           #+#    #+#             */
+/*   Updated: 2025/07/22 14:36:16 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-int	ft_lstsize(t_token *lst)
+void	ft_lst_tok_clear(t_token **lst)
 {
-	int	size;
+	t_token	*tmp;
 
-	size = 0;
-	while (lst != NULL)
+	if (!lst)
+		return ;
+	while (*lst)
 	{
-		++size;
-		lst = lst->next;
+		tmp = *lst;
+		*lst = (*lst)->next;
+		free(tmp->content);
+		tmp->content = NULL;
+		free(tmp);
+		tmp = NULL;
 	}
-	return (size);
+	*lst = NULL;
 }
