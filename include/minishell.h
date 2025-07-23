@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/22 15:52:59 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/23 13:17:59 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,15 @@
 // Macro Definitions
 //------------------------------------------------------------------------------
 
+// Error messages.
+# define ERR_MSG_ENV "Corrupted environment variables"
+# define ERR_MSG_MEM "Error allocating memory"
+# define ERR_MSG_SYN "Syntax error"
+
 // Exit values.
 # define SUCCESS 0
 # define FAILURE 1
-# define ERR_SYNTAX 2
+# define INV_SYNTAX 2
 
 //------------------------------------------------------------------------------
 // Type Definitions
@@ -51,44 +56,50 @@
 void	create_lst_env(char **env, t_env **lst_env);
 
 /**
- * @brief Handles errors when creating list of environment variables.
+ * @brief Handles errors when creating a linked list of environment variables.
+ * @param err Error message.
+ * @param key Key string.
+ * @param value Value string.
  * @param lst_env Pointer to the head pointer of a linked list of env variables.
  * @return Exit code.
  */
-int		error_lst_env(t_env **lst_env);
+int		error_lst_env( char *err, char *key, char *value, t_env **lst_env);
 
 /**
  * @brief Handles errors in parsing phase.
+ * @param err Error message.
+ * @param lst_env Pointer to the head pointer of a linked list of env vars.
  * @param lst_tok Pointer to the head pointer of a linked list of tokens.
  * @return Exit code.
  */
-int		error_parser(t_token **lst_tok);
+int		error_parser(char *err, t_env **lst_env, t_token **lst_tok);
 
 /**
  * @brief Handles errors in tokenizing phase.
+ * @param err Error message.
  * @param input Input string received from a command line.
- * @param lst_tok Pointer to the head pointer of a linked list of tokens.
  * @param lst_env Pointer to the head pointer of a linked list of env vars.
+ * @param lst_tok Pointer to the head pointer of a linked list of tokens.
  * @return Exit code.
  */
-int		error_tokenizer(char *input, t_token **lst_tok, t_env **lst_env);
+int		error_tok(char *err, char *input, t_env **lst_env, t_token **lst_tok);
 
 /**
  * @brief Parses command line input string with tokenizer and parser.
  * @param input Input string received from a command line.
- * @param lst_tok Pointer to the head pointer of a linked list of tokens.
  * @param lst_env Pointer to the head pointer of a linked list of env vars.
+ * @param lst_tok Pointer to the head pointer of a linked list of tokens.
  * @return None.
  */
-void	parse_input(char *input, t_token **lst_tok, t_env **lst_env);
+void	parse_input(char *input, t_env **lst_env, t_token **lst_tok);
 
 /**
  * @brief Parses tokens created by tokenizer.
- * @param lst_tok Pointer to the head pointer of a linked list of tokens.
  * @param lst_env Pointer to the head pointer of a linked list of env vars.
+ * @param lst_tok Pointer to the head pointer of a linked list of tokens.
  * @return None.
  */
-void	parser(t_token **lst_tok, t_env **env);
+int		parser(t_env **env, t_token **lst_tok);
 
 /**
  * @brief Reads input from a command line.
@@ -101,9 +112,8 @@ void	read_input(char **input);
  * @brief Tokenizes command line input string.
  * @param input Input string received from a command line.
  * @param lst_tok Pointer to the head pointer of a linked list of tokens.
- * @param lst_env Pointer to the head pointer of a linked list of env vars.
- * @return None.
+ * @return SUCCESS or FAILURE.
  */
-void	tokenizer(char *input, t_token **lst_tok, t_env **lst_env);
+int		tokenizer(char *input, t_token **lst_tok);
 
 #endif

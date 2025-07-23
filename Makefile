@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 08:53:07 by bgazur            #+#    #+#              #
-#    Updated: 2025/07/22 15:45:03 by bgazur           ###   ########.fr        #
+#    Updated: 2025/07/23 09:19:02 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,12 +27,12 @@ LIBFT =			$(DIR_LIBFT)/libft.a
 HDR =			$(DIR_HDR)/minishell.h
 OBJ =			$(SRC:%.c=$(DIR_OBJ)/%.o)
 
-SRC =			errors.c \
+SRC =			env.c \
+				errors.c \
 				input.c \
 				main.c \
 				parser.c \
-				tokenizer.c \
-				utility.c
+				tokenizer.c
 
 all: $(DIR_OBJ) $(LIBFT) $(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 14:26:01 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/22 15:08:40 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/23 14:08:23 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 t_env	*ft_lst_env_last(t_env *lst)
 {
-	if (lst == NULL)
+	if (!lst)
 		return (NULL);
-	while (lst->next != NULL)
+	while (lst->next)
 	{
 		lst = lst->next;
 	}

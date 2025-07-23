@@ -6,74 +6,70 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 13:59:02 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/22 15:44:19 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/23 14:09:03 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static void	check_quotes(t_token **lst_tok, char *content, char *quote);
-// static void	expand_vars(t_token **lst_tok, char *content, char **env, char quote);
+static int	check_quotes(char *content, char *quote);
+static void	expand_vars(char *content, char quote, t_env **lst_env);
 
-void	parser(t_token **lst_tok, t_env **env)
+int	parser(t_env **lst_env, t_token **lst_tok)
 {
 	char	quote;
 	t_token	*current;
 
-	(void)env;
 	quote = '\0';
 	current = *lst_tok;
 	while (current)
 	{
 		if (current->type == TOKEN_WORD)
 		{
-			check_quotes(lst_tok, current->content, &quote);
-			// expand_vars(lst_tok, current->content, env, quote);
+			if (check_quotes(current->content, &quote) != SUCCESS)
+				return (FAILURE);
+			expand_vars(current->content, quote, lst_env);
 		}
 		current = current->next;
 	}
+	return (SUCCESS);
 }
 
 // Checks for syntax errors with unclosed quotes.
-static void	check_quotes(t_token **lst_tok, char *content, char *quote)
+static int	check_quotes(char *content, char *quote)
 {
 	size_t	quote_count;
-	size_t	i;
 
-	if (content[0] == '"')
-		*quote = content[0];
-	else if (content[0] == '\'')
-		*quote = content[0];
+	if (*content == '"')
+		*quote = *content;
+	else if (*content == '\'')
+		*quote = *content;
 	else
-		return ;
+		return (SUCCESS);
 	quote_count = 0;
-	i = 0;
-	while (content[i])
+	while (*content)
 	{
-		if (*quote == '"' && content[i] == '"')
+		if (*content == '"' && *quote == '"')
 			quote_count++;
-		else if (*quote == '\'' && content[i] == '\'')
+		else if (*content == '\'' && *quote == '\'')
 			quote_count++;
-		i++;
+		content++;
 	}
 	if (quote_count % 2 != 0)
-		exit(error_parser(lst_tok));
+		return (FAILURE);
+	return (SUCCESS);
 }
 
 // Expands environment variables.
-// static void	expand_vars(t_token **lst, char *content, char **env, char quote)
-// {
-// 	size_t	i;
-// 	size_t	j;
-
-// 	i = 0;
-// 	while (content[i])
-// 	{
-// 		if (content[i] == '$' && quote != '\'')
-// 		{
-// 			j = 0;
-// 			while (env[j])
-// 		}
+static void	expand_vars(char *content, char quote, t_env **lst_env)
+{
+	while (*content)
+	{
+		if (*content == '$' && quote != '\'')
+		{
+			j = 0;
+			while (env[j])
+		}
 			
-// 	}
-// }
+	}
+}

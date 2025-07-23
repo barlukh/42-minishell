@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 15:57:43 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/22 15:54:15 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/23 13:49:19 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static void	define_quoted_token(char *input, size_t i, size_t *len);
 static void	define_unquoted_token(char *input, size_t i, size_t *len);
-static int	create_token(char *input, t_token **lst_tok, size_t i, size_t len);
+static int	create_token(char *input, size_t i, size_t len, t_token **lst_tok);
 static void	assign_token_type(char *content, t_token *node);
 
-void	tokenizer(char *input, t_token **lst_tok, t_env **lst_env)
+int	tokenizer(char *input, t_token **lst_tok)
 {
 	size_t	i;
 	size_t	len;
@@ -35,12 +35,13 @@ void	tokenizer(char *input, t_token **lst_tok, t_env **lst_env)
 		}
 		else
 			define_unquoted_token(input, i, &len);
-		if (create_token(input, lst_tok, i, len) == FAILURE)
-			exit(error_tokenizer(input, lst_tok, lst_env));
+		if (create_token(input, i, len, lst_tok) != SUCCESS)
+			return (FAILURE);
 		i += len;
 	}
 	free(input);
 	input = NULL;
+	return (SUCCESS);
 }
 
 // Defines a length of a quoted token.
@@ -74,7 +75,7 @@ static void	define_unquoted_token(char *input, size_t i, size_t *len)
 }
 
 // Creates a token using ft_substr() and appends it as a node to a linked list.
-static int	create_token(char *input, t_token **lst_tok, size_t i, size_t len)
+static int	create_token(char *input, size_t i, size_t len, t_token **lst_tok)
 {
 	char	*content;
 	t_token	*node;
@@ -86,6 +87,7 @@ static int	create_token(char *input, t_token **lst_tok, size_t i, size_t len)
 	if (!node)
 	{
 		free(content);
+		content = NULL;
 		return (FAILURE);
 	}
 	assign_token_type(content, node);
