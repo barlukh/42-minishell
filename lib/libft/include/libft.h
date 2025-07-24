@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/23 13:46:19 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/24 08:55:37 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,13 +107,6 @@ int		ft_isdigit(int c);
  * @return Bool true or false.
  */
 int		ft_isifs(int c);
-
-/**
- * @brief Checks if a character is a quote (single or double).
- * @param c Character to check, passed as an int.
- * @return Bool true or false.
- */
-int		ft_isquote(int c);
 
 /**
  * @brief Adds a node at the end of a linked list.

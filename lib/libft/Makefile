@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 10:50:25 by bgazur            #+#    #+#              #
-#    Updated: 2025/07/22 15:11:40 by bgazur           ###   ########.fr        #
+#    Updated: 2025/07/24 08:55:47 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,6 @@ SRC = 			ft_bzero.c \
 				ft_isdelimiter.c \
 				ft_isdigit.c \
 				ft_isifs.c \
-				ft_isquote.c \
 				ft_lst_env_add_back.c \
 				ft_lst_env_clear.c \
 				ft_lst_env_last.c \

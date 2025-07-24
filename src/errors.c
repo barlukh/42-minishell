@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 10:52:37 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/23 13:18:42 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/24 08:26:54 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	error_tok(char *err, char *input, t_env **lst_env, t_token **lst_tok)
 	exit(FAILURE);
 }
 
-int	error_parser(char *err, t_env **lst_env, t_token **lst_tok)
+int	error_par(char *err, t_env **lst_env, t_token **lst_tok)
 {
 	ft_lst_env_clear(lst_env);
 	lst_env = NULL;

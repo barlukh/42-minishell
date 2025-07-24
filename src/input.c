@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 07:52:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/23 13:18:18 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/24 08:56:42 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ void	parse_input(char *input, t_env **lst_env, t_token **lst_tok)
 	if (tokenizer(input, lst_tok) != SUCCESS)
 		exit(error_tok(ERR_MSG_MEM, input, lst_env, lst_tok));
 	if (parser(lst_env, lst_tok) != SUCCESS)
-		exit(error_parser(ERR_MSG_SYN, lst_env, lst_tok));
+		exit(error_par(ERR_MSG_SYN, lst_env, lst_tok));
+	// expander(lst_env, lst_tok);
 }

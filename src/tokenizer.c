@@ -6,14 +6,13 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 15:57:43 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/23 13:49:19 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/24 08:54:38 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static void	define_quoted_token(char *input, size_t i, size_t *len);
-static void	define_unquoted_token(char *input, size_t i, size_t *len);
+static void	define_token(char *input, size_t i, size_t *len);
 static int	create_token(char *input, size_t i, size_t len, t_token **lst_tok);
 static void	assign_token_type(char *content, t_token *node);
 
@@ -26,15 +25,12 @@ int	tokenizer(char *input, t_token **lst_tok)
 	while (input[i])
 	{
 		len = 0;
-		if (ft_isquote(input[i]))
-			define_quoted_token(input, i, &len);
-		else if (ft_isifs(input[i]))
+		if (ft_isifs(input[i]))
 		{
 			i++;
 			continue ;
 		}
-		else
-			define_unquoted_token(input, i, &len);
+		define_token(input, i, &len);
 		if (create_token(input, i, len, lst_tok) != SUCCESS)
 			return (FAILURE);
 		i += len;
@@ -44,30 +40,28 @@ int	tokenizer(char *input, t_token **lst_tok)
 	return (SUCCESS);
 }
 
-// Defines a length of a quoted token.
-static void	define_quoted_token(char *input, size_t i, size_t *len)
+// Defines the length of a token.
+static void	define_token(char *input, size_t i, size_t *len)
 {
 	char	quote;
 
-	quote = input[i];
+	quote = '\0';
 	while (input[i])
 	{
-		i++;
-		(*len)++;
-		if (input[i] == quote)
+		if (quote == '\0' && (input[i] == '\'' || input[i] == '"'))
 		{
+			quote = input[i];
+			i++;
 			(*len)++;
-			break ;
+			continue ;
 		}
-	}
-}
-
-// Defines a length of an unquoted token.
-static void	define_unquoted_token(char *input, size_t i, size_t *len)
-{
-	while (input[i] && !ft_isquote(input[i]))
-	{
-		if (ft_isdelimiter(input, i, len))
+		else if (input[i] == quote)
+		{
+			i++;
+			(*len)++;
+			return ;
+		}
+		else if (ft_isdelimiter(input, i, len) && quote == '\0')
 			return ;
 		i++;
 		(*len)++;

@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/23 13:17:59 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/24 08:26:54 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int		error_lst_env( char *err, char *key, char *value, t_env **lst_env);
  * @param lst_tok Pointer to the head pointer of a linked list of tokens.
  * @return Exit code.
  */
-int		error_parser(char *err, t_env **lst_env, t_token **lst_tok);
+int		error_par(char *err, t_env **lst_env, t_token **lst_tok);
 
 /**
  * @brief Handles errors in tokenizing phase.
@@ -83,6 +83,14 @@ int		error_parser(char *err, t_env **lst_env, t_token **lst_tok);
  * @return Exit code.
  */
 int		error_tok(char *err, char *input, t_env **lst_env, t_token **lst_tok);
+
+/**
+ * @brief Peforms variable expansion.
+ * @param lst_env Pointer to the head pointer of a linked list of env vars.
+ * @param lst_tok Pointer to the head pointer of a linked list of tokens.
+ * @return None.
+ */
+void	expander(t_env **env, t_token **lst_tok);
 
 /**
  * @brief Parses command line input string with tokenizer and parser.
@@ -97,7 +105,7 @@ void	parse_input(char *input, t_env **lst_env, t_token **lst_tok);
  * @brief Parses tokens created by tokenizer.
  * @param lst_env Pointer to the head pointer of a linked list of env vars.
  * @param lst_tok Pointer to the head pointer of a linked list of tokens.
- * @return None.
+ * @return SUCCESS or FAILURE.
  */
 int		parser(t_env **env, t_token **lst_tok);
 
