@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 15:57:43 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/24 08:54:38 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/24 11:23:15 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,10 @@ static void	define_token(char *input, size_t i, size_t *len)
 		}
 		else if (input[i] == quote)
 		{
+			quote = '\0';
 			i++;
 			(*len)++;
-			return ;
+			continue ;
 		}
 		else if (ft_isdelimiter(input, i, len) && quote == '\0')
 			return ;
@@ -93,15 +94,15 @@ static int	create_token(char *input, size_t i, size_t len, t_token **lst_tok)
 static void	assign_token_type(char *content, t_token *node)
 {
 	if (ft_strcmp(content, "|") == 0)
-		node->type = TOKEN_PIPE;
+		node->type = TOK_PIPE;
 	else if (ft_strcmp(content, "<") == 0)
-		node->type = TOKEN_REDIR_IN;
+		node->type = TOK_IN;
 	else if (ft_strcmp(content, ">") == 0)
-		node->type = TOKEN_REDIR_OUT;
+		node->type = TOK_OUT;
 	else if (ft_strcmp(content, "<<") == 0)
-		node->type = TOKEN_REDIR_HEREDOC;
+		node->type = TOK_HERE;
 	else if (ft_strcmp(content, ">>") == 0)
-		node->type = TOKEN_REDIR_APPEND;
+		node->type = TOK_APP;
 	else
-		node->type = TOKEN_WORD;
+		node->type = TOK_WORD;
 }

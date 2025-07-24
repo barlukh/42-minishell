@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/24 08:55:37 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/24 11:23:15 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 // Macro Definitions
 //------------------------------------------------------------------------------
 
-# define DELIMITERS "|&<> \t\n"
+# define DELIMITERS "|<> \t\n"
 
 //------------------------------------------------------------------------------
 // Type Definitions
@@ -34,12 +34,12 @@
 // Token type enumeration.
 typedef enum e_token_type
 {
-	TOKEN_PIPE,
-	TOKEN_REDIR_IN,
-	TOKEN_REDIR_OUT,
-	TOKEN_REDIR_HEREDOC,
-	TOKEN_REDIR_APPEND,
-	TOKEN_WORD
+	TOK_PIPE,
+	TOK_IN,
+	TOK_OUT,
+	TOK_HERE,
+	TOK_APP,
+	TOK_WORD
 }	t_token_type;
 
 // Environmental variable structure.

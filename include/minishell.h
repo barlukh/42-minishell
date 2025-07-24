@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/24 08:26:54 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/24 10:29:56 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,10 @@ int		error_tok(char *err, char *input, t_env **lst_env, t_token **lst_tok);
  * @param lst_tok Pointer to the head pointer of a linked list of tokens.
  * @return None.
  */
-void	expander(t_env **env, t_token **lst_tok);
+void	env_expander(t_env **env, t_token **lst_tok);
 
 /**
- * @brief Parses command line input string with tokenizer and parser.
+ * @brief Parses command line input string.
  * @param input Input string received from a command line.
  * @param lst_env Pointer to the head pointer of a linked list of env vars.
  * @param lst_tok Pointer to the head pointer of a linked list of tokens.
@@ -102,19 +102,18 @@ void	expander(t_env **env, t_token **lst_tok);
 void	parse_input(char *input, t_env **lst_env, t_token **lst_tok);
 
 /**
- * @brief Parses tokens created by tokenizer.
- * @param lst_env Pointer to the head pointer of a linked list of env vars.
- * @param lst_tok Pointer to the head pointer of a linked list of tokens.
- * @return SUCCESS or FAILURE.
- */
-int		parser(t_env **env, t_token **lst_tok);
-
-/**
  * @brief Reads input from a command line.
  * @param input Pointer to a string in which to store the input.
  * @return None.
  */
 void	read_input(char **input);
+
+/**
+ * @brief Checks for syntax errors in created tokens.
+ * @param lst_tok Pointer to the head pointer of a linked list of tokens.
+ * @return SUCCESS or FAILURE.
+ */
+int		syntax_checker(t_token **lst_tok);
 
 /**
  * @brief Tokenizes command line input string.
