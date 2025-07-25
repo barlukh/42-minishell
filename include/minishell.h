@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/24 10:29:56 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/25 19:51:12 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define ERR_MSG_MEM "Error allocating memory"
 # define ERR_MSG_SYN "Syntax error"
 
-// Exit values.
+// Error / exit values.
 # define SUCCESS 0
 # define FAILURE 1
 # define INV_SYNTAX 2
@@ -57,40 +57,40 @@ void	create_lst_env(char **env, t_env **lst_env);
 
 /**
  * @brief Handles errors when creating a linked list of environment variables.
- * @param err Error message.
+ * @param err Error value.
  * @param key Key string.
  * @param value Value string.
  * @param lst_env Pointer to the head pointer of a linked list of env variables.
  * @return Exit code.
  */
-int		error_lst_env( char *err, char *key, char *value, t_env **lst_env);
+int		error_lst_env(int err, char *key, char *value, t_env **lst_env);
 
 /**
  * @brief Handles errors in parsing phase.
- * @param err Error message.
+ * @param err Error value.
  * @param lst_env Pointer to the head pointer of a linked list of env vars.
  * @param lst_tok Pointer to the head pointer of a linked list of tokens.
  * @return Exit code.
  */
-int		error_par(char *err, t_env **lst_env, t_token **lst_tok);
+int		error_par(int err, t_env **lst_env, t_token **lst_tok);
 
 /**
  * @brief Handles errors in tokenizing phase.
- * @param err Error message.
+ * @param err Error value.
  * @param input Input string received from a command line.
  * @param lst_env Pointer to the head pointer of a linked list of env vars.
  * @param lst_tok Pointer to the head pointer of a linked list of tokens.
  * @return Exit code.
  */
-int		error_tok(char *err, char *input, t_env **lst_env, t_token **lst_tok);
+int		error_tok(int err, char *input, t_env **lst_env, t_token **lst_tok);
 
 /**
- * @brief Peforms variable expansion.
+ * @brief Peforms environment variable expansion.
  * @param lst_env Pointer to the head pointer of a linked list of env vars.
  * @param lst_tok Pointer to the head pointer of a linked list of tokens.
- * @return None.
+ * @return SUCCESS or FAILURE.
  */
-void	env_expander(t_env **env, t_token **lst_tok);
+bool	env_expander(t_env **env, t_token **lst_tok);
 
 /**
  * @brief Parses command line input string.
@@ -113,7 +113,7 @@ void	read_input(char **input);
  * @param lst_tok Pointer to the head pointer of a linked list of tokens.
  * @return SUCCESS or FAILURE.
  */
-int		syntax_checker(t_token **lst_tok);
+bool	syntax_checker(t_token **lst_tok);
 
 /**
  * @brief Tokenizes command line input string.
@@ -121,6 +121,6 @@ int		syntax_checker(t_token **lst_tok);
  * @param lst_tok Pointer to the head pointer of a linked list of tokens.
  * @return SUCCESS or FAILURE.
  */
-int		tokenizer(char *input, t_token **lst_tok);
+bool	tokenizer(char *input, t_token **lst_tok);
 
 #endif

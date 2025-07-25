@@ -6,13 +6,13 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:11:57 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/20 15:07:39 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/24 15:10:37 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-int	ft_isifs(int c)
+bool	ft_isifs(int c)
 {
 	if (c == ' ' || c == '\t' || c == '\n')
 		return (true);

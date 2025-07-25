@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_isexpandable.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/21 17:10:10 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/25 18:10:17 by bgazur           ###   ########.fr       */
+/*   Created: 2025/07/25 15:07:35 by bgazur            #+#    #+#             */
+/*   Updated: 2025/07/25 15:10:50 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-char	*ft_strdup(const char *s)
+bool	ft_isexpandable(int c, char *quote)
 {
-	char	*newstr;
-	int		i;
-
-	i = 0;
-	newstr = malloc(sizeof(char) * (ft_strlen(s) + 1));
-	if (newstr)
+	if (*quote == '\0' && ft_isquote(c))
 	{
-		while (s[i])
-		{
-			newstr[i] = s[i];
-			i++;
-		}
-		newstr[i] = '\0';
+		*quote = c;
+		return (false);
 	}
-	return (newstr);
+	if (c == *quote)
+	{
+		*quote = '\0';
+		return (false);
+	}
+	if (c == '$' && *quote != '\'')
+		return (true);
+	return (false);
 }

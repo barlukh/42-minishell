@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/24 11:23:15 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/25 15:11:35 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,18 @@ void	*ft_calloc(size_t nmemb, size_t size);
  */
 void	ft_free_array(char **array);
 
+/** Checks for an alphanumeric character.
+ * @param c Character to check, passed as an int.
+ * @return Bool true or false.
+ */
+bool	ft_isalnum(int c);
+
+/** Checks for an alphabetic character.
+ * @param c Character to check, passed as an int.
+ * @return Bool true or false.
+ */
+bool	ft_isalpha(int c);
+
 /**
  * @brief Checks if a character is a delimiter and sets len accordingly.
  * @param s String to check.
@@ -92,21 +104,35 @@ void	ft_free_array(char **array);
  * @param len Length of a token.
  * @return Bool true or false.
  */
-int		ft_isdelimiter(char *s, size_t i, size_t *len);
+bool	ft_isdelimiter(char *s, size_t i, size_t *len);
 
 /**
  * @brief Checks if a character is a digit.
  * @param c Character to check, passed as an int.
  * @return Bool true or false.
  */
-int		ft_isdigit(int c);
+bool	ft_isdigit(int c);
+
+/** Checks if a character is a dollar sign and outside of single quotes.
+ * @param c Character to check, passed as an int.
+ * @param quote Current open quote.
+ * @return Bool true or false.
+ */
+bool	ft_isexpandable(int c, char *quote);
 
 /**
  * @brief Checks if a character is an input field separator.
  * @param c Character to check, passed as an int.
  * @return Bool true or false.
  */
-int		ft_isifs(int c);
+bool	ft_isifs(int c);
+
+/**
+ * @brief Checks if a character is a quote (single or double).
+ * @param c Character to check, passed as an int.
+ * @return Bool true or false.
+ */
+bool	ft_isquote(int c);
 
 /**
  * @brief Adds a node at the end of a linked list.

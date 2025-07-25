@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 08:53:07 by bgazur            #+#    #+#              #
-#    Updated: 2025/07/24 10:20:16 by bgazur           ###   ########.fr        #
+#    Updated: 2025/07/25 18:03:16 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ LIBFT =			$(DIR_LIBFT)/libft.a
 HDR =			$(DIR_HDR)/minishell.h
 OBJ =			$(SRC:%.c=$(DIR_OBJ)/%.o)
 
-SRC =			env_vars.c \
+SRC =			env_expander.c \
+				env_utils.c \
 				errors.c \
 				input.c \
 				main.c \

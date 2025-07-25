@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 10:50:25 by bgazur            #+#    #+#              #
-#    Updated: 2025/07/24 08:55:47 by bgazur           ###   ########.fr        #
+#    Updated: 2025/07/25 15:10:23 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,9 +27,13 @@ OBJ =			$(SRC:%.c=$(DIR_OBJ)/%.o)
 SRC = 			ft_bzero.c \
 				ft_calloc.c \
 				ft_free_array.c \
+				ft_isalnum.c \
+				ft_isalpha.c \
 				ft_isdelimiter.c \
 				ft_isdigit.c \
+				ft_isexpandable.c \
 				ft_isifs.c \
+				ft_isquote.c \
 				ft_lst_env_add_back.c \
 				ft_lst_env_clear.c \
 				ft_lst_env_last.c \

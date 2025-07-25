@@ -6,17 +6,17 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 15:57:43 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/24 11:23:15 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/25 12:36:19 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 static void	define_token(char *input, size_t i, size_t *len);
-static int	create_token(char *input, size_t i, size_t len, t_token **lst_tok);
+static bool	create_token(char *input, size_t i, size_t len, t_token **lst_tok);
 static void	assign_token_type(char *content, t_token *node);
 
-int	tokenizer(char *input, t_token **lst_tok)
+bool	tokenizer(char *input, t_token **lst_tok)
 {
 	size_t	i;
 	size_t	len;
@@ -48,21 +48,11 @@ static void	define_token(char *input, size_t i, size_t *len)
 	quote = '\0';
 	while (input[i])
 	{
-		if (quote == '\0' && (input[i] == '\'' || input[i] == '"'))
-		{
+		if (quote == '\0' && ft_isquote(input[i]))
 			quote = input[i];
-			i++;
-			(*len)++;
-			continue ;
-		}
 		else if (input[i] == quote)
-		{
 			quote = '\0';
-			i++;
-			(*len)++;
-			continue ;
-		}
-		else if (ft_isdelimiter(input, i, len) && quote == '\0')
+		else if (quote == '\0' && ft_isdelimiter(input, i, len))
 			return ;
 		i++;
 		(*len)++;
@@ -70,7 +60,7 @@ static void	define_token(char *input, size_t i, size_t *len)
 }
 
 // Creates a token using ft_substr() and appends it as a node to a linked list.
-static int	create_token(char *input, size_t i, size_t len, t_token **lst_tok)
+static bool	create_token(char *input, size_t i, size_t len, t_token **lst_tok)
 {
 	char	*content;
 	t_token	*node;

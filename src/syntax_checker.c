@@ -6,17 +6,17 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 13:59:02 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/24 13:38:47 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/25 13:23:08 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static int	validate_quotes(char *content);
-static int	validate_inv_pipes(t_token *current, t_token **lst_tok);
-static int	validate_redirs(t_token *current);
+static bool	has_valid_quotes(char *content);
+static bool	has_valid_pipes(t_token *current, t_token **lst_tok);
+static bool	has_valid_redirs(t_token *current);
 
-int	syntax_checker(t_token **lst_tok)
+bool	syntax_checker(t_token **lst_tok)
 {
 	t_token	*current;
 
@@ -24,21 +24,21 @@ int	syntax_checker(t_token **lst_tok)
 	while (current)
 	{
 		if (current->type == TOK_WORD
-			&& validate_quotes(current->content) != SUCCESS)
+			&& has_valid_quotes(current->content) != true)
 			return (FAILURE);
 		else if (current->type == TOK_PIPE
-			&& validate_inv_pipes(current, lst_tok) != SUCCESS)
+			&& has_valid_pipes(current, lst_tok) != true)
 			return (FAILURE);
 		else if (current->type != TOK_WORD && current->type != TOK_PIPE
-			&& validate_redirs(current) != SUCCESS)
+			&& has_valid_redirs(current) != true)
 			return (FAILURE);
 		current = current->next;
 	}
 	return (SUCCESS);
 }
 
-// Checks for invalid quotes (unclosed).
-static int	validate_quotes(char *content)
+// Checks for invalid quotes.
+static bool	has_valid_quotes(char *content)
 {
 	char	quote;
 	size_t	count;
@@ -47,7 +47,7 @@ static int	validate_quotes(char *content)
 	count = 0;
 	while (*content)
 	{
-		if (quote == '\0' && (*content == '\'' || *content == '"'))
+		if (quote == '\0' && ft_isquote(*content))
 		{
 			quote = *content;
 			count++;
@@ -57,28 +57,28 @@ static int	validate_quotes(char *content)
 		content++;
 	}
 	if (count % 2 != 0)
-		return (FAILURE);
-	return (SUCCESS);
+		return (false);
+	return (true);
 }
 
 // Checks for invalid pipes.
-static int	validate_inv_pipes(t_token *current, t_token **lst_tok)
+static bool	has_valid_pipes(t_token *current, t_token **lst_tok)
 {
 	if (current == *lst_tok)
-		return (FAILURE);
-	else if (current->next == NULL)
-		return (FAILURE);
-	else if (current->next->type == TOK_PIPE)
-		return (FAILURE);
-	return (SUCCESS);
+		return (false);
+	if (current->next == NULL)
+		return (false);
+	if (current->next->type == TOK_PIPE)
+		return (false);
+	return (true);
 }
 
 // Checks for invalid redirections.
-static int	validate_redirs(t_token *current)
+static bool	has_valid_redirs(t_token *current)
 {
 	if (current->next == NULL)
-		return (FAILURE);
-	else if (current->next->type != TOK_WORD)
-		return (FAILURE);
-	return (SUCCESS);
+		return (false);
+	if (current->next->type != TOK_WORD)
+		return (false);
+	return (true);
 }
