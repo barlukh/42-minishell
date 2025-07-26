@@ -6,14 +6,14 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 08:53:07 by bgazur            #+#    #+#              #
-#    Updated: 2025/07/26 14:58:52 by bgazur           ###   ########.fr        #
+#    Updated: 2025/07/26 18:28:46 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME =			minishell
 
 CC =			cc
-CFLAGS =		-Wall -Werror -Wextra
+CFLAGS =		-Wall -Werror -Wextra -fsanitize=address -fsanitize=leak -fsanitize=undefined
 LINKER_FLAGS =	-L$(DIR_LIBFT) -lft -lreadline
 RM =			rm -rf
 
@@ -32,6 +32,7 @@ SRC =			env_expander.c \
 				errors.c \
 				input.c \
 				main.c \
+				quote_remover.c \
 				syntax_checker.c \
 				tokenizer.c
 

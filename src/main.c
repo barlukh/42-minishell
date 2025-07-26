@@ -6,14 +6,13 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:40:06 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/26 13:31:08 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/26 20:03:47 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 static void	test_tok(t_token **lst_tok);
-static void	test_env(t_env **lst_env);
 
 int	main(int argc, char **argv, char **env)
 {
@@ -26,14 +25,13 @@ int	main(int argc, char **argv, char **env)
 	lst_env = NULL;
 	lst_tok = NULL;
 	create_lst_env(env, &lst_env);
-	// while (true)
-	// {
+	while (true)
+	{
 		read_input(&input);
 		parse_input(input, &lst_env, &lst_tok);
 		test_tok(&lst_tok);
-		test_env(&lst_env);
 		ft_lst_tok_clear(&lst_tok);
-	// }
+	}
 	clear_history();
 	ft_lst_env_clear(&lst_env);
 	return (SUCCESS);
@@ -46,7 +44,6 @@ static void	test_tok(t_token **lst_tok)
 	current = *lst_tok;
 	while (current)
 	{
-		// printf("%s", current->content);
 		if (current->type == 0)
 			printf("%-14s %s\n", "PIPE", current->content);
 		else if (current->type == 1)
@@ -59,18 +56,6 @@ static void	test_tok(t_token **lst_tok)
 			printf("%-14s %s\n", "REDIR_APPEND", current->content);
 		else if (current->type == 5)
 			printf("%-14s %s\n", "WORD", current->content);
-		current = current->next;
-	}
-}
-
-static void	test_env(t_env **lst_env)
-{
-	t_env	*current;
-
-	current = *lst_env;
-	while (current)
-	{
-		// printf("%s=%s\n", current->key, current->value);
 		current = current->next;
 	}
 }

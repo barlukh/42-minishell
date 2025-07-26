@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/25 19:51:12 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/26 16:08:46 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,13 @@ bool	env_expander(t_env **env, t_token **lst_tok);
 void	parse_input(char *input, t_env **lst_env, t_token **lst_tok);
 
 /**
+ * @brief Removes quotes in tokens.
+ * @param lst_tok Pointer to the head pointer of a linked list of tokens.
+ * @return None.
+ */
+void	quote_remover(t_token **lst_tok);
+
+/**
  * @brief Reads input from a command line.
  * @param input Pointer to a string in which to store the input.
  * @return None.
@@ -109,7 +116,7 @@ void	parse_input(char *input, t_env **lst_env, t_token **lst_tok);
 void	read_input(char **input);
 
 /**
- * @brief Checks for syntax errors in created tokens.
+ * @brief Checks for syntax errors in tokens.
  * @param lst_tok Pointer to the head pointer of a linked list of tokens.
  * @return SUCCESS or FAILURE.
  */
