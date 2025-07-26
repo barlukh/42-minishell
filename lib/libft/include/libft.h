@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/25 15:11:35 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/26 12:31:01 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,13 @@ bool	ft_isifs(int c);
  * @return Bool true or false.
  */
 bool	ft_isquote(int c);
+
+/**
+ * @brief Checks if a character is a quote (single or double) or null-term.
+ * @param c Character to check, passed as an int.
+ * @return Bool true or false.
+ */
+bool	ft_isquotenull(int c);
 
 /**
  * @brief Adds a node at the end of a linked list.

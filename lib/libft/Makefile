@@ -6,14 +6,14 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 10:50:25 by bgazur            #+#    #+#              #
-#    Updated: 2025/07/25 15:10:23 by bgazur           ###   ########.fr        #
+#    Updated: 2025/07/26 13:04:45 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME =			libft.a
 
 CC =			cc
-CFLAGS =		-Wall -Wextra -Werror
+CFLAGS =		-Wall -Wextra -Werror 
 AR =			ar rcs
 RM =			rm -rf
 
@@ -34,6 +34,7 @@ SRC = 			ft_bzero.c \
 				ft_isexpandable.c \
 				ft_isifs.c \
 				ft_isquote.c \
+				ft_isquotenull.c \
 				ft_lst_env_add_back.c \
 				ft_lst_env_clear.c \
 				ft_lst_env_last.c \
