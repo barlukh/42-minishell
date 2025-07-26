@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 13:59:02 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/25 13:23:08 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/26 14:04:54 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,17 @@ bool	syntax_checker(t_token **lst_tok)
 static bool	has_valid_quotes(char *content)
 {
 	char	quote;
-	size_t	count;
 
 	quote = '\0';
-	count = 0;
 	while (*content)
 	{
 		if (quote == '\0' && ft_isquote(*content))
-		{
 			quote = *content;
-			count++;
-		}
 		else if (*content == quote)
-			count++;
+			quote = '\0';
 		content++;
 	}
-	if (count % 2 != 0)
+	if (quote != '\0')
 		return (false);
 	return (true);
 }

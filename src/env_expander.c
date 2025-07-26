@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 12:22:28 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/25 19:59:13 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/26 13:32:50 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,33 @@
 
 static bool	expand(char **content, size_t i, t_env **lst_env);
 static char	*define_key(char *content);
-static void	replace(char *content, char *new_content, size_t i, t_env *current);
-static void	shorten(char *content, char **tok_key, size_t i);
+static void	exp_var(char *content, char *new_content, size_t i, t_env *current);
+static void	rem_var(char *content, char **tok_key, size_t i);
 
 bool	env_expander(t_env **lst_env, t_token **lst_tok)
 {
 	char	quote;
 	size_t	i;
-	t_token	*current_tok;
+	t_token	*current;
 
-	current_tok = *lst_tok;
-	while (current_tok)
+	current = *lst_tok;
+	while (current)
 	{
 		quote = '\0';
 		i = 0;
-		while (current_tok->content[i])
+		while (current->content[i])
 		{
-			if (ft_isexpandable(current_tok->content[i], &quote) == true)
+			if (ft_isexpandable(current->content[i], &quote) == true)
 			{
-				if (current_tok->content[i + 1] == '\0')
+				if (ft_isquotenull(current->content[i + 1]))
 					break ;
-				if (expand(&current_tok->content, i, lst_env) != SUCCESS)
+				if (expand(&current->content, i, lst_env) != SUCCESS)
 					return (FAILURE);
-				i = 0;
 			}
 			else
 				i++;
 		}
-		current_tok = current_tok->next;
+		current = current->next;
 	}
 	return (SUCCESS);
 }
@@ -66,13 +65,13 @@ static bool	expand(char **content, size_t i, t_env **lst_env)
 						+ ft_strlen(current->value) - ft_strlen(current->key)));
 			if (!new_content)
 				return (FAILURE);
-			replace(*content, new_content, i, current);
+			exp_var(*content, new_content, i, current);
 			*content = new_content;
 			return (SUCCESS);
 		}
 		current = current->next;
 	}
-	shorten(*content, &tok_key, i);
+	rem_var(*content, &tok_key, i);
 	return (SUCCESS);
 }
 
@@ -96,8 +95,8 @@ static char	*define_key(char *content)
 	return (tok_key);
 }
 
-// Replaces the content of a token with expanded variables.
-static void	replace(char *content, char *new_content, size_t i, t_env *current)
+// Replaces variables with their expanded values.
+static void	exp_var(char *content, char *new_content, size_t i, t_env *current)
 {
 	size_t	j;
 	size_t	k;
@@ -126,15 +125,14 @@ static void	replace(char *content, char *new_content, size_t i, t_env *current)
 	free(content);
 }
 
-// COMMENT HERE
-static void	shorten(char *content, char **tok_key, size_t i)
+// Removes variables that have no values.
+static void	rem_var(char *content, char **tok_key, size_t i)
 {
 	size_t	len;
 
 	len = ft_strlen(*tok_key) + 1;
 	while (content[i + len] != '\0')
 	{
-		printf("%c , %zu , %zu\n", content[i], i, len);
 		content[i] = content[i + len];
 		i++;
 	}
