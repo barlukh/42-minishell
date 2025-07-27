@@ -6,11 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 10:22:33 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/17 13:55:55 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/27 12:23:23 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "libft.h"
 
 int	ft_toupper(int c)
 {

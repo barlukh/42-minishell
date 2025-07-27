@@ -6,11 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 10:57:42 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/25 13:36:04 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/27 12:21:13 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "libft.h"
 
 bool	ft_isalnum(int c)
 {

@@ -6,11 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 17:10:10 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/25 18:10:17 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/27 12:22:44 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "libft.h"
 
 char	*ft_strdup(const char *s)
 {

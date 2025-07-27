@@ -6,11 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:11:57 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/24 15:10:37 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/27 12:21:32 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "libft.h"
 
 bool	ft_isifs(int c)
 {

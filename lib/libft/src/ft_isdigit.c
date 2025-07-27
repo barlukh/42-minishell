@@ -6,11 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 10:19:23 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/24 15:10:30 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/27 12:21:24 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "libft.h"
 
 bool	ft_isdigit(int c)
 {

@@ -6,11 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:40:06 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/26 20:03:47 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/27 12:16:01 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 static void	test_tok(t_token **lst_tok);
 

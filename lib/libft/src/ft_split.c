@@ -6,11 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 16:19:25 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/19 11:28:07 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/27 12:22:32 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "libft.h"
 
 static size_t	count_words(char const *s, char c);
 static char		**allocate_array(char const *s, char c, char **arr);

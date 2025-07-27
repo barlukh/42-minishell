@@ -6,11 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 15:07:35 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/25 15:10:50 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/27 12:21:28 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "libft.h"
 
 bool	ft_isexpandable(int c, char *quote)
 {

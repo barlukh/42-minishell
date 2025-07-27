@@ -6,11 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 10:52:37 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/24 15:45:00 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/27 12:15:33 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 int	error_lst_env(int err, char *key, char *value, t_env **lst_env)
 {

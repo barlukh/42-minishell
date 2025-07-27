@@ -6,11 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 13:59:02 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/26 14:04:54 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/27 12:15:48 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 static bool	has_valid_quotes(char *content);
 static bool	has_valid_pipes(t_token *current, t_token **lst_tok);

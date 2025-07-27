@@ -6,11 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 10:54:46 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/25 13:33:29 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/27 12:21:16 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "libft.h"
 
 bool	ft_isalpha(int c)
 {

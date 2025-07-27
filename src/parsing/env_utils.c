@@ -6,11 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 17:57:25 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/26 15:52:19 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/27 12:15:29 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 void	create_lst_env(char **env, t_env **lst_env)
 {

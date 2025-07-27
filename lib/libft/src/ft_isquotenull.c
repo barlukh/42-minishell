@@ -6,11 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 14:12:12 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/26 12:29:49 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/27 12:21:38 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "libft.h"
 
 bool	ft_isquotenull(int c)
 {

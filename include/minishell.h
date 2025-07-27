@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/26 16:08:46 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/27 12:19:12 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 // Library Headers
 //------------------------------------------------------------------------------
 
-# include "../lib/libft/include/libft.h"
+# include "libft.h"
 
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -56,6 +56,14 @@
 void	create_lst_env(char **env, t_env **lst_env);
 
 /**
+ * @brief Peforms environment variable expansion.
+ * @param lst_env Pointer to the head pointer of a linked list of env vars.
+ * @param lst_tok Pointer to the head pointer of a linked list of tokens.
+ * @return SUCCESS or FAILURE.
+ */
+bool	env_expander(t_env **env, t_token **lst_tok);
+
+/**
  * @brief Handles errors when creating a linked list of environment variables.
  * @param err Error value.
  * @param key Key string.
@@ -83,14 +91,6 @@ int		error_par(int err, t_env **lst_env, t_token **lst_tok);
  * @return Exit code.
  */
 int		error_tok(int err, char *input, t_env **lst_env, t_token **lst_tok);
-
-/**
- * @brief Peforms environment variable expansion.
- * @param lst_env Pointer to the head pointer of a linked list of env vars.
- * @param lst_tok Pointer to the head pointer of a linked list of tokens.
- * @return SUCCESS or FAILURE.
- */
-bool	env_expander(t_env **env, t_token **lst_tok);
 
 /**
  * @brief Parses command line input string.

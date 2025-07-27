@@ -6,11 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 10:28:14 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/17 13:35:10 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/27 12:22:21 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "libft.h"
 
 void	ft_putendl_fd(char *s, int fd)
 {

@@ -6,11 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 08:39:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/24 15:10:23 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/27 12:21:20 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "libft.h"
 
 bool	ft_isdelimiter(char *s, size_t i, size_t *len)
 {

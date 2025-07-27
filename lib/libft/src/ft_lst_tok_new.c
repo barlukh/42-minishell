@@ -6,11 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 10:28:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/22 14:36:24 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/27 12:22:07 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "libft.h"
 
 t_token	*ft_lst_tok_new(void *content)
 {

@@ -6,11 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 10:26:47 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/21 13:49:47 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/27 12:23:14 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "libft.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {

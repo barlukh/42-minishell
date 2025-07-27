@@ -6,11 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 14:26:01 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/23 14:08:23 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/27 12:21:50 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "libft.h"
 
 t_env	*ft_lst_env_last(t_env *lst)
 {

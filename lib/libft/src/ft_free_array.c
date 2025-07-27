@@ -6,11 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 10:16:56 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/19 11:27:04 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/27 12:21:09 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "libft.h"
 
 void	ft_free_array(char **array)
 {
