@@ -6,13 +6,14 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:40:06 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/27 12:16:01 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/27 17:27:18 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	test_tok(t_token **lst_tok);
+static void	test_builtins(t_token **lst_tok);
 
 int	main(int argc, char **argv, char **env)
 {
@@ -28,19 +29,24 @@ int	main(int argc, char **argv, char **env)
 	while (true)
 	{
 		read_input(&input);
+		printf("----------------------------\n");
 		parse_input(input, &lst_env, &lst_tok);
 		test_tok(&lst_tok);
+		test_builtins(&lst_tok);
 		ft_lst_tok_clear(&lst_tok);
+		printf("----------------------------\n");
 	}
 	clear_history();
 	ft_lst_env_clear(&lst_env);
 	return (SUCCESS);
 }
 
+// TEST - prints tokens. (REMOVE BEFORE SUBMISSION!)
 static void	test_tok(t_token **lst_tok)
 {
 	t_token	*current;
 
+	printf("%s\n", "TOKENS:");
 	current = *lst_tok;
 	while (current)
 	{
@@ -56,6 +62,27 @@ static void	test_tok(t_token **lst_tok)
 			printf("%-14s %s\n", "REDIR_APPEND", current->content);
 		else if (current->type == 5)
 			printf("%-14s %s\n", "WORD", current->content);
+		current = current->next;
+	}
+}
+
+// TEST - prints builtins. (REMOVE BEFORE SUBMISSION!)
+static void	test_builtins(t_token **lst_tok)
+{
+	int		return_value;
+	t_token	*current;
+
+	printf("\n%s\n", "BUILTINS:");
+	current = *lst_tok;
+	while (current)
+	{
+		return_value = builtins_check(&current);
+		if (return_value == BUILT_NO)
+			printf("BUILTIN NO\n");
+		else if (return_value == BUILT_YES)
+			printf("BUILTIN YES\n");
+		else
+			printf("BUILTIN ERROR\n");
 		current = current->next;
 	}
 }

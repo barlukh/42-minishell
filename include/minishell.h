@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/27 12:19:12 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/27 17:35:38 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,15 @@
 # define ERR_MSG_MEM "Error allocating memory"
 # define ERR_MSG_SYN "Syntax error"
 
-// Error / exit values.
+// Return / exit values (general).
 # define SUCCESS 0
 # define FAILURE 1
 # define INV_SYNTAX 2
+
+// Return / exit values (builtins).
+# define BUILT_NO 0
+# define BUILT_YES 1
+# define BUILT_ERR 2
 
 //------------------------------------------------------------------------------
 // Type Definitions
@@ -46,6 +51,20 @@
 //------------------------------------------------------------------------------
 // Function Prototypes
 //------------------------------------------------------------------------------
+
+/**
+ * @brief Tries to execute echo builtin.
+ * @param current Pointer to a pointer of the current token.
+ * @return Integer signaling whether token is a builtin, or error on execution.
+ */
+int		builtin_echo(t_token **current);
+
+/**
+ * @brief Checks if the current token is a builtin command.
+ * @param current Pointer to a pointer of the current token.
+ * @return Integer signaling whether token is a builtin, or error on execution.
+ */
+int		builtins_check(t_token **current);
 
 /**
  * @brief Copies environment variables, storing them as a linked list.
@@ -109,7 +128,7 @@ void	parse_input(char *input, t_env **lst_env, t_token **lst_tok);
 void	quote_remover(t_token **lst_tok);
 
 /**
- * @brief Reads input from a command line.
+ * @brief Reads input from the command line.
  * @param input Pointer to a string in which to store the input.
  * @return None.
  */
