@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:40:06 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/27 17:27:18 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/28 10:31:23 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ static void	test_builtins(t_token **lst_tok)
 	{
 		return_value = builtins_check(&current);
 		if (return_value == BUILT_NO)
-			printf("BUILTIN NO\n");
+			printf("\nBUILTIN NO\n");
 		else if (return_value == BUILT_YES)
-			printf("BUILTIN YES\n");
+			printf("\nBUILTIN YES\n");
 		else
-			printf("BUILTIN ERROR\n");
+			printf("\nBUILTIN ERROR\n");
 		current = current->next;
 	}
 }
