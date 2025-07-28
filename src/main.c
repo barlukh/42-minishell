@@ -6,14 +6,14 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:40:06 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/28 10:31:23 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/28 15:28:43 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	test_tok(t_token **lst_tok);
-static void	test_builtins(t_token **lst_tok);
+static void	test_builtins(t_env **lst_env, t_token **lst_tok);
 
 int	main(int argc, char **argv, char **env)
 {
@@ -32,7 +32,7 @@ int	main(int argc, char **argv, char **env)
 		printf("----------------------------\n");
 		parse_input(input, &lst_env, &lst_tok);
 		test_tok(&lst_tok);
-		test_builtins(&lst_tok);
+		test_builtins(&lst_env, &lst_tok);
 		ft_lst_tok_clear(&lst_tok);
 		printf("----------------------------\n");
 	}
@@ -67,7 +67,7 @@ static void	test_tok(t_token **lst_tok)
 }
 
 // TEST - prints builtins. (REMOVE BEFORE SUBMISSION!)
-static void	test_builtins(t_token **lst_tok)
+static void	test_builtins(t_env **lst_env, t_token **lst_tok)
 {
 	int		return_value;
 	t_token	*current;
@@ -76,7 +76,7 @@ static void	test_builtins(t_token **lst_tok)
 	current = *lst_tok;
 	while (current)
 	{
-		return_value = builtins_check(&current);
+		return_value = builtins_check(lst_env, &current);
 		if (return_value == BUILT_NO)
 			printf("\nBUILTIN NO\n");
 		else if (return_value == BUILT_YES)

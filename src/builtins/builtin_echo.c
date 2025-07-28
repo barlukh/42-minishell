@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 12:27:45 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/28 10:24:15 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/28 15:33:36 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	builtin_echo(t_token **current)
 	return (BUILT_NO);
 }
 
+// Prints (echoes) the content of a token.
 static void	output(t_token **current)
 {
 	while (((*current)->next) && (*current)->next->type == TOK_WORD)

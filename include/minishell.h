@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/27 17:35:38 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/28 15:35:28 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,14 @@
 //------------------------------------------------------------------------------
 
 /**
+ * @brief Tries to execute cd builtin.
+ * @param lst_env Pointer to the head pointer of a linked list of env vars.
+ * @param current Pointer to a pointer of the current token.
+ * @return Integer signaling whether token is a builtin, or error on execution.
+ */
+int		builtin_cd(t_env **lst_env, t_token **current);
+
+/**
  * @brief Tries to execute echo builtin.
  * @param current Pointer to a pointer of the current token.
  * @return Integer signaling whether token is a builtin, or error on execution.
@@ -61,10 +69,11 @@ int		builtin_echo(t_token **current);
 
 /**
  * @brief Checks if the current token is a builtin command.
+ * @param lst_env Pointer to the head pointer of a linked list of env vars.
  * @param current Pointer to a pointer of the current token.
  * @return Integer signaling whether token is a builtin, or error on execution.
  */
-int		builtins_check(t_token **current);
+int		builtins_check(t_env **lst_env, t_token **current);
 
 /**
  * @brief Copies environment variables, storing them as a linked list.

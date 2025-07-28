@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 08:53:07 by bgazur            #+#    #+#              #
-#    Updated: 2025/07/27 17:39:13 by bgazur           ###   ########.fr        #
+#    Updated: 2025/07/28 15:29:03 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ DIR_PARSING	=	$(DIR_SRC)/parsing
 LIBFT		=	$(DIR_LIBFT)/libft.a
 HDR			=	$(DIR_HDR)/minishell.h
 OBJ			=	$(SRC:$(DIR_SRC)/%.c=$(DIR_OBJ)/%.o)
-SRC			=	$(DIR_BUILTIN)/builtin_echo.c \
+SRC			=	$(DIR_BUILTIN)/builtin_cd.c \
+				$(DIR_BUILTIN)/builtin_echo.c \
 				$(DIR_BUILTIN)/builtins.c \
 				$(DIR_EXEC)/temporary.c \
 				$(DIR_PARSING)/env_expander.c \
