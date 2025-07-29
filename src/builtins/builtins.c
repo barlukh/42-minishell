@@ -6,20 +6,20 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 14:13:09 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/28 15:30:49 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/29 14:11:53 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	builtins_check(t_env **lst_env, t_token **current)
+int	builtins_check(t_token **current, t_data *data)
 {
 	int	return_value;
 
 	return_value = builtin_echo(current);
 	if (return_value != BUILT_NO)
 		return (return_value);
-	return_value = builtin_cd(lst_env, current);
+	return_value = builtin_cd(current, data);
 	if (return_value != BUILT_NO)
 		return (return_value);
 	// return_value = builtin_pwd(current);

@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 07:52:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/29 11:29:19 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/29 14:42:57 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,17 @@ void	read_input(char **input)
 	add_history(*input);
 }
 
-void	parse_input(char *input, t_env **lst_env, t_token **lst_tok)
+bool	parse_input(char *input, t_data *data)
 {
-	if (tokenizer(input, lst_tok) != SUCCESS)
-		exit(error_tok(input, lst_env, lst_tok));
-	if (syntax_checker(lst_tok) != SUCCESS)
-		exit(error_synt(lst_env, lst_tok));
-	if (env_expander(lst_env, lst_tok) != SUCCESS)
-		exit(error_env_exp(lst_env, lst_tok));
-	quote_remover(lst_tok);
+	if (tokenizer(input, data) != SUCCESS)
+		error_tok(input, data);
+	if (syntax_checker(data) != SUCCESS)
+	{
+		data->exit_status = 2;
+		return (FAILURE);
+	}
+	if (env_expander(data) != SUCCESS)
+		error_env_exp(data);
+	quote_remover(data);
+	return (SUCCESS);
 }

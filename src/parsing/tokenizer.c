@@ -6,17 +6,17 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 15:57:43 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/29 11:43:25 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/29 13:20:25 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	define_token(char *input, size_t i, size_t *len);
-static bool	create_token(char *input, size_t i, size_t len, t_token **lst_tok);
+static bool	create_token(char *input, size_t i, size_t len, t_data *data);
 static void	assign_token_type(char *content, t_token *node);
 
-bool	tokenizer(char *input, t_token **lst_tok)
+bool	tokenizer(char *input, t_data *data)
 {
 	size_t	i;
 	size_t	len;
@@ -31,7 +31,7 @@ bool	tokenizer(char *input, t_token **lst_tok)
 			continue ;
 		}
 		define_token(input, i, &len);
-		if (create_token(input, i, len, lst_tok) != SUCCESS)
+		if (create_token(input, i, len, data) != SUCCESS)
 			return (FAILURE);
 		i += len;
 	}
@@ -60,7 +60,7 @@ static void	define_token(char *input, size_t i, size_t *len)
 }
 
 // Creates a token using ft_substr() and appends it as a node to a linked list.
-static bool	create_token(char *input, size_t i, size_t len, t_token **lst_tok)
+static bool	create_token(char *input, size_t i, size_t len, t_data *data)
 {
 	char	*content;
 	t_token	*node;
@@ -76,7 +76,7 @@ static bool	create_token(char *input, size_t i, size_t len, t_token **lst_tok)
 		return (FAILURE);
 	}
 	assign_token_type(content, node);
-	ft_lst_tok_add_back(lst_tok, node);
+	ft_lst_tok_add_back(&data->lst_tok, node);
 	return (SUCCESS);
 }
 

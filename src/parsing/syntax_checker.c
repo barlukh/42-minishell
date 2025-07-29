@@ -6,31 +6,30 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 13:59:02 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/29 11:59:27 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/29 14:13:28 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static bool	has_valid_quotes(char *content);
-static bool	has_valid_pipes(t_token *current, t_token **lst_tok);
+static bool	has_valid_pipes(t_token *current, t_data *data);
 static bool	has_valid_redirs(t_token *current);
-static bool	has_valid_heredocs(int count);
 
-bool	syntax_checker(t_token **lst_tok)
+bool	syntax_checker(t_data *data)
 {
 	int		count;
 	t_token	*current;
 
 	count = 0;
-	current = *lst_tok;
+	current = data->lst_tok;
 	while (current)
 	{
 		if (current->type == TOK_WORD
 			&& has_valid_quotes(current->content) != true)
 			return (FAILURE);
 		else if (current->type == TOK_PIPE
-			&& has_valid_pipes(current, lst_tok) != true)
+			&& has_valid_pipes(current, data) != true)
 			return (FAILURE);
 		else if (current->type != TOK_WORD && current->type != TOK_PIPE
 			&& has_valid_redirs(current) != true)
@@ -39,8 +38,8 @@ bool	syntax_checker(t_token **lst_tok)
 			count++;
 		current = current->next;
 	}
-	if (has_valid_heredocs(count) != true)
-		return (FAILURE);
+	if (count > 16)
+		error_synt(data);
 	return (SUCCESS);
 }
 
@@ -67,9 +66,9 @@ static bool	has_valid_quotes(char *content)
 }
 
 // Checks for valid pipes.
-static bool	has_valid_pipes(t_token *current, t_token **lst_tok)
+static bool	has_valid_pipes(t_token *current, t_data *data)
 {
-	if (current == *lst_tok)
+	if (current == data->lst_tok)
 	{
 		ft_putendl_fd(ERR_MSG_PIPES, 2);
 		return (false);
@@ -98,17 +97,6 @@ static bool	has_valid_redirs(t_token *current)
 	if (current->next->type != TOK_WORD)
 	{
 		ft_putendl_fd(ERR_MSG_REDIR, 2);
-		return (false);
-	}
-	return (true);
-}
-
-// Checks for valid heredoc redirections.
-static bool	has_valid_heredocs(int count)
-{
-	if (count > 16)
-	{
-		ft_putendl_fd(ERR_MSG_HERED, 2);
 		return (false);
 	}
 	return (true);

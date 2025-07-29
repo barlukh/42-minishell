@@ -6,48 +6,47 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:40:06 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/29 11:41:59 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/29 14:42:26 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	test_tok(t_token **lst_tok);
-static void	test_builtins(t_env **lst_env, t_token **lst_tok);
+static void	test_tok(t_data *data);
+static void	test_builtins(t_data *data);
 
 int	main(int argc, char **argv, char **env)
 {
 	char	*input;
-	t_env	*lst_env;
-	t_token	*lst_tok;
+	t_data	data;
 
 	(void)argc;
 	(void)argv;
-	lst_env = NULL;
-	lst_tok = NULL;
-	create_lst_env(env, &lst_env);
-	// while (true)
-	// {
+	data.exit_status = 0;
+	data.lst_env = NULL;
+	data.lst_tok = NULL;
+	create_lst_env(env, &data);
+	while (true)
+	{
 		read_input(&input);
-		printf("----------------------------\n");
-		parse_input(input, &lst_env, &lst_tok);
-		test_tok(&lst_tok);
-		test_builtins(&lst_env, &lst_tok);
-		ft_lst_tok_clear(&lst_tok);
-		printf("----------------------------\n");
-	// }
+		if (parse_input(input, &data) != SUCCESS)
+			continue ;
+		test_tok(&data);
+		test_builtins(&data);
+		ft_lst_tok_clear(&data.lst_tok);
+	}
 	clear_history();
-	ft_lst_env_clear(&lst_env);
+	ft_lst_env_clear(&data.lst_env);
 	return (SUCCESS);
 }
 
 // TEST - prints tokens. (REMOVE BEFORE SUBMISSION!)
-static void	test_tok(t_token **lst_tok)
+static void	test_tok(t_data *data)
 {
 	t_token	*current;
 
 	printf("%s\n", "TOKENS:");
-	current = *lst_tok;
+	current = data->lst_tok;
 	while (current)
 	{
 		if (current->type == 0)
@@ -67,16 +66,16 @@ static void	test_tok(t_token **lst_tok)
 }
 
 // TEST - prints builtins. (REMOVE BEFORE SUBMISSION!)
-static void	test_builtins(t_env **lst_env, t_token **lst_tok)
+static void	test_builtins(t_data *data)
 {
 	int		return_value;
 	t_token	*current;
 
 	printf("\n%s\n", "BUILTINS:");
-	current = *lst_tok;
+	current = data->lst_tok;
 	while (current)
 	{
-		return_value = builtins_check(lst_env, &current);
+		return_value = builtins_check(&current, data);
 		current = current->next;
 	}
 }

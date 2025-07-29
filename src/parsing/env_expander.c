@@ -6,24 +6,24 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 12:22:28 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/29 11:44:59 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/29 14:05:09 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool	expand(char **content, size_t i, t_env **lst_env);
+static bool	expand(char **content, size_t i, t_data *data);
 static char	*define_key(char *content);
 static void	exp_var(char *content, char *new_content, size_t i, t_env *current);
 static void	rem_var(char *content, char **tok_key, size_t i);
 
-bool	env_expander(t_env **lst_env, t_token **lst_tok)
+bool	env_expander(t_data *data)
 {
 	char	quote;
 	size_t	i;
 	t_token	*current;
 
-	current = *lst_tok;
+	current = data->lst_tok;
 	while (current)
 	{
 		quote = '\0';
@@ -34,7 +34,7 @@ bool	env_expander(t_env **lst_env, t_token **lst_tok)
 			{
 				if (ft_isquotenull(current->content[i + 1]))
 					break ;
-				if (expand(&current->content, i, lst_env) != SUCCESS)
+				if (expand(&current->content, i, data) != SUCCESS)
 					return (FAILURE);
 			}
 			else
@@ -46,7 +46,7 @@ bool	env_expander(t_env **lst_env, t_token **lst_tok)
 }
 
 // Expands environment variables.
-static bool	expand(char **content, size_t i, t_env **lst_env)
+static bool	expand(char **content, size_t i, t_data *data)
 {
 	char	*tok_key;
 	char	*new_content;
@@ -55,7 +55,7 @@ static bool	expand(char **content, size_t i, t_env **lst_env)
 	tok_key = define_key(*content + i + 1);
 	if (!tok_key)
 		return (FAILURE);
-	current = *lst_env;
+	current = data->lst_env;
 	while (current)
 	{
 		if (ft_strcmp(current->key, tok_key) == 0)
