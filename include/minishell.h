@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/28 15:35:28 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/29 08:20:20 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 //------------------------------------------------------------------------------
 // Macro Definitions
 //------------------------------------------------------------------------------
+
+// Maximum number of bytes allowed in a full pathname.
+# define PATH_MAX 4096
 
 // Error messages.
 # define ERR_MSG_ENV "Corrupted environment variables"
