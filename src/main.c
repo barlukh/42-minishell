@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:40:06 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/29 09:41:31 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/29 11:41:59 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	main(int argc, char **argv, char **env)
 	lst_env = NULL;
 	lst_tok = NULL;
 	create_lst_env(env, &lst_env);
-	while (true)
-	{
+	// while (true)
+	// {
 		read_input(&input);
 		printf("----------------------------\n");
 		parse_input(input, &lst_env, &lst_tok);
@@ -35,7 +35,7 @@ int	main(int argc, char **argv, char **env)
 		test_builtins(&lst_env, &lst_tok);
 		ft_lst_tok_clear(&lst_tok);
 		printf("----------------------------\n");
-	}
+	// }
 	clear_history();
 	ft_lst_env_clear(&lst_env);
 	return (SUCCESS);
