@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 10:50:25 by bgazur            #+#    #+#              #
-#    Updated: 2025/07/30 10:20:38 by bgazur           ###   ########.fr        #
+#    Updated: 2025/07/30 13:24:25 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC = 			ft_bzero.c \
 				ft_isexpexception.c \
 				ft_isifs.c \
 				ft_isquote.c \
+				ft_itoa.c \
 				ft_lst_env_add_back.c \
 				ft_lst_env_clear.c \
 				ft_lst_env_last.c \

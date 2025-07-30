@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 12:22:28 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/30 10:25:50 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/30 14:18:24 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ static void	expand(char **content, size_t i, t_data *data)
 	t_env	*current;
 
 	tok_key = define_key(*content + i + 1, data);
-	if (!tok_key)
-		error_env_exp(data);
+	if (ft_strcmp("?", tok_key) == 0)
+		return (exp_exit_status(content, tok_key, i, data));
 	current = data->lst_env;
 	while (current)
 	{
@@ -76,13 +76,11 @@ static char	*define_key(char *content, t_data *data)
 	size_t	i;
 
 	i = 0;
-	if (ft_isdigit(content[i]))
+	if (content[i] == '?' || ft_isdigit(content[i]))
 		i++;
 	else
-	{
 		while (ft_isalnum(content[i]) || content[i] == '_')
 			i++;
-	}
 	tok_key = ft_substr(content, 0, i);
 	if (!tok_key)
 		error_env_exp(data);
@@ -97,24 +95,13 @@ static void	exp_var(char *content, char *new_content, size_t i, t_env *current)
 
 	j = 0;
 	k = 0;
-	while (j < i)
-	{
-		new_content[j] = content[j];
-		j++;
-	}
+	ft_memcpy(new_content, content, i);
+	j = i;
 	while (current->value[k])
-	{
-		new_content[j] = current->value[k];
-		j++;
-		k++;
-	}
-	i += (ft_strlen(current->key) + 1);
-	while (content[i] != '\0')
-	{
-		new_content[j] = content[i];
-		i++;
-		j++;
-	}
+		new_content[j++] = current->value[k++];
+	i += ft_strlen(current->key) + 1;
+	while (content[i])
+		new_content[j++] = content[i++];
 	new_content[j] = '\0';
 	free(content);
 }

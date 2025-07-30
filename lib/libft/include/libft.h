@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/30 10:22:40 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/30 13:27:00 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,13 @@ bool	ft_isifs(int c);
 bool	ft_isquote(int c);
 
 /**
+ * @brief Converts an integer to a string.
+ * @param n Integer to convert.
+ * @return String, NULL if allocation fails.
+ */
+char	*ft_itoa(int n);
+
+/**
  * @brief Adds a node at the end of a linked list.
  * @param lst Pointer to the head pointer of a linked list.
  * @param node Pointer to a node to be added.
@@ -168,7 +175,7 @@ t_env	*ft_lst_env_last(t_env *lst);
  * @brief Creates a new node in a linked list.
  * @param key Key string.
  * @param value Value string.
- * @return Pointer to a node, NULL if allocatiion fails.
+ * @return Pointer to a node, NULL if allocation fails.
  */
 t_env	*ft_lst_env_new(void *key, void *value);
 
@@ -196,7 +203,7 @@ t_token	*ft_lst_tok_last(t_token *lst);
 /**
  * @brief Creates a new node in a linked list.
  * @param content Token string.
- * @return Pointer to a node, NULL if allocatiion fails.
+ * @return Pointer to a node, NULL if allocation fails.
  */
 t_token	*ft_lst_tok_new(void *content);
 

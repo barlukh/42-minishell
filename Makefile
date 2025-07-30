@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 08:53:07 by bgazur            #+#    #+#              #
-#    Updated: 2025/07/30 10:48:21 by bgazur           ###   ########.fr        #
+#    Updated: 2025/07/30 14:19:57 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC			=	$(DIR_BUILTIN)/builtin_cd.c \
 				$(DIR_PARSING)/env_expander.c \
 				$(DIR_PARSING)/env_utils.c \
 				$(DIR_PARSING)/errors_parsing.c \
+				$(DIR_PARSING)/exit_status.c \
 				$(DIR_PARSING)/input.c \
 				$(DIR_PARSING)/quote_remover.c \
 				$(DIR_PARSING)/syntax_checker.c \

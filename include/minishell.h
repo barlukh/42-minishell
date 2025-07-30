@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/30 08:17:19 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/30 13:40:27 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,16 @@ void	error_synt(t_data *data);
  * @return None.
  */
 void	error_tok(char *input, t_data *data);
+
+/**
+ * @brief 
+ * @param content Pointer to the content of the current token.
+ * @param tok_key Key string.
+ * @param i Index of a character.
+ * @param data Data struct of all core variables.
+ * @return None.
+ */
+void	exp_exit_status(char **content, char *tok_key, size_t i, t_data *data);
 
 /**
  * @brief Parses command line input string.
