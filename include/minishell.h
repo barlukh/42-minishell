@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/29 14:12:52 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/30 08:17:19 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,9 @@ void	create_lst_env(char **env, t_data *data);
 /**
  * @brief Peforms an environment variable expansion.
  * @param data struct of all core variables.
- * @return SUCCESS or FAILURE.
+ * @return None.
  */
-bool	env_expander(t_data *data);
+void	env_expander(t_data *data);
 
 /**
  * @brief Handles errors in the environment expansion phase.
@@ -167,8 +167,8 @@ bool	syntax_checker(t_data *data);
  * @brief Tokenizes command line input string.
  * @param input Input string received from a command line.
  * @param data Data struct of all core variables.
- * @return SUCCESS or FAILURE.
+ * @return None.
  */
-bool	tokenizer(char *input, t_data *data);
+void	tokenizer(char *input, t_data *data);
 
 #endif

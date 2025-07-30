@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 07:52:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/29 14:42:57 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/30 08:17:58 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,14 @@ void	read_input(char **input)
 
 bool	parse_input(char *input, t_data *data)
 {
-	if (tokenizer(input, data) != SUCCESS)
-		error_tok(input, data);
+	tokenizer(input, data);
 	if (syntax_checker(data) != SUCCESS)
 	{
+		ft_lst_tok_clear(&data->lst_tok);
 		data->exit_status = 2;
 		return (FAILURE);
 	}
-	if (env_expander(data) != SUCCESS)
-		error_env_exp(data);
+	env_expander(data);
 	quote_remover(data);
 	return (SUCCESS);
 }

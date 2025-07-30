@@ -6,17 +6,17 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 15:57:43 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/29 13:20:25 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/30 08:12:47 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	define_token(char *input, size_t i, size_t *len);
-static bool	create_token(char *input, size_t i, size_t len, t_data *data);
+static void	create_token(char *input, size_t i, size_t len, t_data *data);
 static void	assign_token_type(char *content, t_token *node);
 
-bool	tokenizer(char *input, t_data *data)
+void	tokenizer(char *input, t_data *data)
 {
 	size_t	i;
 	size_t	len;
@@ -31,13 +31,11 @@ bool	tokenizer(char *input, t_data *data)
 			continue ;
 		}
 		define_token(input, i, &len);
-		if (create_token(input, i, len, data) != SUCCESS)
-			return (FAILURE);
+		create_token(input, i, len, data);
 		i += len;
 	}
 	free(input);
 	input = NULL;
-	return (SUCCESS);
 }
 
 // Defines the length of a token.
@@ -60,24 +58,23 @@ static void	define_token(char *input, size_t i, size_t *len)
 }
 
 // Creates a token using ft_substr() and appends it as a node to a linked list.
-static bool	create_token(char *input, size_t i, size_t len, t_data *data)
+static void	create_token(char *input, size_t i, size_t len, t_data *data)
 {
 	char	*content;
 	t_token	*node;
 
 	content = ft_substr(input, i, len);
 	if (!content)
-		return (FAILURE);
+		error_tok(input, data);
 	node = ft_lst_tok_new(content);
 	if (!node)
 	{
 		free(content);
 		content = NULL;
-		return (FAILURE);
+		error_tok(input, data);
 	}
 	assign_token_type(content, node);
 	ft_lst_tok_add_back(&data->lst_tok, node);
-	return (SUCCESS);
 }
 
 // Assigns each token its type.

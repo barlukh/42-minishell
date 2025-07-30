@@ -6,18 +6,18 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 12:22:28 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/29 14:05:09 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/30 10:25:50 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool	expand(char **content, size_t i, t_data *data);
-static char	*define_key(char *content);
+static void	expand(char **content, size_t i, t_data *data);
+static char	*define_key(char *content, t_data *data);
 static void	exp_var(char *content, char *new_content, size_t i, t_env *current);
 static void	rem_var(char *content, char **tok_key, size_t i);
 
-bool	env_expander(t_data *data)
+void	env_expander(t_data *data)
 {
 	char	quote;
 	size_t	i;
@@ -30,31 +30,26 @@ bool	env_expander(t_data *data)
 		i = 0;
 		while (current->content[i])
 		{
-			if (ft_isexpandable(current->content[i], &quote) == true)
-			{
-				if (ft_isquotenull(current->content[i + 1]))
-					break ;
-				if (expand(&current->content, i, data) != SUCCESS)
-					return (FAILURE);
-			}
+			if (ft_isexpandable(current->content[i], &quote)
+				&& !ft_isexpexception(current->content, quote, i))
+				expand(&current->content, i, data);
 			else
 				i++;
 		}
 		current = current->next;
 	}
-	return (SUCCESS);
 }
 
 // Expands environment variables.
-static bool	expand(char **content, size_t i, t_data *data)
+static void	expand(char **content, size_t i, t_data *data)
 {
 	char	*tok_key;
 	char	*new_content;
 	t_env	*current;
 
-	tok_key = define_key(*content + i + 1);
+	tok_key = define_key(*content + i + 1, data);
 	if (!tok_key)
-		return (FAILURE);
+		error_env_exp(data);
 	current = data->lst_env;
 	while (current)
 	{
@@ -64,34 +59,33 @@ static bool	expand(char **content, size_t i, t_data *data)
 			new_content = malloc(sizeof(char) * (ft_strlen(*content)
 						+ ft_strlen(current->value) - ft_strlen(current->key)));
 			if (!new_content)
-				return (FAILURE);
+				error_env_exp(data);
 			exp_var(*content, new_content, i, current);
 			*content = new_content;
-			return (SUCCESS);
+			return ;
 		}
 		current = current->next;
 	}
 	rem_var(*content, &tok_key, i);
-	return (SUCCESS);
 }
 
 // Allocates key (string) out of a token.
-static char	*define_key(char *content)
+static char	*define_key(char *content, t_data *data)
 {
 	char	*tok_key;
 	size_t	i;
 
 	i = 0;
-	while (content[i])
+	if (ft_isdigit(content[i]))
+		i++;
+	else
 	{
-		if (ft_isalnum(content[i]) || content[i] == '_')
+		while (ft_isalnum(content[i]) || content[i] == '_')
 			i++;
-		else
-			break ;
 	}
 	tok_key = ft_substr(content, 0, i);
 	if (!tok_key)
-		return (NULL);
+		error_env_exp(data);
 	return (tok_key);
 }
 

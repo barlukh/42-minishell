@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/26 12:31:01 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/30 10:22:40 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,15 @@ bool	ft_isdigit(int c);
 bool	ft_isexpandable(int c, char *quote);
 
 /**
+ * @brief Checks if a character is an exception from an expansion.
+ * @param content Content of the current token.
+ * @param quote Current tracked quote state.
+ * @param i Index of a character.
+ * @return Bool true or false.
+ */
+bool	ft_isexpexception(char *content, char quote, size_t i);
+
+/**
  * @brief Checks if a character is an input field separator.
  * @param c Character to check, passed as an int.
  * @return Bool true or false.
@@ -133,13 +142,6 @@ bool	ft_isifs(int c);
  * @return Bool true or false.
  */
 bool	ft_isquote(int c);
-
-/**
- * @brief Checks if a character is a quote (single or double) or null-term.
- * @param c Character to check, passed as an int.
- * @return Bool true or false.
- */
-bool	ft_isquotenull(int c);
 
 /**
  * @brief Adds a node at the end of a linked list.
