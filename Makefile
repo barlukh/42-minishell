@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 08:53:07 by bgazur            #+#    #+#              #
-#    Updated: 2025/07/31 20:43:24 by bgazur           ###   ########.fr        #
+#    Updated: 2025/07/31 21:27:56 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ DIR_SRC		=	src
 DIR_BUILTIN	=	$(DIR_SRC)/builtins
 DIR_EXEC	=	$(DIR_SRC)/execution
 DIR_PARSING	=	$(DIR_SRC)/parsing
+DIR_SIGNALS	=	$(DIR_SRC)/signals
 
 LIBFT		=	$(DIR_LIBFT)/libft.a
 HDR			=	$(DIR_HDR)/minishell.h
@@ -41,6 +42,7 @@ SRC			=	$(DIR_BUILTIN)/builtin_cd.c \
 				$(DIR_PARSING)/quote_remover.c \
 				$(DIR_PARSING)/syntax_checker.c \
 				$(DIR_PARSING)/tokenizer.c \
+				$(DIR_SIGNALS)/signals.c \
 				$(DIR_SRC)/main.c
 
 all: $(DIR_OBJ) $(LIBFT) $(NAME)
