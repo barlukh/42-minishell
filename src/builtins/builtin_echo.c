@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 12:27:45 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/29 14:38:03 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/31 20:41:03 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	builtin_echo(t_token **current)
 				(*current) = (*current)->next;
 			output(current);
 		}
-		else if (((*current)->next) && (*current)->next->type == TOK_WORD)
+		else if (((*current)->next) && (*current)->next->type == TOK_ARG)
 		{
 			output(current);
 			write(1, "\n", 1);
@@ -41,11 +41,11 @@ int	builtin_echo(t_token **current)
 // Echoes the content of a token.
 static void	output(t_token **current)
 {
-	while (((*current)->next) && (*current)->next->type == TOK_WORD)
+	while (((*current)->next) && (*current)->next->type == TOK_ARG)
 	{
 		(*current) = (*current)->next;
 		ft_putstr_fd((*current)->content, 1);
-		if (((*current)->next) && (*current)->next->type == TOK_WORD)
+		if (((*current)->next) && (*current)->next->type == TOK_ARG)
 			write(1, " ", 1);
 	}
 }

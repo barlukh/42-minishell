@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/31 17:57:23 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/31 20:36:47 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,13 @@ typedef enum e_token_type
 	TOK_OUT,
 	TOK_HERE,
 	TOK_APP,
-	TOK_WORD
+	TOK_WORD,
+	TOK_CMD,
+	TOK_ARG
 }	t_token_type;
 
 // Environmental variable structure.
+
 typedef struct s_env
 {
 	char			*key;

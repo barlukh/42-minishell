@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:40:06 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/31 18:04:32 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/31 20:37:28 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,21 @@ static void	test_tok(t_data *data)
 	while (current)
 	{
 		if (current->type == 0)
-			printf("%-14s %s\n", "PIPE", current->content);
+			printf("%-14s %s\n", "TOK_PIPE", current->content);
 		else if (current->type == 1)
-			printf("%-14s %s\n", "REDIR_IN", current->content);
+			printf("%-14s %s\n", "TOK_IN", current->content);
 		else if (current->type == 2)
-			printf("%-14s %s\n", "REDIT_OUT", current->content);
+			printf("%-14s %s\n", "TOK_OUT", current->content);
 		else if (current->type == 3)
-			printf("%-14s %s\n", "REDIR_HEREDOC", current->content);
+			printf("%-14s %s\n", "TOK_HERE", current->content);
 		else if (current->type == 4)
-			printf("%-14s %s\n", "REDIR_APPEND", current->content);
+			printf("%-14s %s\n", "TOK_APP", current->content);
 		else if (current->type == 5)
-			printf("%-14s %s\n", "WORD", current->content);
+			printf("%-14s %s\n", "TOK_WORD", current->content);
+		else if (current->type == 6)
+			printf("%-14s %s\n", "TOK_CMD", current->content);
+		else if (current->type == 7)
+			printf("%-14s %s\n", "TOK_ARG", current->content);
 		current = current->next;
 	}
 }
