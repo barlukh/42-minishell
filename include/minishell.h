@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/30 13:40:27 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/30 15:51:14 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,13 @@ void	exp_exit_status(char **content, char *tok_key, size_t i, t_data *data);
  * @return SUCCESS or FAILURE.
  */
 bool	parse_input(char *input, t_data *data);
+
+/**
+ * @brief Finalizes the parsed list - removes empty tokens and identifies words.
+ * @param data Data struct of all core variables.
+ * @return None.
+ */
+void	parsing_finalizer(t_data *data);
 
 /**
  * @brief Removes quotes in tokens.

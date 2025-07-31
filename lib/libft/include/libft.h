@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/30 13:27:00 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/07/31 17:57:23 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,12 @@
 // Macro Definitions
 //------------------------------------------------------------------------------
 
+// Delimiters for tokenization.
 # define DELIMITERS "|<> \t\n"
+
+// Return / exit values (general).
+# define SUCCESS 0
+# define FAILURE 1
 
 //------------------------------------------------------------------------------
 // Type Definitions
@@ -206,6 +211,14 @@ t_token	*ft_lst_tok_last(t_token *lst);
  * @return Pointer to a node, NULL if allocation fails.
  */
 t_token	*ft_lst_tok_new(void *content);
+
+/**
+ * @brief Removes a node from a linked list while preserving the links.
+ * @param lst  Pointer to the head pointer of a linked list.
+ * @param node Pointer to a node to be removed.
+ * @return None.
+ */
+void	ft_lst_tok_remove(t_token **lst, t_token *node);
 
 /**
  * @brief Copies bytes from one memory area to another.

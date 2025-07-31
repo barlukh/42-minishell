@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   parsing_finalizer.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/18 07:52:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/30 15:47:07 by bgazur           ###   ########.fr       */
+/*   Created: 2025/07/30 15:47:26 by bgazur            #+#    #+#             */
+/*   Updated: 2025/07/31 18:04:12 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	read_input(char **input)
+void	parsing_finalizer(t_data *data)
 {
-	*input = readline("minishell$ ");
-	add_history(*input);
-}
+	t_token	*current;
+	t_token	*next;
 
-bool	parse_input(char *input, t_data *data)
-{
-	tokenizer(input, data);
-	if (syntax_checker(data) != SUCCESS)
+	current = data->lst_tok;
+	while (current)
 	{
-		ft_lst_tok_clear(&data->lst_tok);
-		data->exit_status = 2;
-		return (FAILURE);
+		next = current->next;
+		if (current->content[0] == '\0')
+			ft_lst_tok_remove(&data->lst_tok, current);
+		current = next;
 	}
-	env_expander(data);
-	quote_remover(data);
-	parsing_finalizer(data);
-	return (SUCCESS);
 }

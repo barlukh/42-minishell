@@ -6,14 +6,14 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 08:53:07 by bgazur            #+#    #+#              #
-#    Updated: 2025/07/30 14:19:57 by bgazur           ###   ########.fr        #
+#    Updated: 2025/07/31 18:03:42 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	minishell
 
 CC			=	cc
-CFLAGS		=	-Wall -Werror -Wextra
+CFLAGS		=	-Wall -Werror -Wextra -fsanitize=undefined -fsanitize=address -fsanitize=leak
 LFLAGS		=	-L$(DIR_LIBFT) -lft -lreadline
 RM			=	rm -rf
 
@@ -37,6 +37,7 @@ SRC			=	$(DIR_BUILTIN)/builtin_cd.c \
 				$(DIR_PARSING)/errors_parsing.c \
 				$(DIR_PARSING)/exit_status.c \
 				$(DIR_PARSING)/input.c \
+				$(DIR_PARSING)/parsing_finalizer.c \
 				$(DIR_PARSING)/quote_remover.c \
 				$(DIR_PARSING)/syntax_checker.c \
 				$(DIR_PARSING)/tokenizer.c \

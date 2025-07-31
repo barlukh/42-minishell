@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 10:50:25 by bgazur            #+#    #+#              #
-#    Updated: 2025/07/30 13:24:25 by bgazur           ###   ########.fr        #
+#    Updated: 2025/07/30 16:14:34 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRC = 			ft_bzero.c \
 				ft_lst_tok_clear.c \
 				ft_lst_tok_last.c \
 				ft_lst_tok_new.c \
+				ft_lst_tok_remove.c \
 				ft_memcpy.c  \
 				ft_memset.c  \
 				ft_putchar_fd.c \
