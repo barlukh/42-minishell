@@ -6,14 +6,14 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 15:47:26 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/31 20:44:59 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/01 08:25:47 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	replace_redirs(t_token **current, t_token **next, t_data *data);
-static void	replace_cmds(bool *new_pipe, t_token *current);
+static void	replace_cmds_args(bool *new_pipe, t_token *current);
 
 void	parsing_finalizer(t_data *data)
 {
@@ -36,7 +36,7 @@ void	parsing_finalizer(t_data *data)
 		if (current->type == TOK_PIPE)
 			new_pipe = true;
 		if (current->type == TOK_WORD)
-			replace_cmds(&new_pipe, current);
+			replace_cmds_args(&new_pipe, current);
 		current = next;
 	}
 }
@@ -48,7 +48,7 @@ static void	replace_redirs(t_token **current, t_token **next, t_data *data)
 	*current = (*next)->next;
 }
 
-static void	replace_cmds(bool *new_pipe, t_token *current)
+static void	replace_cmds_args(bool *new_pipe, t_token *current)
 {
 	if (*new_pipe == true)
 	{
