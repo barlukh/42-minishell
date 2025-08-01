@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/30 15:51:14 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/01 08:21:54 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 //------------------------------------------------------------------------------
 
 // Maximum number of bytes allowed in a full pathname.
+# define INPUT_MAX 1024
 # define PATH_MAX 4096
 
 // Error messages.
@@ -38,6 +39,8 @@
 # define ERR_MSG_PIPES "syntax error near unexpected token `|\'"
 # define ERR_MSG_REDIR "syntax error near unexpected token `>\'"
 # define ERR_MSG_HERED "maximum here-document count exceeded"
+# define ERR_MSG_INLEN "maximum input length exceeded"
+# define ERR_MSG_INNUL "invalid input"
 
 // Return / exit values (general).
 # define SUCCESS 0
@@ -169,9 +172,10 @@ void	quote_remover(t_data *data);
 /**
  * @brief Reads input from the command line.
  * @param input Pointer to a string in which to store the input.
+ * @param data Data struct of all core variables.
  * @return None.
  */
-void	read_input(char **input);
+bool	read_input(char **input, t_data *data);
 
 /**
  * @brief Checks for syntax errors in tokens.

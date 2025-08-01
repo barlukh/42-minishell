@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:40:06 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/31 20:37:28 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/01 08:14:41 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	main(int argc, char **argv, char **env)
 	create_lst_env(env, &data);
 	while (true)
 	{
-		read_input(&input);
+		if (read_input(&input, &data) != SUCCESS)
+			continue ;
 		if (parse_input(input, &data) != SUCCESS)
 			continue ;
 		test_tok(&data);
