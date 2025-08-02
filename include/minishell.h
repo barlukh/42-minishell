@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/01 08:21:54 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/02 19:32:05 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <signal.h>
 # include <stdbool.h>
 
 # include <stdio.h> // UNUSED, REMOVE BEFORE SUBMISSION !!!!!!!!!!!!!!!!!!!!!
@@ -138,7 +139,7 @@ void	error_synt(t_data *data);
 void	error_tok(char *input, t_data *data);
 
 /**
- * @brief 
+ * @brief Expands question mark variable with the current exit code.
  * @param content Pointer to the content of the current token.
  * @param tok_key Key string.
  * @param i Index of a character.
@@ -176,6 +177,13 @@ void	quote_remover(t_data *data);
  * @return None.
  */
 bool	read_input(char **input, t_data *data);
+
+/**
+ * @brief Defines behaviour of signals.
+ * @param data Data struct of all core variables.
+ * @return None.
+ */
+void	signals(t_data *data);
 
 /**
  * @brief Checks for syntax errors in tokens.

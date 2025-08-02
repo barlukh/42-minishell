@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:40:06 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/01 08:14:41 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/02 19:30:50 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static void	test_tok(t_data *data);
 static void	test_builtins(t_data *data);
+
+volatile sig_atomic_t	g_signal = 0;
 
 int	main(int argc, char **argv, char **env)
 {
@@ -26,6 +28,7 @@ int	main(int argc, char **argv, char **env)
 	data.exit_status = 0;
 	data.lst_env = NULL;
 	data.lst_tok = NULL;
+	signals(&data);
 	create_lst_env(env, &data);
 	while (true)
 	{

@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 07:52:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/01 08:23:19 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/01 19:54:04 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 bool	read_input(char **input, t_data *data)
 {
 	*input = readline("minishell$ ");
-	if (!input)
+	if (!*input)
 	{
 		data->exit_status = 2;
 		ft_putendl_fd(ERR_MSG_INNUL, 2);

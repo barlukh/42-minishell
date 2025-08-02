@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 11:55:35 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/30 14:19:25 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/01 20:28:38 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	exp_exit_status(char **content, char *tok_key, size_t i, t_data *data)
 	*content = new_content;
 }
 
-// Replaces question mark variable with the current exit code.
+// Replaces the question mark with the current exit code.
 static void	exp_var(char *content, char *new_content, char *exit_str, size_t i)
 {
 	size_t	j;
