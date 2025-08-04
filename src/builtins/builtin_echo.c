@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 12:27:45 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/02 19:25:57 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/04 09:25:58 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	builtin_echo(t_token **current)
 		}
 		else
 			ft_putendl_fd("", 1);
+		get_data()->exit_status = 0;
 		return (BUILT_YES);
 	}
 	return (BUILT_NO);

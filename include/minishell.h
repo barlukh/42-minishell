@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/02 19:32:05 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/04 09:29:11 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@
 # include <stdbool.h>
 
 # include <stdio.h> // UNUSED, REMOVE BEFORE SUBMISSION !!!!!!!!!!!!!!!!!!!!!
+
+//------------------------------------------------------------------------------
+// Global Variables
+//------------------------------------------------------------------------------
+
+extern volatile sig_atomic_t	g_signal;
 
 //------------------------------------------------------------------------------
 // Macro Definitions
@@ -149,6 +155,13 @@ void	error_tok(char *input, t_data *data);
 void	exp_exit_status(char **content, char *tok_key, size_t i, t_data *data);
 
 /**
+ * @brief Creates a static data struct.
+ * @param void None.
+ * @return Pointer to the data struct.
+ */
+t_data	*get_data(void);
+
+/**
  * @brief Parses command line input string.
  * @param input Input string received from a command line.
  * @param data Data struct of all core variables.
@@ -180,10 +193,10 @@ bool	read_input(char **input, t_data *data);
 
 /**
  * @brief Defines behaviour of signals.
- * @param data Data struct of all core variables.
+ * @param void None.
  * @return None.
  */
-void	signals(t_data *data);
+void	signals(void);
 
 /**
  * @brief Checks for syntax errors in tokens.

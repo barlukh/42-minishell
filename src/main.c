@@ -6,43 +6,48 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:40:06 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/02 19:30:50 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/04 09:56:38 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	test_tok(t_data *data);
-static void	test_builtins(t_data *data);
-
 volatile sig_atomic_t	g_signal = 0;
+
+static void		test_tok(t_data *data);
+static void		test_builtins(t_data *data);
 
 int	main(int argc, char **argv, char **env)
 {
 	char	*input;
-	t_data	data;
+	t_data	*data;
 
 	(void)argc;
 	(void)argv;
 	input = NULL;
-	data.exit_status = 0;
-	data.lst_env = NULL;
-	data.lst_tok = NULL;
-	signals(&data);
-	create_lst_env(env, &data);
+	data = get_data();
+	signals();
+	create_lst_env(env, data);
 	while (true)
 	{
-		if (read_input(&input, &data) != SUCCESS)
+		if (read_input(&input, data) != SUCCESS)
 			continue ;
-		if (parse_input(input, &data) != SUCCESS)
+		if (parse_input(input, data) != SUCCESS)
 			continue ;
-		test_tok(&data);
-		test_builtins(&data);
-		ft_lst_tok_clear(&data.lst_tok);
+		test_tok(data);
+		test_builtins(data);
+		ft_lst_tok_clear(&data->lst_tok);
 	}
 	clear_history();
-	ft_lst_env_clear(&data.lst_env);
+	ft_lst_env_clear(&data->lst_env);
 	return (SUCCESS);
+}
+
+t_data	*get_data(void)
+{
+	static t_data	data;
+
+	return (&data);
 }
 
 // TEST - prints tokens. (REMOVE BEFORE SUBMISSION!)

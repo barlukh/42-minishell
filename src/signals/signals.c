@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:28:02 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/02 19:38:02 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/04 09:15:53 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	signal_handler(int signum);
 
-void	signals(t_data *data)
+void	signals(void)
 {
 	struct sigaction	action;
 
@@ -23,15 +23,15 @@ void	signals(t_data *data)
 	sigemptyset(&action.sa_mask);
 	action.sa_flags = 0;
 	sigaction(SIGINT, &action, NULL);
-	data->exit_status = 128 + SIGINT;
 }
 
 // Executes when a signal is received.
 static void	signal_handler(int signum)
 {
-	(void)signum;
 	write(STDOUT_FILENO, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
+	g_signal = 128 + signum;
+	get_data()->exit_status = g_signal;
 }

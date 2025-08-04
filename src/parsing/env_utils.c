@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 17:57:25 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/29 13:35:02 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/04 09:48:12 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	create_lst_env(char **env, t_data *data)
 	{
 		equal = ft_strchr(*env, '=');
 		if (!equal)
-			continue ;
+			error_lst_env(key, value, data);
 		key = ft_substr(*env, 0, equal - *env);
 		if (!key)
 			error_lst_env(key, value, data);
