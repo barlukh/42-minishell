@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/04 16:54:53 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/04 17:55:49 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ extern volatile sig_atomic_t	g_signal;
 # define ERR_MSG_REDIR "syntax error near unexpected token `>\'"
 # define ERR_MSG_HERED "maximum here-document count exceeded"
 # define ERR_MSG_INLEN "maximum input length exceeded"
-# define ERR_MSG_INNUL "invalid input"
+# define ERR_MSG_EXIT "exit"
 
 // Return / exit values (general).
 # define SUCCESS 0

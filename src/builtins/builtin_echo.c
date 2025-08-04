@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 12:27:45 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/04 17:12:05 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/04 17:59:18 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	output_argument(int *passed_word, t_token **current)
 	if (*passed_word == true)
 		write(STDOUT_FILENO, " ", 1);
 	*passed_word = true;
-	ft_putstr_fd((*current)->content, 1);
+	ft_putstr_fd((*current)->content, STDOUT_FILENO);
 }
 
 // Inserts a newline symbol where applicable.

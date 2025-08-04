@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 13:59:02 by bgazur            #+#    #+#             */
-/*   Updated: 2025/07/29 14:13:28 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/04 18:00:16 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static bool	has_valid_quotes(char *content)
 	}
 	if (quote != '\0')
 	{
-		ft_putendl_fd(ERR_MSG_QUOTE, 2);
+		ft_putendl_fd(ERR_MSG_QUOTE, STDERR_FILENO);
 		return (false);
 	}
 	return (true);
@@ -70,17 +70,17 @@ static bool	has_valid_pipes(t_token *current, t_data *data)
 {
 	if (current == data->lst_tok)
 	{
-		ft_putendl_fd(ERR_MSG_PIPES, 2);
+		ft_putendl_fd(ERR_MSG_PIPES, STDERR_FILENO);
 		return (false);
 	}
 	if (current->next == NULL)
 	{
-		ft_putendl_fd(ERR_MSG_PIPES, 2);
+		ft_putendl_fd(ERR_MSG_PIPES, STDERR_FILENO);
 		return (false);
 	}
 	if (current->next->type == TOK_PIPE)
 	{
-		ft_putendl_fd(ERR_MSG_PIPES, 2);
+		ft_putendl_fd(ERR_MSG_PIPES, STDERR_FILENO);
 		return (false);
 	}
 	return (true);
@@ -91,12 +91,12 @@ static bool	has_valid_redirs(t_token *current)
 {
 	if (current->next == NULL)
 	{
-		ft_putendl_fd(ERR_MSG_REDIR, 2);
+		ft_putendl_fd(ERR_MSG_REDIR, STDERR_FILENO);
 		return (false);
 	}
 	if (current->next->type != TOK_WORD)
 	{
-		ft_putendl_fd(ERR_MSG_REDIR, 2);
+		ft_putendl_fd(ERR_MSG_REDIR, STDERR_FILENO);
 		return (false);
 	}
 	return (true);

@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 07:52:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/04 08:59:40 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/04 18:08:53 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,15 @@ bool	read_input(char **input, t_data *data)
 	*input = readline("minishell$ ");
 	if (!*input)
 	{
-		data->exit_status = 2;
-		ft_putendl_fd(ERR_MSG_INNUL, 2);
-		return (FAILURE);
+		ft_lst_env_clear(&data->lst_env);
+		clear_history();
+		ft_putendl_fd(ERR_MSG_EXIT, STDERR_FILENO);
+		exit(data->exit_status);
 	}
 	if (ft_strlen(*input) > INPUT_MAX)
 	{
 		data->exit_status = 2;
-		ft_putendl_fd(ERR_MSG_INLEN, 2);
+		ft_putendl_fd(ERR_MSG_INLEN, STDERR_FILENO);
 		return (FAILURE);
 	}
 	add_history(*input);
