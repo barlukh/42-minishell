@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 15:47:26 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/01 08:25:47 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/04 17:14:36 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	parsing_finalizer(t_data *data)
 	}
 }
 
+// Removes redirection symbols and marks the following word as redirection.
 static void	replace_redirs(t_token **current, t_token **next, t_data *data)
 {
 	(*next)->type = (*current)->type;
@@ -48,6 +49,7 @@ static void	replace_redirs(t_token **current, t_token **next, t_data *data)
 	*current = (*next)->next;
 }
 
+// Defines commands and arguments.
 static void	replace_cmds_args(bool *new_pipe, t_token *current)
 {
 	if (*new_pipe == true)

@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:28:02 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/04 09:15:53 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/04 17:10:23 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	signals(void)
 	ft_bzero(&action, sizeof(action));
 	action.sa_handler = signal_handler;
 	sigemptyset(&action.sa_mask);
-	action.sa_flags = 0;
+	action.sa_flags = SA_RESTART;
 	sigaction(SIGINT, &action, NULL);
 }
 

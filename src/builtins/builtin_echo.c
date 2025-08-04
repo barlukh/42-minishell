@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 12:27:45 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/04 16:54:17 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/04 17:12:05 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	builtin_echo(t_token **current)
 	return (BUILT_NO);
 }
 
+// Skips all repeating -n options.
 static void	skip_n_option(int *passed_n_option, t_token **current)
 {
 	*passed_n_option = true;
@@ -53,6 +54,7 @@ static void	skip_n_option(int *passed_n_option, t_token **current)
 		*current = (*current)->next;
 }
 
+// Outputs an argument into STDOUT.
 static void	output_argument(int *passed_word, t_token **current)
 {
 	if (*passed_word == true)
@@ -61,6 +63,7 @@ static void	output_argument(int *passed_word, t_token **current)
 	ft_putstr_fd((*current)->content, 1);
 }
 
+// Inserts a newline symbol where applicable.
 static void	end_line(int passed_n_option)
 {
 	if (passed_n_option == false)
