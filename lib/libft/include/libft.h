@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/07/31 20:36:47 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/04 15:07:14 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef enum e_token_type
 }	t_token_type;
 
 // Environmental variable structure.
-
 typedef struct s_env
 {
 	char			*key;

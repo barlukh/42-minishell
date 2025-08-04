@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/04 09:29:11 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/04 16:54:53 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ extern volatile sig_atomic_t	g_signal;
 // Return / exit values (general).
 # define SUCCESS 0
 # define FAILURE 1
-# define INV_SYNTAX 2
 
 // Return / exit values (builtins).
 # define BUILT_NO 0
