@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 08:53:07 by bgazur            #+#    #+#              #
-#    Updated: 2025/08/04 09:39:56 by bgazur           ###   ########.fr        #
+#    Updated: 2025/08/05 11:37:37 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ DIR_OBJ		=	objects
 DIR_SRC		=	src
 DIR_BUILTIN	=	$(DIR_SRC)/builtins
 DIR_EXEC	=	$(DIR_SRC)/execution
+DIR_HEREDOC	=	$(DIR_SRC)/heredoc
 DIR_PARSING	=	$(DIR_SRC)/parsing
 DIR_SIGNALS	=	$(DIR_SRC)/signals
 
@@ -33,10 +34,12 @@ SRC			=	$(DIR_BUILTIN)/builtin_cd.c \
 				$(DIR_BUILTIN)/builtin_echo.c \
 				$(DIR_BUILTIN)/builtins.c \
 				$(DIR_EXEC)/temporary.c \
+				$(DIR_HEREDOC)/heredoc.c \
 				$(DIR_PARSING)/env_expander.c \
 				$(DIR_PARSING)/env_utils.c \
 				$(DIR_PARSING)/errors_parsing.c \
 				$(DIR_PARSING)/exit_status.c \
+				$(DIR_PARSING)/heredoc_identifier.c \
 				$(DIR_PARSING)/input.c \
 				$(DIR_PARSING)/parsing_finalizer.c \
 				$(DIR_PARSING)/quote_remover.c \

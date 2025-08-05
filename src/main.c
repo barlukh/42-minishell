@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:40:06 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/04 16:58:13 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/05 17:33:56 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,21 +60,25 @@ static void	test_tok(t_data *data)
 	while (current)
 	{
 		if (current->type == 0)
-			printf("%-14s %s\n", "TOK_PIPE", current->content);
+			printf("%-20s %s\n", "TOK_PIPE", current->content);
 		else if (current->type == 1)
-			printf("%-14s %s\n", "TOK_IN", current->content);
+			printf("%-20s %s\n", "TOK_IN", current->content);
 		else if (current->type == 2)
-			printf("%-14s %s\n", "TOK_OUT", current->content);
+			printf("%-20s %s\n", "TOK_OUT", current->content);
 		else if (current->type == 3)
-			printf("%-14s %s\n", "TOK_HERE", current->content);
+			printf("%-20s %s\n", "TOK_HERE", current->content);
 		else if (current->type == 4)
-			printf("%-14s %s\n", "TOK_APP", current->content);
+			printf("%-20s %s\n", "TOK_HERE_QUOTED", current->content);
 		else if (current->type == 5)
-			printf("%-14s %s\n", "TOK_WORD", current->content);
+			printf("%-20s %s\n", "TOK_HERE_UNQUOTED", current->content);
 		else if (current->type == 6)
-			printf("%-14s %s\n", "TOK_CMD", current->content);
+			printf("%-20s %s\n", "TOK_APP", current->content);
 		else if (current->type == 7)
-			printf("%-14s %s\n", "TOK_ARG", current->content);
+			printf("%-20s %s\n", "TOK_WORD", current->content);
+		else if (current->type == 8)
+			printf("%-20s %s\n", "TOK_CMD", current->content);
+		else if (current->type == 9)
+			printf("%-20s %s\n", "TOK_ARG", current->content);
 		current = current->next;
 	}
 }

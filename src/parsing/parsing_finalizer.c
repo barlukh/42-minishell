@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 15:47:26 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/04 17:14:36 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/05 17:30:36 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ void	parsing_finalizer(t_data *data)
 	while (current)
 	{
 		next = current->next;
-		if (current->content[0] == '\0')
+		if (current->content[0] == '\0' || current->type == TOK_HERE)
 			ft_lst_tok_remove(&data->lst_tok, current);
-		else if (current->type != TOK_WORD && current->type != TOK_PIPE)
+		else if (current->type == TOK_IN || current->type == TOK_OUT
+			|| current->type == TOK_APP)
 		{
 			replace_redirs(&current, &next, data);
 			continue ;

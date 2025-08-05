@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 10:52:37 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/04 18:10:46 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/05 11:27:55 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	error_synt(t_data *data)
 {
 	clean_data(data);
 	clear_history();
-	ft_putendl_fd(ERR_MSG_HERED, 2);
+	ft_putendl_fd(ERR_MSG_HERE, 2);
 	data->exit_status = 2;
 	exit(data->exit_status);
 }

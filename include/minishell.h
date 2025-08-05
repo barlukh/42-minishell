@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/04 17:55:49 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/05 11:39:41 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ extern volatile sig_atomic_t	g_signal;
 # define ERR_MSG_MEM "malloc: Cannot allocate memory"
 # define ERR_MSG_QUOTE "syntax error: unclosed quote"
 # define ERR_MSG_PIPES "syntax error near unexpected token `|\'"
-# define ERR_MSG_REDIR "syntax error near unexpected token `>\'"
-# define ERR_MSG_HERED "maximum here-document count exceeded"
-# define ERR_MSG_INLEN "maximum input length exceeded"
+# define ERR_MSG_REDIR "syntax error near unexpected token `redirection'"
+# define ERR_MSG_HERE "maximum here-document count exceeded"
+# define ERR_MSG_INPUT "maximum input length exceeded"
 # define ERR_MSG_EXIT "exit"
 
 // Return / exit values (general).
@@ -159,6 +159,13 @@ void	exp_exit_status(char **content, char *tok_key, size_t i, t_data *data);
  * @return Pointer to the data struct.
  */
 t_data	*get_data(void);
+
+/**
+ * @brief Identifies quotes in a heredoc delimiter and reassigns token type.
+ * @param data Data struct of all core variables.
+ * @return None.
+ */
+void	heredoc_identifier(t_data *data);
 
 /**
  * @brief Parses command line input string.

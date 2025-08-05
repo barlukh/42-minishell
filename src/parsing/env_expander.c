@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 12:22:28 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/04 09:51:07 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/05 10:33:13 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ void	env_expander(t_data *data)
 			else
 				i++;
 		}
-		current = current->next;
+		if (current->type == TOK_HERE && current->next)
+			current = current->next->next;
+		else
+			current = current->next;
 	}
 }
 

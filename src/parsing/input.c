@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 07:52:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/04 18:08:53 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/05 11:35:58 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	read_input(char **input, t_data *data)
 	if (ft_strlen(*input) > INPUT_MAX)
 	{
 		data->exit_status = 2;
-		ft_putendl_fd(ERR_MSG_INLEN, STDERR_FILENO);
+		ft_putendl_fd(ERR_MSG_INPUT, STDERR_FILENO);
 		return (FAILURE);
 	}
 	add_history(*input);
@@ -42,6 +42,7 @@ bool	parse_input(char *input, t_data *data)
 		return (FAILURE);
 	}
 	env_expander(data);
+	heredoc_identifier(data);
 	quote_remover(data);
 	parsing_finalizer(data);
 	return (SUCCESS);
