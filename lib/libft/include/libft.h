@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/08/05 17:24:33 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/05 19:10:33 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ typedef enum e_token_type
 	TOK_IN,
 	TOK_OUT,
 	TOK_HERE,
-	TOK_HERE_QUOTED,
-	TOK_HERE_UNQUOTED,
+	TOK_HERE_QTD,
+	TOK_HERE_UNQTD,
 	TOK_APP,
 	TOK_WORD,
 	TOK_CMD,

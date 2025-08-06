@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:40:06 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/05 17:33:56 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/06 09:12:54 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	main(int argc, char **argv, char **env)
 			continue ;
 		if (parse_input(input, data) != SUCCESS)
 			continue ;
+		create_heredoc_temps(data);
 		test_tok(data);
 		test_builtins(data);
 		ft_lst_tok_clear(&data->lst_tok);
@@ -68,9 +69,9 @@ static void	test_tok(t_data *data)
 		else if (current->type == 3)
 			printf("%-20s %s\n", "TOK_HERE", current->content);
 		else if (current->type == 4)
-			printf("%-20s %s\n", "TOK_HERE_QUOTED", current->content);
+			printf("%-20s %s\n", "TOK_HERE_QTD", current->content);
 		else if (current->type == 5)
-			printf("%-20s %s\n", "TOK_HERE_UNQUOTED", current->content);
+			printf("%-20s %s\n", "TOK_HERE_UNQTD", current->content);
 		else if (current->type == 6)
 			printf("%-20s %s\n", "TOK_APP", current->content);
 		else if (current->type == 7)

@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 12:22:28 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/05 10:33:13 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/06 09:45:23 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static void	expand(char **content, size_t i, t_data *data)
 		if (ft_strcmp(current->key, tok_key) == 0)
 		{
 			free(tok_key);
+			tok_key = NULL;
 			new_content = malloc(sizeof(char) * (ft_strlen(*content)
 						+ ft_strlen(current->value) - ft_strlen(current->key)));
 			if (!new_content)
@@ -107,6 +108,7 @@ static void	exp_var(char *content, char *new_content, size_t i, t_env *current)
 		new_content[j++] = content[i++];
 	new_content[j] = '\0';
 	free(content);
+	content = NULL;
 }
 
 // Removes variables that have no values.
@@ -122,4 +124,5 @@ static void	rem_var(char *content, char **tok_key, size_t i)
 	}
 	content[i] = '\0';
 	free(*tok_key);
+	*tok_key = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 11:55:35 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/04 09:33:37 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/06 09:46:05 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	exp_exit_status(char **content, char *tok_key, size_t i, t_data *data)
 	char	*new_content;
 
 	free(tok_key);
+	tok_key = NULL;
 	exit_str = ft_itoa(data->exit_status);
 	if (!exit_str)
 		error_env_exp(data);
@@ -28,6 +29,7 @@ void	exp_exit_status(char **content, char *tok_key, size_t i, t_data *data)
 	if (!new_content)
 	{
 		free(exit_str);
+		exit_str = NULL;
 		error_env_exp(data);
 	}
 	exp_var(*content, new_content, exit_str, i);
@@ -51,5 +53,7 @@ static void	exp_var(char *content, char *new_content, char *exit_str, size_t i)
 		new_content[j++] = content[i++];
 	new_content[j] = '\0';
 	free(exit_str);
+	exit_str = NULL;
 	free(content);
+	content = NULL;
 }

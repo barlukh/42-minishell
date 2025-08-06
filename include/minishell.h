@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/05 11:39:41 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/06 15:50:57 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 # include "libft.h"
 
+# include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
@@ -40,6 +41,9 @@ extern volatile sig_atomic_t	g_signal;
 # define INPUT_MAX 1024
 # define PATH_MAX 4096
 
+// Temp files naming prefix.
+# define TEMP "here_temp"
+
 // Error messages.
 # define ERR_MSG_MEM "malloc: Cannot allocate memory"
 # define ERR_MSG_QUOTE "syntax error: unclosed quote"
@@ -48,6 +52,7 @@ extern volatile sig_atomic_t	g_signal;
 # define ERR_MSG_HERE "maximum here-document count exceeded"
 # define ERR_MSG_INPUT "maximum input length exceeded"
 # define ERR_MSG_EXIT "exit"
+# define ERR_MSG_FILE "open: Error opening file"
 
 // Return / exit values (general).
 # define SUCCESS 0
@@ -98,6 +103,20 @@ int		builtin_echo(t_token **current);
 int		builtins_check(t_token **current, t_data *data);
 
 /**
+ * @brief Frees all allocated memory in the data struct.
+ * @param data Data struct of all core variables.
+ * @return None.
+ */
+void	clean_data(t_data *data);
+
+/**
+ * @brief Creates heredoc temporary files.
+ * @param data Data struct of all core variables.
+ * @return None.
+ */
+void	create_heredoc_temps(t_data *data);
+
+/**
  * @brief Copies environment variables, storing them as a linked list.
  * @param env Environment variables.
  * @param data Data struct of all core variables.
@@ -107,17 +126,30 @@ void	create_lst_env(char **env, t_data *data);
 
 /**
  * @brief Peforms an environment variable expansion.
- * @param data struct of all core variables.
+ * @param data Data struct of all core variables.
  * @return None.
  */
 void	env_expander(t_data *data);
 
 /**
  * @brief Handles errors in the environment expansion phase.
- * @param data struct of all core variables.
+ * @param data Data struct of all core variables.
  * @return None.
  */
 void	error_env_exp(t_data *data);
+
+/**
+ * @brief Handles errors with heredoc file fails.
+ * @param data Data struct of all core variables.
+ */
+void	error_heredoc_file(t_data *data);
+
+/**
+ * @brief Handles errors with heredoc memory fails.
+ * @param data Data struct of all core variables.
+ * @return None.
+ */
+void	error_heredoc_mem(t_data *data);
 
 /**
  * @brief Handles errors when creating a linked list of environment variables.

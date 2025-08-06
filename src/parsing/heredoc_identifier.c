@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:36:04 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/05 17:55:56 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/05 19:10:33 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	heredoc_identifier(t_data *data)
 		{
 			find_quotes(&quote_found, current);
 			if (quote_found == true)
-				current->next->type = TOK_HERE_QUOTED;
+				current->next->type = TOK_HERE_QTD;
 			else
-				current->next->type = TOK_HERE_UNQUOTED;
+				current->next->type = TOK_HERE_UNQTD;
 		}
 		current = current->next;
 	}

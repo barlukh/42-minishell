@@ -6,13 +6,14 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 15:47:26 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/05 17:30:36 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/06 15:51:34 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	replace_redirs(t_token **current, t_token **next, t_data *data);
+static void	update_pipe(bool *new_pipe, t_token *current);
 static void	replace_cmds_args(bool *new_pipe, t_token *current);
 
 void	parsing_finalizer(t_data *data)
@@ -27,17 +28,19 @@ void	parsing_finalizer(t_data *data)
 	{
 		next = current->next;
 		if (current->content[0] == '\0' || current->type == TOK_HERE)
+		{
 			ft_lst_tok_remove(&data->lst_tok, current);
-		else if (current->type == TOK_IN || current->type == TOK_OUT
+			current = next;
+			continue ;
+		}
+		if (current->type == TOK_IN || current->type == TOK_OUT
 			|| current->type == TOK_APP)
 		{
 			replace_redirs(&current, &next, data);
 			continue ;
 		}
-		if (current->type == TOK_PIPE)
-			new_pipe = true;
-		if (current->type == TOK_WORD)
-			replace_cmds_args(&new_pipe, current);
+		update_pipe(&new_pipe, current);
+		replace_cmds_args(&new_pipe, current);
 		current = next;
 	}
 }
@@ -50,14 +53,24 @@ static void	replace_redirs(t_token **current, t_token **next, t_data *data)
 	*current = (*next)->next;
 }
 
+// Updates the bool flag of a new_pipe.
+static void	update_pipe(bool *new_pipe, t_token *current)
+{
+	if (current->type == TOK_PIPE)
+		*new_pipe = true;
+}
+
 // Defines commands and arguments.
 static void	replace_cmds_args(bool *new_pipe, t_token *current)
 {
-	if (*new_pipe == true)
+	if (current->type == TOK_WORD)
 	{
-		current->type = TOK_CMD;
-		*new_pipe = false;
+		if (*new_pipe == true)
+		{
+			current->type = TOK_CMD;
+			*new_pipe = false;
+		}
+		else
+			current->type = TOK_ARG;
 	}
-	else
-		current->type = TOK_ARG;
 }

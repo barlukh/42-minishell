@@ -6,13 +6,11 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 10:52:37 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/05 11:27:55 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/06 09:23:20 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	clean_data(t_data *data);
 
 void	error_env_exp(t_data *data)
 {
@@ -55,8 +53,7 @@ void	error_tok(char *input, t_data *data)
 	exit(data->exit_status);
 }
 
-// Frees all allocated memory in the data struct.
-static void	clean_data(t_data *data)
+void	clean_data(t_data *data)
 {
 	ft_lst_env_clear(&data->lst_env);
 	data->lst_env = NULL;
