@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 19:17:04 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/06 15:44:51 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/06 15:55:20 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	create_heredoc_temps(t_data *data)
 	}
 }
 
+// Finds the next available id number for heredoc file.
 static void	find_available_id(char **temp_name, size_t *i, t_data *data)
 {
 	char	*id;
@@ -59,6 +60,7 @@ static void	find_available_id(char **temp_name, size_t *i, t_data *data)
 	}
 }
 
+// Creates a new heredoc file.
 static void	create_temp_file(char *temp_name, t_data *data)
 {
 	int		fd;
