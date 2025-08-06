@@ -6,21 +6,24 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 19:17:04 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/06 15:55:20 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/06 19:09:04 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	find_available_id(char **temp_name, size_t *i, t_data *data);
-static void	create_temp_file(char *temp_name, t_data *data);
+static void	create_temp_file(char *temp_name, int *fd, t_data *data);
+static void	get_user_input(int *fd, t_token *current);
 
 void	create_heredoc_temps(t_data *data)
 {
 	char	*temp_name;
+	int		fd;
 	size_t	i;
 	t_token	*current;
 
+	fd = 0;
 	i = 0;
 	current = data->lst_tok;
 	while (current)
@@ -28,7 +31,9 @@ void	create_heredoc_temps(t_data *data)
 		if (current->type == TOK_HERE_QTD || current->type == TOK_HERE_UNQTD)
 		{
 			find_available_id(&temp_name, &i, data);
-			create_temp_file(temp_name, data);
+			create_temp_file(temp_name, &fd, data);
+			get_user_input(&fd, current);
+			close(fd);
 			i++;
 		}
 		current = current->next;
@@ -61,14 +66,33 @@ static void	find_available_id(char **temp_name, size_t *i, t_data *data)
 }
 
 // Creates a new heredoc file.
-static void	create_temp_file(char *temp_name, t_data *data)
+static void	create_temp_file(char *temp_name, int *fd, t_data *data)
 {
-	int		fd;
-
-	fd = open(temp_name, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	*fd = open(temp_name, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	free(temp_name);
 	temp_name = NULL;
-	if (fd == -1)
+	if (*fd == -1)
 		error_heredoc_file(data);
-	close(fd);
+}
+
+// Asks user for an input and writes it into the heredoc file.
+static void	get_user_input(int *fd, t_token *current)
+{
+	char	*input;
+
+	input = NULL;
+	while (true)
+	{
+		input = readline("> ");
+		if (!input)
+		{
+			ft_putendl_fd(ERR_MSG_EOF, STDERR_FILENO);
+			break ;
+		}
+		if (ft_strcmp(input, current->content) == 0)
+			break ;
+		write(*fd, input, ft_strlen(input));
+		write(*fd, "\n", 1);
+	}
+	free(input);
 }

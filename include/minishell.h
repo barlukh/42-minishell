@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/06 15:50:57 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/06 17:48:07 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ extern volatile sig_atomic_t	g_signal;
 // Macro Definitions
 //------------------------------------------------------------------------------
 
-// Maximum number of bytes allowed in a full pathname.
+// Maximum length of a valid input for readline.
 # define INPUT_MAX 1024
+
+// Maximum number of bytes allowed in a full pathname.
 # define PATH_MAX 4096
 
 // Temp files naming prefix.
@@ -46,13 +48,14 @@ extern volatile sig_atomic_t	g_signal;
 
 // Error messages.
 # define ERR_MSG_MEM "malloc: Cannot allocate memory"
+# define ERR_MSG_FILE "open: Error opening file"
 # define ERR_MSG_QUOTE "syntax error: unclosed quote"
 # define ERR_MSG_PIPES "syntax error near unexpected token `|\'"
 # define ERR_MSG_REDIR "syntax error near unexpected token `redirection'"
-# define ERR_MSG_HERE "maximum here-document count exceeded"
 # define ERR_MSG_INPUT "maximum input length exceeded"
+# define ERR_MSG_HERE "maximum here-document count exceeded"
+# define ERR_MSG_EOF "warning: here-document delimited by end-of-file"
 # define ERR_MSG_EXIT "exit"
-# define ERR_MSG_FILE "open: Error opening file"
 
 // Return / exit values (general).
 # define SUCCESS 0

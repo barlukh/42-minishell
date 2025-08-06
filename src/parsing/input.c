@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 07:52:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/05 11:35:58 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/06 19:00:25 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ bool	read_input(char **input, t_data *data)
 	{
 		data->exit_status = 2;
 		ft_putendl_fd(ERR_MSG_INPUT, STDERR_FILENO);
+		free(*input);
 		return (FAILURE);
 	}
 	add_history(*input);

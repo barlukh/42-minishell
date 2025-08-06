@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:28:02 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/04 18:19:02 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/06 18:55:26 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ void	signals(void)
 	struct sigaction	ignore;
 
 	ft_bzero(&action, sizeof(action));
-	ft_bzero(&ignore, sizeof(ignore));
 	action.sa_handler = signal_handler_sigint;
-	ignore.sa_handler = SIG_IGN;
 	sigemptyset(&action.sa_mask);
-	sigemptyset(&ignore.sa_mask);
 	action.sa_flags = SA_RESTART;
-	ignore.sa_flags = 0;
 	sigaction(SIGINT, &action, NULL);
+	ft_bzero(&ignore, sizeof(ignore));
+	ignore.sa_handler = SIG_IGN;
+	sigemptyset(&ignore.sa_mask);
+	ignore.sa_flags = 0;
 	sigaction(SIGQUIT, &ignore, NULL);
 }
 
