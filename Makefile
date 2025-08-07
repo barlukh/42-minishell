@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 08:53:07 by bgazur            #+#    #+#              #
-#    Updated: 2025/08/06 08:52:42 by bgazur           ###   ########.fr        #
+#    Updated: 2025/08/07 13:25:45 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRC			=	$(DIR_BUILTIN)/builtin_cd.c \
 				$(DIR_PARSING)/quote_remover.c \
 				$(DIR_PARSING)/syntax_checker.c \
 				$(DIR_PARSING)/tokenizer.c \
+				$(DIR_SIGNALS)/signal_handlers.c \
 				$(DIR_SIGNALS)/signals.c \
 				$(DIR_SRC)/main.c
 

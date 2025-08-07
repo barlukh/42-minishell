@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 07:52:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/06 19:00:25 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/07 13:06:34 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 bool	read_input(char **input, t_data *data)
 {
+	rl_done = 0;
+	rl_event_hook = NULL;
 	*input = readline("minishell$ ");
 	if (!*input)
 	{

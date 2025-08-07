@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/06 17:48:07 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/07 13:28:39 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,9 @@ void	clean_data(t_data *data);
 /**
  * @brief Creates heredoc temporary files.
  * @param data Data struct of all core variables.
- * @return None.
+ * @return SUCCESS or FAILURE.
  */
-void	create_heredoc_temps(t_data *data);
+bool	create_heredoc_temps(t_data *data);
 
 /**
  * @brief Copies environment variables, storing them as a linked list.
@@ -233,11 +233,32 @@ void	quote_remover(t_data *data);
 bool	read_input(char **input, t_data *data);
 
 /**
- * @brief Defines behaviour of signals.
+ * @brief Executes when a signal is received in heredoc.
+ * @param signum Signal number.
+ * @return None.
+ */
+void	signal_handler_heredoc(int signum);
+
+/**
+ * @brief Executes when a signal is received in the main process.
+ * @param signum Signal number.
+ * @return None.
+ */
+void	signal_handler_main(int signum);
+
+/**
+ * @brief Defines behaviour of signals in heredoc.
  * @param void None.
  * @return None.
  */
-void	signals(void);
+void	signals_heredoc(void);
+
+/**
+ * @brief Defines behaviour of signals in the main processs.
+ * @param void None.
+ * @return None.
+ */
+void	signals_main(void);
 
 /**
  * @brief Checks for syntax errors in tokens.

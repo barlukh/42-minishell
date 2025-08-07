@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:40:06 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/06 18:49:07 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/07 11:46:54 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,16 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	input = NULL;
 	data = get_data();
-	signals();
 	create_lst_env(env, data);
 	while (true)
 	{
+		signals_main();
 		if (read_input(&input, data) != SUCCESS)
 			continue ;
 		if (parse_input(input, data) != SUCCESS)
 			continue ;
-		create_heredoc_temps(data);
+		if (create_heredoc_temps(data) != SUCCESS)
+			continue ;
 		test_tok(data);
 		test_builtins(data);
 		ft_lst_tok_clear(&data->lst_tok);
