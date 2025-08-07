@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_status.c                                      :+:      :+:    :+:   */
+/*   exp_exit_main.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 11:55:35 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/06 09:46:05 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/07 15:57:20 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	exp_var(char *content, char *new_content, char *exit_str, size_t i);
 
-void	exp_exit_status(char **content, char *tok_key, size_t i, t_data *data)
+void	exp_exit_main(char **content, char *tok_key, size_t i, t_data *data)
 {
 	char	*exit_str;
 	char	*new_content;

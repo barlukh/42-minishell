@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc.c                                          :+:      :+:    :+:   */
+/*   heredocs.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 19:17:04 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/07 13:39:34 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/07 15:57:30 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static void	find_available_id(char **temp_name, size_t *i, t_data *data);
 static void	create_temp_file(char *temp_name, int *fd, t_data *data);
-static bool	get_user_input(int *fd, t_token *current);
+static bool	get_user_input(int *fd, t_token *current, t_data *data);
 static int	heredoc_event_hook(void);
 
-bool	create_heredoc_temps(t_data *data)
+bool	create_heredocs(t_data *data)
 {
 	char	*temp_name;
 	int		fd;
@@ -33,11 +33,8 @@ bool	create_heredoc_temps(t_data *data)
 		{
 			find_available_id(&temp_name, &i, data);
 			create_temp_file(temp_name, &fd, data);
-			if (get_user_input(&fd, current) != SUCCESS)
-			{
-				ft_lst_tok_clear(&data->lst_tok);
-				return (FAILURE);
-			}
+			if (get_user_input(&fd, current, data) != SUCCESS)
+				return (error_heredoc_signal(data));
 			i++;
 		}
 		current = current->next;
@@ -81,11 +78,10 @@ static void	create_temp_file(char *temp_name, int *fd, t_data *data)
 }
 
 // Asks user for an input and writes it into the heredoc file.
-static bool	get_user_input(int *fd, t_token *current)
+static bool	get_user_input(int *fd, t_token *current, t_data *data)
 {
 	char	*input;
 
-	input = NULL;
 	signals_heredoc();
 	while (true)
 	{
@@ -94,6 +90,7 @@ static bool	get_user_input(int *fd, t_token *current)
 		if (g_signal == 130)
 		{
 			free(input);
+			close(*fd);
 			return (FAILURE);
 		}
 		if (!input)
@@ -103,10 +100,10 @@ static bool	get_user_input(int *fd, t_token *current)
 		}
 		if (ft_strcmp(input, current->content) == 0)
 			break ;
-		write(*fd, input, ft_strlen(input));
-		write(*fd, "\n", 1);
+		expand_write(input, fd, current, data);
 	}
 	free(input);
+	close(*fd);
 	return (SUCCESS);
 }
 

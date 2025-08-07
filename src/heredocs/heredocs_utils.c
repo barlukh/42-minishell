@@ -1,0 +1,126 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredocs_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/07 14:35:08 by bgazur            #+#    #+#             */
+/*   Updated: 2025/08/07 16:16:30 by bgazur           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+static void	expand(char **input, char *tok_key, size_t i, t_data *data);
+static char	*define_key(char *input, t_data *data);
+static void	exp_var(char *input, char *new_input, size_t i, t_env *current);
+static void	rem_var(char *input, char **tok_key, size_t i);
+
+void	expand_write(char *input, int *fd, t_token *current, t_data *data)
+{
+	char	*tok_key;
+	size_t	i;
+
+	if (current->type == TOK_HERE_UNQTD)
+	{
+		i = 0;
+		while (input[i])
+		{
+			if (input[i] == '$')
+			{
+				tok_key = define_key(input + i + 1, data);
+				if (ft_strcmp("?", tok_key) == 0)
+				{
+					if (exp_exit_heredoc(&input, tok_key, i, data) != SUCCESS)
+						error_heredoc_exp(input, fd, data);
+				}
+				expand(&input, tok_key, i, data);
+			}
+			else
+				i++;
+		}
+	}
+	write(*fd, input, ft_strlen(input));
+	write(*fd, "\n", 1);
+}
+
+// Expands environment variables.
+static void	expand(char **input, char *tok_key, size_t i, t_data *data)
+{
+	char	*new_input;
+	t_env	*current;
+
+	current = data->lst_env;
+	while (current)
+	{
+		if (ft_strcmp(current->key, tok_key) == 0)
+		{
+			free(tok_key);
+			tok_key = NULL;
+			new_input = malloc(sizeof(char) * (ft_strlen(*input)
+						+ ft_strlen(current->value) - ft_strlen(current->key)));
+			if (!new_input)
+				error_env_exp(data);
+			exp_var(*input, new_input, i, current);
+			*input = new_input;
+			return ;
+		}
+		current = current->next;
+	}
+	rem_var(*input, &tok_key, i);
+}
+
+// Allocates key (string) out of a token.
+static char	*define_key(char *input, t_data *data)
+{
+	char	*tok_key;
+	size_t	i;
+
+	i = 0;
+	if (input[i] == '?' || ft_isdigit(input[i]))
+		i++;
+	else
+		while (ft_isalnum(input[i]) || input[i] == '_')
+			i++;
+	tok_key = ft_substr(input, 0, i);
+	if (!tok_key)
+		error_env_exp(data);
+	return (tok_key);
+}
+
+// Replaces variables with their expanded values.
+static void	exp_var(char *input, char *new_content, size_t i, t_env *current)
+{
+	size_t	j;
+	size_t	k;
+
+	j = 0;
+	k = 0;
+	ft_memcpy(new_content, input, i);
+	j = i;
+	while (current->value[k])
+		new_content[j++] = current->value[k++];
+	i += ft_strlen(current->key) + 1;
+	while (input[i])
+		new_content[j++] = input[i++];
+	new_content[j] = '\0';
+	free(input);
+	input = NULL;
+}
+
+// Removes variables that have no values.
+static void	rem_var(char *input, char **tok_key, size_t i)
+{
+	size_t	len;
+
+	len = ft_strlen(*tok_key) + 1;
+	while (input[i + len] != '\0')
+	{
+		input[i] = input[i + len];
+		i++;
+	}
+	input[i] = '\0';
+	free(*tok_key);
+	*tok_key = NULL;
+}

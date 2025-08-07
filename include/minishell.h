@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/07 13:28:39 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/07 16:10:09 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,11 +113,11 @@ int		builtins_check(t_token **current, t_data *data);
 void	clean_data(t_data *data);
 
 /**
- * @brief Creates heredoc temporary files.
+ * @brief Creates heredocs.
  * @param data Data struct of all core variables.
  * @return SUCCESS or FAILURE.
  */
-bool	create_heredoc_temps(t_data *data);
+bool	create_heredocs(t_data *data);
 
 /**
  * @brief Copies environment variables, storing them as a linked list.
@@ -142,8 +142,18 @@ void	env_expander(t_data *data);
 void	error_env_exp(t_data *data);
 
 /**
+ * @brief Handles errors in heredoc variable expansion.
+ * @param input Input string received from a command line.
+ * @param fd Open file descriptor of the current file.
+ * @param data Data struct of all core variables.
+ * @return None.
+ */
+void	error_heredoc_exp(char *input, int *fd, t_data *data);
+
+/**
  * @brief Handles errors with heredoc file fails.
  * @param data Data struct of all core variables.
+ * @return None.
  */
 void	error_heredoc_file(t_data *data);
 
@@ -153,6 +163,13 @@ void	error_heredoc_file(t_data *data);
  * @return None.
  */
 void	error_heredoc_mem(t_data *data);
+
+/**
+ * @brief Handles heredoc signal interrupts.
+ * @param data Data struct of all core variables.
+ * @return FAILURE.
+ */
+bool	error_heredoc_signal(t_data *data);
 
 /**
  * @brief Handles errors when creating a linked list of environment variables.
@@ -179,14 +196,33 @@ void	error_synt(t_data *data);
 void	error_tok(char *input, t_data *data);
 
 /**
- * @brief Expands question mark variable with the current exit code.
+ * @brief Expands question mark variable in a heredoc.
+ * @param input Address of the input string received from a command line.
+ * @param tok_key Key string.
+ * @param i Index of a character.
+ * @param data Data struct of all core variables.
+ * @return None.
+ */
+bool	exp_exit_heredoc(char **input, char *tok_key, size_t i, t_data *data);
+
+/**
+ * @brief Expands question mark variable in a token.
  * @param content Pointer to the content of the current token.
  * @param tok_key Key string.
  * @param i Index of a character.
  * @param data Data struct of all core variables.
  * @return None.
  */
-void	exp_exit_status(char **content, char *tok_key, size_t i, t_data *data);
+void	exp_exit_main(char **content, char *tok_key, size_t i, t_data *data);
+
+/**
+ * @brief Expands variables and writes the input into a file.
+ * @param input Input string received from a command line.
+ * @param fd Open file descriptor of the current file.
+ * @param current Current token.
+ * @param data Data struct of all core variables.
+ */
+void	expand_write(char *input, int *fd, t_token *current, t_data *data);
 
 /**
  * @brief Creates a static data struct.
