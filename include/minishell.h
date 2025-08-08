@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/08 10:24:40 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/08 18:37:36 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,6 +282,15 @@ void	quote_remover(t_data *data);
  * @return None.
  */
 bool	read_input(char **input, t_data *data);
+
+/**
+ * @brief Renames heredoc token with the file name.
+ * @param i Index of a file.
+ * @param current Current token.
+ * @param data Data struct of all core variables.
+ * @return None.
+ */
+void	rename_heredoc_token(size_t i, t_token *current, t_data *data);
 
 /**
  * @brief Executes when a signal is received in heredoc.

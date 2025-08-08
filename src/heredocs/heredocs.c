@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 19:17:04 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/08 13:34:18 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/08 18:36:51 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ bool	create_heredocs(t_data *data)
 			if (get_user_input(&fd, current, data) != SUCCESS)
 				return (error_heredoc_signal(data));
 			close(fd);
+			rename_heredoc_token(i, current, data);
 			i++;
 		}
 		current = current->next;
