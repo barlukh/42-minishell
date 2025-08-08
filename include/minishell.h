@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/07 16:10:09 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/08 10:24:40 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,11 +232,26 @@ void	expand_write(char *input, int *fd, t_token *current, t_data *data);
 t_data	*get_data(void);
 
 /**
+ * @brief Function to call periodically when readline is waiting for input.
+ * @param void None.
+ * @return None.
+ */
+int		heredoc_event_hook(void);
+
+/**
  * @brief Identifies quotes in a heredoc delimiter and reassigns token type.
  * @param data Data struct of all core variables.
  * @return None.
  */
 void	heredoc_identifier(t_data *data);
+
+/**
+ * @brief Writes an input line into a heredoc.
+ * @param input Input string received from a command line.
+ * @param fd Open file descriptor of the current file.
+ * @return None.
+ */
+void	heredoc_write(char *input, int *fd);
 
 /**
  * @brief Parses command line input string.

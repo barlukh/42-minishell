@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 19:17:04 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/07 15:57:30 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/08 10:21:50 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	find_available_id(char **temp_name, size_t *i, t_data *data);
 static void	create_temp_file(char *temp_name, int *fd, t_data *data);
 static bool	get_user_input(int *fd, t_token *current, t_data *data);
-static int	heredoc_event_hook(void);
 
 bool	create_heredocs(t_data *data)
 {
@@ -35,6 +34,7 @@ bool	create_heredocs(t_data *data)
 			create_temp_file(temp_name, &fd, data);
 			if (get_user_input(&fd, current, data) != SUCCESS)
 				return (error_heredoc_signal(data));
+			close(fd);
 			i++;
 		}
 		current = current->next;
@@ -103,17 +103,5 @@ static bool	get_user_input(int *fd, t_token *current, t_data *data)
 		expand_write(input, fd, current, data);
 	}
 	free(input);
-	close(*fd);
 	return (SUCCESS);
-}
-
-// Function to call periodically when readline is waiting for terminal input.
-static int	heredoc_event_hook(void)
-{
-	if (g_signal == 130)
-	{
-		rl_done = 1;
-		return (1);
-	}
-	return (0);
 }

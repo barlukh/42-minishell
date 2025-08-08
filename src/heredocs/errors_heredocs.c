@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 08:46:41 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/07 16:13:34 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/08 09:57:27 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	error_heredoc_file(t_data *data)
 
 bool	error_heredoc_signal(t_data *data)
 {
-	(void)data;
 	ft_lst_tok_clear(&data->lst_tok);
 	return (FAILURE);
 }
@@ -40,6 +39,7 @@ bool	error_heredoc_signal(t_data *data)
 void	error_heredoc_exp(char *input, int *fd, t_data *data)
 {
 	free(input);
+	input = NULL;
 	close(*fd);
 	clean_data(data);
 	clear_history();

@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 08:53:07 by bgazur            #+#    #+#              #
-#    Updated: 2025/08/07 16:02:58 by bgazur           ###   ########.fr        #
+#    Updated: 2025/08/08 10:20:02 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC			=	$(DIR_BUILTIN)/builtin_cd.c \
 				$(DIR_EXEC)/temporary.c \
 				$(DIR_HEREDOC)/errors_heredocs.c \
 				$(DIR_HEREDOC)/exp_exit_heredoc.c \
+				$(DIR_HEREDOC)/heredocs_expander.c \
 				$(DIR_HEREDOC)/heredocs_utils.c \
 				$(DIR_HEREDOC)/heredocs.c \
 				$(DIR_PARSING)/env_expander.c \
