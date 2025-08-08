@@ -6,14 +6,14 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 14:35:08 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/08 14:23:42 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/08 19:24:03 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static bool	expand(char **input, char *tok_key, size_t i, t_data *data);
-static char	*define_key(char *input, int *fd, t_data *data);
+static char	*define_key(char *input_orig, char *input, int *fd, t_data *data);
 static void	exp_var(char *input, char *new_input, size_t i, t_env *current);
 static void	rem_var(char *input, char **tok_key, size_t i);
 
@@ -30,7 +30,7 @@ void	expand_write(char *input, int *fd, t_token *current, t_data *data)
 			if (input[i] == '$' && (input[i + 1] == '?'
 					|| ft_isalnum(input[i + 1]) || input[i + 1] == '_'))
 			{
-				tok_key = define_key(input + i + 1, fd, data);
+				tok_key = define_key(input, input + i + 1, fd, data);
 				if (ft_strcmp("?", tok_key) == 0)
 				{
 					if (exp_exit_heredoc(&input, tok_key, i, data) != SUCCESS)
@@ -47,7 +47,7 @@ void	expand_write(char *input, int *fd, t_token *current, t_data *data)
 }
 
 // Allocates key (string) out of a token.
-static char	*define_key(char *input, int *fd, t_data *data)
+static char	*define_key(char *input_orig, char *input, int *fd, t_data *data)
 {
 	char	*tok_key;
 	size_t	i;
@@ -60,7 +60,7 @@ static char	*define_key(char *input, int *fd, t_data *data)
 			i++;
 	tok_key = ft_substr(input, 0, i);
 	if (!tok_key)
-		error_heredoc_exp(input, fd, data);
+		error_heredoc_exp(input_orig, fd, data);
 	return (tok_key);
 }
 
