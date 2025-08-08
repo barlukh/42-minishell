@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 14:35:08 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/08 10:24:02 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/08 12:06:53 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	expand_write(char *input, int *fd, t_token *current, t_data *data)
 		i = 0;
 		while (input[i])
 		{
-			if (input[i] == '$')
+			if (input[i] == '$' &&
+				(ft_isalnum(input[i + 1]) || input[i + 1] == '_'))
 			{
 				tok_key = define_key(input + i + 1, fd, data);
 				if (ft_strcmp("?", tok_key) == 0)
@@ -43,7 +44,6 @@ void	expand_write(char *input, int *fd, t_token *current, t_data *data)
 		}
 	}
 	heredoc_write(input, fd);
-	free(input);
 }
 
 // Allocates key (string) out of a token.

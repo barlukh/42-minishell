@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 10:19:10 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/08 10:22:44 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/08 10:55:13 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,5 @@ void	heredoc_write(char *input, int *fd)
 {
 	write(*fd, input, ft_strlen(input));
 	write(*fd, "\n", 1);
+	free(input);
 }
