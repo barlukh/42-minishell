@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 11:55:35 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/08 09:51:32 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/08 13:55:58 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ bool	exp_exit_heredoc(char **input, char *tok_key, size_t i, t_data *data)
 		return (FAILURE);
 	}
 	exp_var(*input, new_input, exit_str, i);
+	free(*input);
 	*input = new_input;
+	free(exit_str);
+	exit_str = NULL;
 	return (SUCCESS);
 }
 
@@ -53,8 +56,4 @@ static void	exp_var(char *input, char *new_input, char *exit_str, size_t i)
 	while (input[i])
 		new_input[j++] = input[i++];
 	new_input[j] = '\0';
-	free(exit_str);
-	exit_str = NULL;
-	free(input);
-	input = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 19:17:04 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/08 10:21:50 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/08 13:34:18 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ static bool	get_user_input(int *fd, t_token *current, t_data *data)
 		if (!input)
 		{
 			ft_putendl_fd(ERR_MSG_EOF, STDERR_FILENO);
+			get_data()->exit_status = 0;
 			break ;
 		}
 		if (ft_strcmp(input, current->content) == 0)
