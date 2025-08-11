@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 12:27:45 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/11 13:35:27 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/11 14:05:24 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,17 @@ int	builtin_echo(t_token **current)
 // Checks if the token is a valid -n option.
 static bool	is_valid_n_option(char *content)
 {
-	if (*content == '-')
+	size_t	i;
+
+	i = 0;
+	if (content[i] == '-')
 	{
-		content++;
-		while (*content)
+		i++;
+		while (content[i])
 		{
-			if (*content != 'n')
+			if (content[i] != 'n')
 				return (false);
-			content++;
+			i++;
 		}
 		return (true);
 	}
@@ -67,8 +70,8 @@ static bool	is_valid_n_option(char *content)
 static void	skip_n_option(int *passed_n_option, t_token **current)
 {
 	*passed_n_option = true;
-	while (is_valid_n_option((*current)->content)
-		|| (*current)->type != TOK_ARG)
+	while (*current && (is_valid_n_option((*current)->content)
+		|| (*current)->type != TOK_ARG))
 		*current = (*current)->next;
 }
 

@@ -6,13 +6,13 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 12:22:28 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/11 13:13:51 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/11 16:07:14 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	expand(char **content, size_t i, t_data *data);
+static void	expand(char **content, size_t *i, t_data *data);
 static char	*define_key(char *content, t_data *data);
 static void	exp_var(char *content, char *new_content, size_t i, t_env *current);
 static void	rem_var(char *content, char **tok_key, size_t i);
@@ -32,7 +32,7 @@ void	env_expander(t_data *data)
 		{
 			if (ft_isexpandable(current->content[i], &quote)
 				&& !ft_isexpexception(current->content, quote, i))
-				expand(&current->content, i, data);
+				expand(&current->content, &i, data);
 			else
 				i++;
 		}
@@ -44,33 +44,33 @@ void	env_expander(t_data *data)
 }
 
 // Expands environment variables.
-static void	expand(char **content, size_t i, t_data *data)
+static void	expand(char **content, size_t *i, t_data *data)
 {
 	char	*tok_key;
 	char	*new_content;
 	t_env	*current;
 
-	tok_key = define_key(*content + i + 1, data);
+	tok_key = define_key(*content + *i + 1, data);
 	if (ft_strcmp("?", tok_key) == 0)
-		return (exp_exit_main(content, tok_key, i, data));
+		return (exp_exit_main(content, tok_key, *i, data));
 	current = data->lst_env;
 	while (current)
 	{
 		if (ft_strcmp(current->key, tok_key) == 0)
 		{
 			free(tok_key);
-			tok_key = NULL;
 			new_content = malloc(sizeof(char) * (ft_strlen(*content)
 						+ ft_strlen(current->value) - ft_strlen(current->key)));
 			if (!new_content)
 				error_env_exp(data);
-			exp_var(*content, new_content, i, current);
+			exp_var(*content, new_content, *i, current);
+			*i += ft_strlen(current->value);
 			*content = new_content;
 			return ;
 		}
 		current = current->next;
 	}
-	rem_var(*content, &tok_key, i);
+	rem_var(*content, &tok_key, *i);
 }
 
 // Allocates key (string) out of a token.

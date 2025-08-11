@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 15:47:26 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/06 15:51:34 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/11 14:09:03 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	parsing_finalizer(t_data *data)
 	while (current)
 	{
 		next = current->next;
-		if (current->content[0] == '\0' || current->type == TOK_HERE)
+		if (current->type == TOK_HERE)
 		{
 			ft_lst_tok_remove(&data->lst_tok, current);
 			current = next;
