@@ -6,12 +6,13 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 12:27:45 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/04 17:59:18 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/11 13:35:27 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static bool	is_valid_n_option(char *content);
 static void	skip_n_option(int *passed_n_option, t_token **current);
 static void	output_argument(int *passed_word, t_token **current);
 static void	end_line(int passed_n_option);
@@ -28,7 +29,7 @@ int	builtin_echo(t_token **current)
 		*current = (*current)->next;
 		while (*current && (*current)->type != TOK_PIPE)
 		{
-			if (ft_strcmp((*current)->content, "-n") == 0
+			if (is_valid_n_option((*current)->content)
 				&& passed_n_option == false && passed_word == false)
 			{
 				skip_n_option(&passed_n_option, current);
@@ -45,11 +46,28 @@ int	builtin_echo(t_token **current)
 	return (BUILT_NO);
 }
 
+// Checks if the token is a valid -n option.
+static bool	is_valid_n_option(char *content)
+{
+	if (*content == '-')
+	{
+		content++;
+		while (*content)
+		{
+			if (*content != 'n')
+				return (false);
+			content++;
+		}
+		return (true);
+	}
+	return (false);
+}
+
 // Skips all repeating -n options.
 static void	skip_n_option(int *passed_n_option, t_token **current)
 {
 	*passed_n_option = true;
-	while (ft_strcmp((*current)->content, "-n") == 0
+	while (is_valid_n_option((*current)->content)
 		|| (*current)->type != TOK_ARG)
 		*current = (*current)->next;
 }
