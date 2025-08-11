@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 12:27:45 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/11 14:05:24 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/11 17:02:28 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	skip_n_option(int *passed_n_option, t_token **current)
 {
 	*passed_n_option = true;
 	while (*current && (is_valid_n_option((*current)->content)
-		|| (*current)->type != TOK_ARG))
+			|| (*current)->type != TOK_ARG))
 		*current = (*current)->next;
 }
 

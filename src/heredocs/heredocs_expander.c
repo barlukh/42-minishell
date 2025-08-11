@@ -6,13 +6,13 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 14:35:08 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/08 19:24:03 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/11 16:36:28 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool	expand(char **input, char *tok_key, size_t i, t_data *data);
+static bool	expand(char **input, char *tok_key, size_t *i, t_data *data);
 static char	*define_key(char *input_orig, char *input, int *fd, t_data *data);
 static void	exp_var(char *input, char *new_input, size_t i, t_env *current);
 static void	rem_var(char *input, char **tok_key, size_t i);
@@ -36,7 +36,7 @@ void	expand_write(char *input, int *fd, t_token *current, t_data *data)
 					if (exp_exit_heredoc(&input, tok_key, i, data) != SUCCESS)
 						error_heredoc_exp(input, fd, data);
 				}
-				else if (expand(&input, tok_key, i, data) != SUCCESS)
+				else if (expand(&input, tok_key, &i, data) != SUCCESS)
 					error_heredoc_exp(input, fd, data);
 			}
 			else
@@ -65,7 +65,7 @@ static char	*define_key(char *input_orig, char *input, int *fd, t_data *data)
 }
 
 // Expands environment variables.
-static bool	expand(char **input, char *tok_key, size_t i, t_data *data)
+static bool	expand(char **input, char *tok_key, size_t *i, t_data *data)
 {
 	char	*new_input;
 	t_env	*current;
@@ -81,13 +81,14 @@ static bool	expand(char **input, char *tok_key, size_t i, t_data *data)
 						+ ft_strlen(current->value) - ft_strlen(current->key)));
 			if (!new_input)
 				return (FAILURE);
-			exp_var(*input, new_input, i, current);
+			exp_var(*input, new_input, *i, current);
+			*i += ft_strlen(current->value);
 			*input = new_input;
 			return (SUCCESS);
 		}
 		current = current->next;
 	}
-	rem_var(*input, &tok_key, i);
+	rem_var(*input, &tok_key, *i);
 	return (SUCCESS);
 }
 
