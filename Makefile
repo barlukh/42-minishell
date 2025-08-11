@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 08:53:07 by bgazur            #+#    #+#              #
-#    Updated: 2025/08/08 12:56:46 by bgazur           ###   ########.fr        #
+#    Updated: 2025/08/11 11:45:50 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ HDR			=	$(DIR_HDR)/minishell.h
 OBJ			=	$(SRC:$(DIR_SRC)/%.c=$(DIR_OBJ)/%.o)
 SRC			=	$(DIR_BUILTIN)/builtin_cd.c \
 				$(DIR_BUILTIN)/builtin_echo.c \
+				$(DIR_BUILTIN)/builtin_env.c \
 				$(DIR_BUILTIN)/builtins.c \
 				$(DIR_EXEC)/temporary.c \
 				$(DIR_HEREDOC)/errors_heredocs.c \

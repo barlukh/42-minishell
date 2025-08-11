@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 12:22:28 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/08 18:52:54 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/11 13:13:51 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,21 +94,31 @@ static char	*define_key(char *content, t_data *data)
 // Replaces variables with their expanded values.
 static void	exp_var(char *content, char *new_content, size_t i, t_env *current)
 {
+	int		in;
 	size_t	j;
 	size_t	k;
 
-	j = 0;
+	in = 0;
+	j = i;
 	k = 0;
 	ft_memcpy(new_content, content, i);
-	j = i;
 	while (current->value[k])
+	{
+		if (ft_isifs(current->value[k]))
+		{
+			if (in && current->value[k + 1] && !ft_isifs(current->value[k + 1]))
+				new_content[j++] = ' ';
+			k++;
+			continue ;
+		}
 		new_content[j++] = current->value[k++];
+		in = 1;
+	}
 	i += ft_strlen(current->key) + 1;
 	while (content[i])
 		new_content[j++] = content[i++];
 	new_content[j] = '\0';
 	free(content);
-	content = NULL;
 }
 
 // Removes variables that have no values.

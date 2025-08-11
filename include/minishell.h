@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/08 18:37:36 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/11 13:12:30 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,14 @@ int		builtin_cd(t_token **current, t_data *data);
  * @return Integer signaling whether token is a builtin, or error on execution.
  */
 int		builtin_echo(t_token **current);
+
+/**
+ * @brief Tries to execute the env builtin.
+ * @param current Pointer to a pointer of the current token.
+ * @param data Data struct of all core variables.
+ * @return Integer signaling whether token is a builtin, or error on execution.
+ */
+int		builtin_env(t_token **current, t_data *data);
 
 /**
  * @brief Checks if the current token is a builtin command.
