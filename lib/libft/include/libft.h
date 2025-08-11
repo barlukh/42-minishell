@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/08/05 19:10:33 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/11 18:02:18 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,14 @@ void	ft_lst_tok_add_back(t_token **lst, t_token *node);
  * @return None.
  */
 void	ft_lst_tok_clear(t_token **lst);
+
+/**
+ * @brief Inserts a node as the next node to a linked list.
+ * @param current Current node.
+ * @param node Node to insert.
+ * @return None.
+ */
+void	ft_lst_tok_insert(t_token *current, t_token *node);
 
 /** Returns a last node of a list.
  * @param lst Pointer to a first node of a linked list.
