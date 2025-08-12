@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:40:06 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/07 14:14:44 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/12 13:40:06 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	main(int argc, char **argv, char **env)
 			continue ;
 		if (create_heredocs(data) != SUCCESS)
 			continue ;
+		// execution(&data);
 		test_tok(data);
 		test_builtins(data);
 		ft_lst_tok_clear(&data->lst_tok);
