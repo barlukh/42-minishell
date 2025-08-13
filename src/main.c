@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:40:06 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/12 13:40:06 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/13 14:03:18 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ static void	test_builtins(t_data *data)
 	current = data->lst_tok;
 	while (current)
 	{
-		return_value = builtins_check(&current, data);
+		if (current->type == TOK_CMD)
+			return_value = builtins_check(&current, data);
 		if (current)
 			current = current->next;
 	}

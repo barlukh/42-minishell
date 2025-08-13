@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/13 13:59:05 by edlucca          ###   ########.fr       */
+/*   Updated: 2025/08/13 18:04:17 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -348,4 +348,40 @@ void	tokenizer(char *input, t_data *data);
 
 
 void	execution(t_data *data);
+/**
+ * @brief Replaces variables with their expanded values (quoted).
+ * @param content Pointer to the content of the current token.
+ * @param new_cont Pointer to the malloc for the new content.
+ * @param i Index of a character.
+ * @param current Current environment variable.
+ * @return None.
+ */
+void	var_exp_q(char *content, char *new_cont, size_t *i, t_env *current);
+
+/**
+ * @brief Replaces variables with their expanded values (unquoted).
+ * @param content Pointer to the content of the current token.
+ * @param new_cont Pointer to the malloc for the new content.
+ * @param i Index of a character.
+ * @param current Current environment variable.
+ * @return None.
+ */
+void	var_exp_u(char *content, char *new_cont, size_t *i, t_env *current);
+
+/**
+ * @brief Removes environment variables that have no values.
+ * @param content Pointer to the content of the current token.
+ * @param tok_key Key string.
+ * @param i Index of a character.
+ * @return None.
+ */
+void	var_remove(char *content, char **tok_key, size_t i);
+
+/**
+ * @brief Performs word splitting on expanded variables.
+ * @param data Data struct of all core variables.
+ * @return None.
+ */
+void	word_splitter(t_data *data);
+
 #endif
