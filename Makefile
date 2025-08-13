@@ -6,14 +6,14 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 08:53:07 by bgazur            #+#    #+#              #
-#    Updated: 2025/08/12 13:14:46 by bgazur           ###   ########.fr        #
+#    Updated: 2025/08/13 15:06:54 by edlucca          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	minishell
 
 CC			=	cc
-CFLAGS		=	-Wall -Werror -Wextra
+CFLAGS		=	-g2 -Wall -Werror -Wextra
 LFLAGS		=	-L$(DIR_LIBFT) -lft -lreadline
 RM			=	rm -rf
 

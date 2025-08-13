@@ -36,7 +36,7 @@ int	main(int argc, char **argv, char **env)
 			continue ;
 		if (create_heredocs(data) != SUCCESS)
 			continue ;
-		// execution(&data);
+		execution(data);
 		test_tok(data);
 		test_builtins(data);
 		ft_lst_tok_clear(&data->lst_tok);

@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/11 13:12:30 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/13 13:59:05 by edlucca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <readline/readline.h>
 # include <signal.h>
 # include <stdbool.h>
+#include <sys/wait.h>
 
 # include <stdio.h> // UNUSED, REMOVE BEFORE SUBMISSION !!!!!!!!!!!!!!!!!!!!!
 
@@ -343,4 +344,8 @@ bool	syntax_checker(t_data *data);
  */
 void	tokenizer(char *input, t_data *data);
 
+/* Execution */
+
+
+void	execution(t_data *data);
 #endif
