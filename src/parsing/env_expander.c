@@ -6,16 +6,15 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 12:22:28 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/11 16:07:14 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/13 14:07:53 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	expand(char **content, size_t *i, t_data *data);
+static void	expand(char quote, char **content, size_t *i, t_data *data);
 static char	*define_key(char *content, t_data *data);
-static void	exp_var(char *content, char *new_content, size_t i, t_env *current);
-static void	rem_var(char *content, char **tok_key, size_t i);
+static void	mem(char **content, char **new_cont, t_env *current, t_data *data);
 
 void	env_expander(t_data *data)
 {
@@ -32,7 +31,7 @@ void	env_expander(t_data *data)
 		{
 			if (ft_isexpandable(current->content[i], &quote)
 				&& !ft_isexpexception(current->content, quote, i))
-				expand(&current->content, &i, data);
+				expand(quote, &current->content, &i, data);
 			else
 				i++;
 		}
@@ -44,10 +43,10 @@ void	env_expander(t_data *data)
 }
 
 // Expands environment variables.
-static void	expand(char **content, size_t *i, t_data *data)
+static void	expand(char quote, char **content, size_t *i, t_data *data)
 {
 	char	*tok_key;
-	char	*new_content;
+	char	*new_cont;
 	t_env	*current;
 
 	tok_key = define_key(*content + *i + 1, data);
@@ -59,18 +58,17 @@ static void	expand(char **content, size_t *i, t_data *data)
 		if (ft_strcmp(current->key, tok_key) == 0)
 		{
 			free(tok_key);
-			new_content = malloc(sizeof(char) * (ft_strlen(*content)
-						+ ft_strlen(current->value) - ft_strlen(current->key)));
-			if (!new_content)
-				error_env_exp(data);
-			exp_var(*content, new_content, *i, current);
-			*i += ft_strlen(current->value);
-			*content = new_content;
+			mem(content, &new_cont, current, data);
+			if (quote == '\"')
+				var_exp_q(*content, new_cont, i, current);
+			else
+				var_exp_u(*content, new_cont, i, current);
+			*content = new_cont;
 			return ;
 		}
 		current = current->next;
 	}
-	rem_var(*content, &tok_key, *i);
+	var_remove(*content, &tok_key, *i);
 }
 
 // Allocates key (string) out of a token.
@@ -91,48 +89,11 @@ static char	*define_key(char *content, t_data *data)
 	return (tok_key);
 }
 
-// Replaces variables with their expanded values.
-static void	exp_var(char *content, char *new_content, size_t i, t_env *current)
+// Allocates memory for new_content.
+static void	mem(char **content, char **new_cont, t_env *current, t_data *data)
 {
-	int		in;
-	size_t	j;
-	size_t	k;
-
-	in = 0;
-	j = i;
-	k = 0;
-	ft_memcpy(new_content, content, i);
-	while (current->value[k])
-	{
-		if (ft_isifs(current->value[k]))
-		{
-			if (in && current->value[k + 1] && !ft_isifs(current->value[k + 1]))
-				new_content[j++] = ' ';
-			k++;
-			continue ;
-		}
-		new_content[j++] = current->value[k++];
-		in = 1;
-	}
-	i += ft_strlen(current->key) + 1;
-	while (content[i])
-		new_content[j++] = content[i++];
-	new_content[j] = '\0';
-	free(content);
-}
-
-// Removes variables that have no values.
-static void	rem_var(char *content, char **tok_key, size_t i)
-{
-	size_t	len;
-
-	len = ft_strlen(*tok_key) + 1;
-	while (content[i + len] != '\0')
-	{
-		content[i] = content[i + len];
-		i++;
-	}
-	content[i] = '\0';
-	free(*tok_key);
-	*tok_key = NULL;
+	*new_cont = ft_calloc(sizeof(char), (ft_strlen(*content)
+				+ ft_strlen(current->value) - ft_strlen(current->key) + 1));
+	if (!*new_cont)
+		error_env_exp(data);
 }

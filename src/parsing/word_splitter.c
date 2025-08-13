@@ -1,58 +1,97 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expansion_splitter.c                               :+:      :+:    :+:   */
+/*   word_splitter.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/12 10:43:54 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/12 10:44:30 by bgazur           ###   ########.fr       */
+/*   Created: 2025/08/13 16:16:49 by bgazur            #+#    #+#             */
+/*   Updated: 2025/08/13 17:52:49 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void	expansion_splitter(t_token *current, t_data *data)
-// {
-//     char    **arr;
-//     size_t  i;
-//     t_token *node;
-//     t_token *prev;
-//     t_token *next;
+static void	skip_ifs(size_t *i, t_token *current);
+static void	define_token(char *content, size_t i, size_t *len);
+static bool	create_token(size_t *i, size_t len, t_token *cr, t_token **lst_new);
 
-//     if (!current || !current->content)
-//         return ;
+void	word_splitter(t_data *data)
+{
+	size_t	i;
+	size_t	len;
+	t_token	*current;
+	t_token	*lst_new;
 
-//     if (ft_strchr(current->content, ' ') != NULL)
-//     {
-//         arr = ft_split(current->content, ' ');
-//         if (!arr)
-//             error_env_exp(data);
+	lst_new = NULL;
+	current = data->lst_tok;
+	while (current)
+	{
+		i = 0;
+		while (current->content[i])
+		{
+			skip_ifs(&i, current);
+			if (!current->content[i])
+				break ;
+			define_token(current->content, i, &len);
+			if (len == 0)
+				break ;
+			if (create_token(i, len, current, &lst_new) != SUCCESS)
+				error_env_exp(data);
+		}
+		current = current->next;
+	}
+	ft_lst_tok_clear(&data->lst_tok);
+	data->lst_tok = lst_new;
+}
 
-//         next = current->next;
-// 		free(current->content);
-//         current->content = ft_strdup(arr[0]);
-//         if (!current->content)
-//         {
-//             ft_free_array(arr);
-//             error_env_exp(data);
-//         }
+// Skips input field separators.
+static void	skip_ifs(size_t *i, t_token *current)
+{
+	while (current->content[*i] && ft_isifs(current->content[*i]))
+		(*i)++;
+}
 
-//         i = 1;
-//         prev = current;
-//         while (arr[i])
-//         {
-//             node = ft_lst_tok_new(arr[i]);
-//             if (!node)
-//             {
-//                 ft_free_array(arr);
-//                 error_env_exp(data);
-//             }
-//             prev->next = node;
-//             prev = node;
-//             i++;
-//         }
-//         prev->next = next;
-//         ft_free_array(arr);
-//     }
-// }
+// Defines the length of a token.
+static void	define_token(char *content, size_t start, size_t *len)
+{
+	char	quote;
+	size_t	i;
+
+	quote = '\0';
+	i = start;
+	*len = 0;
+	while (content[i])
+	{
+		if (quote == '\0' && ft_isquote(content[i]))
+			quote = content[i];
+		else if (quote != '\0' && content[i] == quote)
+			quote = '\0';
+		else if (quote == '\0' && ft_isifs(content[i]))
+			break ;
+		i++;
+		(*len)++;
+	}
+}
+
+// Creates a token using ft_substr() and appends it as a node to a linked list.
+static bool	create_token(size_t *i, size_t len, t_token *cr, t_token **lst_new)
+{
+	char	*new_content;
+	t_token	*node;
+
+	new_content = ft_substr(cr->content, *i, len);
+	if (!new_content)
+		return (FAILURE);
+	node = ft_lst_tok_new(new_content);
+	if (!node)
+	{
+		free(new_content);
+		new_content = NULL;
+		return (FAILURE);
+	}
+	node->type = cr->type;
+	ft_lst_tok_add_back(lst_new, node);
+	*i += len;
+	return (SUCCESS);
+}

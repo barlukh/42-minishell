@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lst_tok_insert.c                                :+:      :+:    :+:   */
+/*   ft_whichifs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 10:19:51 by edlucca           #+#    #+#             */
-/*   Updated: 2025/08/11 18:22:57 by bgazur           ###   ########.fr       */
+/*   Created: 2025/08/12 16:55:29 by bgazur            #+#    #+#             */
+/*   Updated: 2025/08/12 16:57:51 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lst_tok_insert(t_token *current, t_token *node)
+char	ft_whichifs(int c)
 {
-	if (!current || !node)
-		return ;
-	node->next = current->next;
-	current->next = node;
+	if (c == ' ')
+		return (' ');
+	else if (c == '\t')
+		return ('\t');
+	else
+		return ('\n');
 }

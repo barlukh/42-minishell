@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 07:52:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/07 13:06:34 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/13 17:28:20 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ bool	parse_input(char *input, t_data *data)
 	}
 	env_expander(data);
 	heredoc_identifier(data);
+	word_splitter(data);
 	quote_remover(data);
 	parsing_finalizer(data);
 	return (SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 14:35:08 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/11 16:36:28 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/13 09:19:03 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static bool	expand(char **input, char *tok_key, size_t *i, t_data *data);
 static char	*define_key(char *input_orig, char *input, int *fd, t_data *data);
 static void	exp_var(char *input, char *new_input, size_t i, t_env *current);
-static void	rem_var(char *input, char **tok_key, size_t i);
 
 void	expand_write(char *input, int *fd, t_token *current, t_data *data)
 {
@@ -88,7 +87,7 @@ static bool	expand(char **input, char *tok_key, size_t *i, t_data *data)
 		}
 		current = current->next;
 	}
-	rem_var(*input, &tok_key, *i);
+	var_remove(*input, &tok_key, *i);
 	return (SUCCESS);
 }
 
@@ -110,20 +109,4 @@ static void	exp_var(char *input, char *new_input, size_t i, t_env *current)
 	new_input[j] = '\0';
 	free(input);
 	input = NULL;
-}
-
-// Removes variables that have no values.
-static void	rem_var(char *input, char **tok_key, size_t i)
-{
-	size_t	len;
-
-	len = ft_strlen(*tok_key) + 1;
-	while (input[i + len] != '\0')
-	{
-		input[i] = input[i + len];
-		i++;
-	}
-	input[i] = '\0';
-	free(*tok_key);
-	*tok_key = NULL;
 }
