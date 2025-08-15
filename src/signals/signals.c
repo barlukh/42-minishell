@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:28:02 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/08 14:06:33 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/14 16:45:39 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static void	set_sigaction_sigquit(void);
 void	signals_main(void)
 {
 	g_signal = 0;
+	rl_done = 0;
+	rl_event_hook = NULL;
 	set_sigaction_sigint();
 	set_sigaction_sigquit();
 }

@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:40:06 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/13 14:03:18 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/15 15:21:21 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,11 @@ int	main(int argc, char **argv, char **env)
 			continue ;
 		if (create_heredocs(data) != SUCCESS)
 			continue ;
+		merger(data);
 		execution(data);
 		test_tok(data);
 		test_builtins(data);
-		ft_lst_tok_clear(&data->lst_tok);
+		ft_lst_exec_clear(&data->lst_exec);
 	}
 	clear_history();
 	ft_lst_env_clear(&data->lst_env);
@@ -56,33 +57,44 @@ t_data	*get_data(void)
 // TEST - prints tokens. (REMOVE BEFORE SUBMISSION!)
 static void	test_tok(t_data *data)
 {
-	t_token	*current;
+	size_t	i;
+	t_exec	*current_exec;
 
-	printf("%s\n", "TOKENS:");
-	current = data->lst_tok;
-	while (current)
+	printf("\n%s\n", "ARRAYS:");
+	current_exec = data->lst_exec;
+	while (current_exec)
 	{
-		if (current->type == 0)
-			printf("%-20s %s\n", "TOK_PIPE", current->content);
-		else if (current->type == 1)
-			printf("%-20s %s\n", "TOK_IN", current->content);
-		else if (current->type == 2)
-			printf("%-20s %s\n", "TOK_OUT", current->content);
-		else if (current->type == 3)
-			printf("%-20s %s\n", "TOK_HERE", current->content);
-		else if (current->type == 4)
-			printf("%-20s %s\n", "TOK_HERE_QTD", current->content);
-		else if (current->type == 5)
-			printf("%-20s %s\n", "TOK_HERE_UNQTD", current->content);
-		else if (current->type == 6)
-			printf("%-20s %s\n", "TOK_APP", current->content);
-		else if (current->type == 7)
-			printf("%-20s %s\n", "TOK_WORD", current->content);
-		else if (current->type == 8)
-			printf("%-20s %s\n", "TOK_CMD", current->content);
-		else if (current->type == 9)
-			printf("%-20s %s\n", "TOK_ARG", current->content);
-		current = current->next;
+		i = 0;
+		printf("%-20s", "cmd_arg:");
+		while (current_exec->cmd_arg[i])
+		{
+			printf("%s", current_exec->cmd_arg[i]);
+			if (current_exec->cmd_arg[i + 1] != NULL)
+				printf(" ");
+			i++;
+		}
+		printf("\n");
+		i = 0;
+		printf("%-20s", "red_in:");
+		while (current_exec->red_in[i])
+		{
+			printf("%s", current_exec->red_in[i]);
+			if (current_exec->red_in[i + 1] != NULL)
+				printf(" ");
+			i++;
+		}
+		printf("\n");
+		i = 0;
+		printf("%-20s", "red_out:");
+		while (current_exec->red_out[i])
+		{
+			printf("%s", current_exec->red_out[i]);
+			if (current_exec->red_out[i + 1] != NULL)
+				printf(" ");
+			i++;
+		}
+		printf("\n%s\n", "-------");
+		current_exec = current_exec->next;
 	}
 }
 

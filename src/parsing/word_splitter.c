@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 16:16:49 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/13 17:52:49 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/15 11:13:15 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	word_splitter(t_data *data)
 			define_token(current->content, i, &len);
 			if (len == 0)
 				break ;
-			if (create_token(i, len, current, &lst_new) != SUCCESS)
-				error_env_exp(data);
+			if (create_token(&i, len, current, &lst_new) != SUCCESS)
+				error_general_mem(data);
 		}
 		current = current->next;
 	}

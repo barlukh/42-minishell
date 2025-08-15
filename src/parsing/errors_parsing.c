@@ -6,13 +6,13 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 10:52:37 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/06 09:23:20 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/15 15:09:52 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	error_env_exp(t_data *data)
+void	error_general_mem(t_data *data)
 {
 	clean_data(data);
 	clear_history();
@@ -53,10 +53,11 @@ void	error_tok(char *input, t_data *data)
 	exit(data->exit_status);
 }
 
-void	clean_data(t_data *data)
+void	clean_merge(t_exec *node, t_data *data)
 {
-	ft_lst_env_clear(&data->lst_env);
-	data->lst_env = NULL;
-	ft_lst_tok_clear(&data->lst_tok);
-	data->lst_tok = NULL;
+	free(node->cmd_arg);
+	free(node->red_in);
+	free(node->red_out);
+	free(node);
+	error_general_mem(data);
 }

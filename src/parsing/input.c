@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 07:52:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/13 17:28:20 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/15 15:09:35 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 bool	read_input(char **input, t_data *data)
 {
-	rl_done = 0;
-	rl_event_hook = NULL;
 	*input = readline("minishell$ ");
 	if (!*input)
 	{
@@ -50,4 +48,14 @@ bool	parse_input(char *input, t_data *data)
 	quote_remover(data);
 	parsing_finalizer(data);
 	return (SUCCESS);
+}
+
+void	clean_data(t_data *data)
+{
+	ft_lst_env_clear(&data->lst_env);
+	data->lst_env = NULL;
+	ft_lst_tok_clear(&data->lst_tok);
+	data->lst_tok = NULL;
+	ft_lst_exec_clear(&data->lst_exec);
+	data->lst_exec = NULL;
 }

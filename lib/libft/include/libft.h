@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/08/13 14:03:02 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/15 15:20:30 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,22 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
-// Token structure.
+// Parsing token structure.
 typedef struct s_token
 {
 	t_token_type	type;
 	char			*content;
 	struct s_token	*next;
 }	t_token;
+
+// Execution token structure.
+typedef struct s_exec
+{
+	char			**cmd_arg;
+	char			**red_in;
+	char			**red_out;
+	struct s_exec	*next;
+}	t_exec;
 
 //------------------------------------------------------------------------------
 // Function Prototypes
@@ -187,6 +196,36 @@ t_env	*ft_lst_env_last(t_env *lst);
  * @return Pointer to a node, NULL if allocation fails.
  */
 t_env	*ft_lst_env_new(void *key, void *value);
+
+/**
+ * @brief Adds a node at the end of a linked list.
+ * @param lst Pointer to the head pointer of a linked list.
+ * @param node Pointer to a node to be added.
+ * @return None.
+ */
+void	ft_lst_exec_add_back(t_exec **lst, t_exec *node);
+
+/**
+ * @brief Frees a given node, its content, and all its successors.
+ * @param lst Pointer to the pointer of a node.
+ * @return None.
+ */
+void	ft_lst_exec_clear(t_exec **lst);
+
+/** Returns a last node of a list.
+ * @param lst Pointer to a first node of a linked list.
+ * @return Pointer to a last node.
+ */
+t_exec	*ft_lst_exec_last(t_exec *lst);
+
+/**
+ * @brief Creates a new node in a linked list.
+ * @param cmd_arg Array of commands and arguments.
+ * @param red_in Array of redirections in.
+ * @param red_out Array of redirections out.
+ * @return Pointer to a node, NULL if allocation fails.
+ */
+t_exec	*ft_lst_exec_new(char **cmd_arg, char **red_in, char **red_out);
 
 /**
  * @brief Adds a node at the end of a linked list.

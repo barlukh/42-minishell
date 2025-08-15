@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/13 18:04:17 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/15 15:11:37 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <readline/readline.h>
 # include <signal.h>
 # include <stdbool.h>
-#include <sys/wait.h>
+# include <sys/wait.h>
 
 # include <stdio.h> // UNUSED, REMOVE BEFORE SUBMISSION !!!!!!!!!!!!!!!!!!!!!
 
@@ -77,6 +77,7 @@ typedef struct s_data
 	int		exit_status;
 	t_env	*lst_env;
 	t_token	*lst_tok;
+	t_exec	*lst_exec;
 }	t_data;
 
 //------------------------------------------------------------------------------
@@ -122,6 +123,14 @@ int		builtins_check(t_token **current, t_data *data);
 void	clean_data(t_data *data);
 
 /**
+ * @brief Frees allocated memory when merger fails.
+ * @param node Current node.
+ * @param data Data struct of all core variables.
+ * @return None.
+ */
+void	clean_merge(t_exec *node, t_data *data);
+
+/**
  * @brief Creates heredocs.
  * @param data Data struct of all core variables.
  * @return SUCCESS or FAILURE.
@@ -144,11 +153,11 @@ void	create_lst_env(char **env, t_data *data);
 void	env_expander(t_data *data);
 
 /**
- * @brief Handles errors in the environment expansion phase.
+ * @brief Handles general memory errors.
  * @param data Data struct of all core variables.
  * @return None.
  */
-void	error_env_exp(t_data *data);
+void	error_general_mem(t_data *data);
 
 /**
  * @brief Handles errors in heredoc variable expansion.
@@ -263,6 +272,13 @@ void	heredoc_identifier(t_data *data);
 void	heredoc_write(char *input, int *fd);
 
 /**
+ * @brief Merges parsed tokens into grouped up tokens separated by pipes.
+ * @param data Data struct of all core variables.
+ * @return None.
+ */
+void	merger(t_data *data);
+
+/**
  * @brief Parses command line input string.
  * @param input Input string received from a command line.
  * @param data Data struct of all core variables.
@@ -344,10 +360,13 @@ bool	syntax_checker(t_data *data);
  */
 void	tokenizer(char *input, t_data *data);
 
-/* Execution */
-
-
+/**
+ * @brief Execuion part.
+ * @param data Data struct of all core variables.
+ * @return None.
+ */
 void	execution(t_data *data);
+
 /**
  * @brief Replaces variables with their expanded values (quoted).
  * @param content Pointer to the content of the current token.

@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 11:55:35 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/13 09:26:19 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/15 11:13:15 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ void	exp_exit_main(char **content, char *tok_key, size_t i, t_data *data)
 	tok_key = NULL;
 	exit_str = ft_itoa(data->exit_status);
 	if (!exit_str)
-		error_env_exp(data);
+		error_general_mem(data);
 	new_cont = malloc(sizeof(char) * (ft_strlen(*content)
 				+ ft_strlen(exit_str) - 1));
 	if (!new_cont)
 	{
 		free(exit_str);
 		exit_str = NULL;
-		error_env_exp(data);
+		error_general_mem(data);
 	}
 	exp_var(*content, new_cont, exit_str, i);
 	free(*content);

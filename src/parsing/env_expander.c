@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 12:22:28 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/13 14:07:53 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/15 11:15:46 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static char	*define_key(char *content, t_data *data)
 			i++;
 	tok_key = ft_substr(content, 0, i);
 	if (!tok_key)
-		error_env_exp(data);
+		error_general_mem(data);
 	return (tok_key);
 }
 
@@ -95,5 +95,5 @@ static void	mem(char **content, char **new_cont, t_env *current, t_data *data)
 	*new_cont = ft_calloc(sizeof(char), (ft_strlen(*content)
 				+ ft_strlen(current->value) - ft_strlen(current->key) + 1));
 	if (!*new_cont)
-		error_env_exp(data);
+		error_general_mem(data);
 }
