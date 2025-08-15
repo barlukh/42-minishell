@@ -37,7 +37,10 @@ void	word_splitter(t_data *data)
 			if (len == 0)
 				break ;
 			if (create_token(&i, len, current, &lst_new) != SUCCESS)
+<<<<<<< HEAD
 				error_general_mem(data);
+=======
+>>>>>>> execution
 		}
 		current = current->next;
 	}
