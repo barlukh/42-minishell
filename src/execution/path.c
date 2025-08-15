@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   path.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: edlucca <edlucca@student.hive.fi>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/13 13:51:52 by edlucca           #+#    #+#             */
-/*   Updated: 2025/08/13 14:41:44 by edlucca          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -62,16 +51,4 @@ char	*ft_find_path(char *cmd, char **envp)
 		free(full_path);
 	}
 	return (ft_free_array(paths), NULL);
-}
-
-int	check_paths(char **envp, char **argv)
-{
-	if (!envp || envp[0] == NULL)
-	{
-		if (access(argv[2], F_OK) == 0 && access(argv[3], F_OK) == 0)
-			return (0);
-		ft_dprintf(STDERR_FILENO, "Empty enviroment.\n");
-		exit(127);
-	}
-	return (0);
 }
