@@ -1,78 +1,104 @@
 
 #include "../include/minishell.h"
 
-typedef struct s_exec
-{
-	char            **cmd_arg;
-	char            **fd_in;
-	char            **fd_out;
-	bool            pipe;
-	struct s_exec    *next;
-}    t_exec;
-
 void	error_msg(char *str);
-void	open_fds(t_exec current);
+int		open_fds(t_exec current);
 int		xopen(const char *pathname);
-int		update_pipes(t_exec current);
-void	builting_process(t_exec current);
-void	child_process(t_exec current);
+int		update_pipes(int pipe_fd[2][2], int i, int num_cmds);
+int		builting_process(t_exec current);
+int		child_process(t_exec current);
+bool	wait_process(pid_t *pid, t_data *data);
 
-void execution(t_data *data)
+void	execution(t_data *data)
 {
-	size_t i;
-	t_exec    *current;
-	int pipe_fd[2][2];
+	t_exec		*current;
+	int			i;
 
+	i = 0;
 	current = data->lst_exec;
 	while (current)
 	{
 		open_fds(*current); // inside child or builting
-		if (is_bulting(current->cmd_arg)) // check if cmd is a builting
+		if (builtins_check()) // check if cmd is a builting
 			builting_process(*current);
 		else
 			child_process(*current);
+		update_pipes(); // update_pipe on parent side
+		current= data->lst_exec->next;
+		i++;
 	}
 	wait_process();
 }
 
-void	builting_process(t_exec current)
+int	builting_process(t_exec current)
 {
-	update_pipes(current);
+	redirections_io(current); // resets the reclying system of pipes
+	return (0);
 }
 
-void	child_process(t_exec current)
+int	child_process(t_exec current)
 {
-	update_pipes(current); // resets the reclying system of pipes
+	pid_t	pids;
+
+	pids = fork();
+	if (pids < 0)
+	{
+		perror("fork error:");
+		exit(EXIT_FAILURE);
+	}
+	if (pids == 0) // child process
+	{
+		redirections_io(current); // resets the reclying system of pipes
+	}
+	return (0);
+}
+
+int	redirections_io(t_exec current)
+{
 
 }
 
-int	update_pipes(t_exec current)
+int	update_pipes(int pipe_fd[2][2], int i, int num_cmds)
 {
-	int	curr_fd;
-	int	prev_fd;
+	int current;
+	int previous;
 
-	curr_fd = i % 2;
-	prev_fd = (i + 1) % 2;
-
+	current = i % 2;
+	previous = (i + 1) % 2;
+	if (i != num_cmds - 1)
+	{
+		if (pipe(pipe_fd[current]) == -1)
+		{
+			perror("pipe");
+			exit(EXIT_FAILURE);
+		}
+	}
+	if (i != 0)
+	{
+		close(pipe_fd[previous][0]);
+		close(pipe_fd[previous][1]);
+	}
+	return (0);
 }
 
-void	open_fds(t_exec current)
+int	open_fds(t_exec current)
 {
 	int i;
 
 	i = 0;
-	while (current.fd_in[i])
+	while (current.red_in[i])
 	{
-		current.fd_in = xopen(current.fd_in[i]); // open return int, fd_in is of type char **
+		current.red_in = xopen(current.red_in[i]); // open return int, red_in is of type char **
 		i++;
 	}
 	i = 0;
-	while (current.fd_out[i])
+	while (current.red_out[i])
 	{
-		current.fd_out = xopen(current.fd_out[i]); // open return int, fd_in is of type char **
+		current.red_out = xopen(current.red_out[i]); // open return int, red_in is of type char **
 
 		i++;
 	}
+	return (0);
 }
 
 int	xopen(const char *pathname)
@@ -92,8 +118,8 @@ void	error_msg(char *str)
 	perror(str);
 }
 
-// dup2 (fd_in);
-// dup2 (fd_out);
+// dup2 (red_in);
+// dup2 (red_out);
 //
 // execve(data->cmd_arg, PATH, data->lst_env)
 

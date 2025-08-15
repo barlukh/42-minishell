@@ -2,7 +2,7 @@
 #include "minishell.h"
 
 // This function waits all the children and return the statu of the last child.
-bool	wait_processes(pid_t *pid, t_data *data)
+bool	wait_process(pid_t *pid, t_data *data)
 {
 	int		i;
 	int		status;
