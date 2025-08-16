@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:40:06 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/16 15:16:08 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/16 17:30:34 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ static int	test_builtins(t_data *data)
 	current = data->lst_exec;
 	while (current)
 	{
-		return_value = builtins_check(current, data);
+		builtins_check(&return_value, current, data);
 		if (return_value == BUILT_ERR)
 		{
 			ft_lst_exec_clear(&data->lst_exec);

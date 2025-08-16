@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/16 16:29:25 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/16 17:31:11 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ extern volatile sig_atomic_t	g_signal;
 # define ERR_MSG_EOF "warning: here-document delimited by end-of-file"
 # define ERR_MSG_EXIT "exit"
 # define ERR_MSG_ENV "env: options and arguments are not supported"
+# define ERR_MSG_PWD "pwd: options are not supported"
 # define ERR_MSG_AMB "redirection: ambiguous redirect"
 
 // Return / exit values (general).
@@ -89,10 +90,9 @@ typedef struct s_data
 /**
  * @brief Tries to execute the cd builtin.
  * @param current Current token.
- * @param data Data struct of all core variables.
  * @return Integer signaling whether token is a builtin, or error on execution.
  */
-int		builtin_cd(t_exec *current, t_data *data);
+int		builtin_cd(t_exec *current);
 
 /**
  * @brief Tries to execute the echo builtin.
@@ -110,12 +110,21 @@ int		builtin_echo(t_exec *current);
 int		builtin_env(t_exec *current, t_data *data);
 
 /**
- * @brief Checks if the current token is a builtin command.
+ * @brief Tries to execute the pwd builtin.
  * @param current Current token.
  * @param data Data struct of all core variables.
  * @return Integer signaling whether token is a builtin, or error on execution.
  */
-int		builtins_check(t_exec *current, t_data *data);
+int		builtin_pwd(t_exec *current, t_data *data);
+
+/**
+ * @brief Checks if the current token is a builtin command.
+ * @param return_value Return value of a builtin check.
+ * @param current Current token.
+ * @param data Data struct of all core variables.
+ * @return Integer signaling whether token is a builtin, or error on execution.
+ */
+int		builtins_check(int *return_value, t_exec *current, t_data *data);
 
 /**
  * @brief Frees all allocated memory in the data struct.

@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 11:37:15 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/16 15:26:05 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/16 17:33:31 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	builtin_env(t_exec *current, t_data *data)
 			ft_putendl_fd(current_env->value, STDOUT_FILENO);
 			current_env = current_env->next;
 		}
+		get_data()->exit_status = 0;
 		return (BUILT_YES);
 	}
 	return (BUILT_NO);
