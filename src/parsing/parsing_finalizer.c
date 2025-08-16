@@ -6,20 +6,18 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 15:47:26 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/13 14:03:51 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/16 16:29:44 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	replace_redirs(t_token **current, t_token **next, t_data *data);
-static void	update_pipe(bool *new_pipe, t_token *current);
+static int	replace_redirs(t_token **current, t_token **next, t_data *data);
 static void	replace_cmds_args(bool *new_pipe, t_token *current);
 
-void	parsing_finalizer(t_data *data)
+int	parsing_finalizer(t_token *current, t_data *data)
 {
 	bool	new_pipe;
-	t_token	*current;
 	t_token	*next;
 
 	new_pipe = true;
@@ -36,33 +34,35 @@ void	parsing_finalizer(t_data *data)
 		if (current->type == TOK_IN || current->type == TOK_OUT
 			|| current->type == TOK_APP)
 		{
-			replace_redirs(&current, &next, data);
+			if (replace_redirs(&current, &next, data) != SUCCESS)
+				return (FAILURE);
 			continue ;
 		}
-		update_pipe(&new_pipe, current);
 		replace_cmds_args(&new_pipe, current);
 		current = next;
 	}
+	return (SUCCESS);
 }
 
 // Removes redirection symbols and marks the following word as redirection.
-static void	replace_redirs(t_token **current, t_token **next, t_data *data)
+static int	replace_redirs(t_token **current, t_token **next, t_data *data)
 {
+	if (!next || !(*next))
+	{
+		ft_putendl_fd(ERR_MSG_AMB, STDERR_FILENO);
+		return (FAILURE);
+	}
 	(*next)->type = (*current)->type;
 	ft_lst_tok_remove(&data->lst_tok, *current);
 	*current = (*next)->next;
-}
-
-// Updates the bool flag of a new_pipe.
-static void	update_pipe(bool *new_pipe, t_token *current)
-{
-	if (current->type == TOK_PIPE)
-		*new_pipe = true;
+	return (SUCCESS);
 }
 
 // Defines commands and arguments.
 static void	replace_cmds_args(bool *new_pipe, t_token *current)
 {
+	if (current->type == TOK_PIPE)
+		*new_pipe = true;
 	if (current->type == TOK_WORD)
 	{
 		if (*new_pipe == true)

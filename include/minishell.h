@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/15 15:11:37 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/16 16:29:25 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ extern volatile sig_atomic_t	g_signal;
 # define ERR_MSG_HERE "maximum here-document count exceeded"
 # define ERR_MSG_EOF "warning: here-document delimited by end-of-file"
 # define ERR_MSG_EXIT "exit"
+# define ERR_MSG_ENV "env: options and arguments are not supported"
+# define ERR_MSG_AMB "redirection: ambiguous redirect"
 
 // Return / exit values (general).
 # define SUCCESS 0
@@ -86,34 +88,34 @@ typedef struct s_data
 
 /**
  * @brief Tries to execute the cd builtin.
- * @param current Pointer to a pointer of the current token.
+ * @param current Current token.
  * @param data Data struct of all core variables.
  * @return Integer signaling whether token is a builtin, or error on execution.
  */
-int		builtin_cd(t_token **current, t_data *data);
+int		builtin_cd(t_exec *current, t_data *data);
 
 /**
  * @brief Tries to execute the echo builtin.
- * @param current Pointer to a pointer of the current token.
+ * @param current Current token.
  * @return Integer signaling whether token is a builtin, or error on execution.
  */
-int		builtin_echo(t_token **current);
+int		builtin_echo(t_exec *current);
 
 /**
  * @brief Tries to execute the env builtin.
- * @param current Pointer to a pointer of the current token.
+ * @param current Current token.
  * @param data Data struct of all core variables.
  * @return Integer signaling whether token is a builtin, or error on execution.
  */
-int		builtin_env(t_token **current, t_data *data);
+int		builtin_env(t_exec *current, t_data *data);
 
 /**
  * @brief Checks if the current token is a builtin command.
- * @param current Pointer to a pointer of the current token.
+ * @param current Current token.
  * @param data Data struct of all core variables.
  * @return Integer signaling whether token is a builtin, or error on execution.
  */
-int		builtins_check(t_token **current, t_data *data);
+int		builtins_check(t_exec *current, t_data *data);
 
 /**
  * @brief Frees all allocated memory in the data struct.
@@ -288,10 +290,11 @@ bool	parse_input(char *input, t_data *data);
 
 /**
  * @brief Finalizes the parsed list - removes empty tokens and identifies words.
+ * @param current NULL.
  * @param data Data struct of all core variables.
- * @return None.
+ * @return SUCCESS or FAILURE.
  */
-void	parsing_finalizer(t_data *data);
+int		parsing_finalizer(t_token *current, t_data *data);
 
 /**
  * @brief Removes quotes in tokens.

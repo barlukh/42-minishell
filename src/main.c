@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:40:06 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/15 15:21:21 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/16 15:16:08 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 volatile sig_atomic_t	g_signal = 0;
 
 static void		test_tok(t_data *data);
-static void		test_builtins(t_data *data);
+static int		test_builtins(t_data *data);
 
 int	main(int argc, char **argv, char **env)
 {
@@ -37,9 +37,10 @@ int	main(int argc, char **argv, char **env)
 		if (create_heredocs(data) != SUCCESS)
 			continue ;
 		merger(data);
-		execution(data);
+		// execution(data);
 		test_tok(data);
-		test_builtins(data);
+		if (test_builtins(data) == BUILT_ERR)
+			continue ;
 		ft_lst_exec_clear(&data->lst_exec);
 	}
 	clear_history();
@@ -99,18 +100,22 @@ static void	test_tok(t_data *data)
 }
 
 // TEST - prints builtins. (REMOVE BEFORE SUBMISSION!)
-static void	test_builtins(t_data *data)
+static int	test_builtins(t_data *data)
 {
 	int		return_value;
-	t_token	*current;
+	t_exec	*current;
 
 	printf("\n%s\n", "BUILTINS:");
-	current = data->lst_tok;
+	current = data->lst_exec;
 	while (current)
 	{
-		if (current->type == TOK_CMD)
-			return_value = builtins_check(&current, data);
-		if (current)
-			current = current->next;
+		return_value = builtins_check(current, data);
+		if (return_value == BUILT_ERR)
+		{
+			ft_lst_exec_clear(&data->lst_exec);
+			return (BUILT_ERR);
+		}
+		current = current->next;
 	}
+	return (BUILT_NO);
 }

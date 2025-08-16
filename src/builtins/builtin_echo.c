@@ -6,41 +6,41 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 12:27:45 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/13 13:22:31 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/16 14:52:07 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static bool	is_valid_n_option(char *content);
-static void	skip_n_option(int *passed_n_option, t_token **current);
-static void	output_argument(int *passed_word, t_token **current);
+static void	skip_n_option(int *passed_n_option, size_t *i, t_exec *current);
+static void	output_argument(int *passed_word, size_t i, t_exec *current);
 static void	end_line(int passed_n_option);
 
-int	builtin_echo(t_token **current)
+int	builtin_echo(t_exec *current)
 {
-	int	passed_n_option;
-	int	passed_word;
+	int		passed_n_option;
+	int		passed_word;
+	size_t	i;
 
-	if (ft_strcmp((*current)->content, "echo") == 0)
+	i = 0;
+	if (ft_strcmp(current->cmd_arg[i++], "echo") == 0)
 	{
 		passed_n_option = false;
 		passed_word = false;
-		*current = (*current)->next;
-		while (*current && (*current)->type != TOK_PIPE)
+		while (current->cmd_arg[i])
 		{
-			if (is_valid_n_option((*current)->content)
+			if (is_valid_n_option(current->cmd_arg[i])
 				&& passed_n_option == false && passed_word == false)
 			{
-				skip_n_option(&passed_n_option, current);
+				skip_n_option(&passed_n_option, &i, current);
 				continue ;
 			}
-			else if ((*current)->type == TOK_ARG)
-				output_argument(&passed_word, current);
-			*current = (*current)->next;
+			else
+				output_argument(&passed_word, i, current);
+			i++;
 		}
 		end_line(passed_n_option);
-		get_data()->exit_status = 0;
 		return (BUILT_YES);
 	}
 	return (BUILT_NO);
@@ -67,26 +67,26 @@ static bool	is_valid_n_option(char *content)
 }
 
 // Skips all repeating -n options.
-static void	skip_n_option(int *passed_n_option, t_token **current)
+static void	skip_n_option(int *passed_n_option, size_t *i, t_exec *current)
 {
 	*passed_n_option = true;
-	while (*current && (is_valid_n_option((*current)->content)
-			|| (*current)->type != TOK_ARG))
-		*current = (*current)->next;
+	while (current->cmd_arg[*i] && (is_valid_n_option(current->cmd_arg[*i])))
+		(*i)++;
 }
 
 // Outputs an argument into STDOUT.
-static void	output_argument(int *passed_word, t_token **current)
+static void	output_argument(int *passed_word, size_t i, t_exec *current)
 {
 	if (*passed_word == true)
 		write(STDOUT_FILENO, " ", 1);
 	*passed_word = true;
-	ft_putstr_fd((*current)->content, STDOUT_FILENO);
+	ft_putstr_fd(current->cmd_arg[i], STDOUT_FILENO);
 }
 
-// Inserts a newline symbol where applicable.
+// Inserts a newline symbol where applicable and updates the exit status.
 static void	end_line(int passed_n_option)
 {
 	if (passed_n_option == false)
 		write(STDOUT_FILENO, "\n", 1);
+	get_data()->exit_status = 0;
 }
