@@ -37,7 +37,7 @@ int	main(int argc, char **argv, char **env)
 		if (create_heredocs(data) != SUCCESS)
 			continue ;
 		merger(data);
-		execution(data);
+		// execution(data);
 		test_tok(data);
 		test_builtins(data);
 		ft_lst_exec_clear(&data->lst_exec);
@@ -104,6 +104,7 @@ static void	test_builtins(t_data *data)
 	int		return_value;
 	t_token	*current;
 
+	(void)return_value;
 	printf("\n%s\n", "BUILTINS:");
 	current = data->lst_tok;
 	while (current)

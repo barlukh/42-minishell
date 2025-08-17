@@ -19,6 +19,7 @@
 
 # include "libft.h"
 
+# include <stdio.h> // UNUSED, REMOVE BEFORE SUBMISSION !!!!!!!!!!!!!!!!!!!!!
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -26,7 +27,6 @@
 # include <stdbool.h>
 # include <sys/wait.h>
 
-# include <stdio.h> // UNUSED, REMOVE BEFORE SUBMISSION !!!!!!!!!!!!!!!!!!!!!
 
 //------------------------------------------------------------------------------
 // Global Variables
