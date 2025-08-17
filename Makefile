@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 08:53:07 by bgazur            #+#    #+#              #
-#    Updated: 2025/08/16 16:46:53 by bgazur           ###   ########.fr        #
+#    Updated: 2025/08/17 13:02:28 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ OBJ			=	$(SRC:$(DIR_SRC)/%.c=$(DIR_OBJ)/%.o)
 SRC			=	$(DIR_BUILTIN)/builtin_cd.c \
 				$(DIR_BUILTIN)/builtin_echo.c \
 				$(DIR_BUILTIN)/builtin_env.c \
+				$(DIR_BUILTIN)/builtin_exit.c \
 				$(DIR_BUILTIN)/builtin_pwd.c \
 				$(DIR_BUILTIN)/builtins.c \
 				$(DIR_EXEC)/execution.c \

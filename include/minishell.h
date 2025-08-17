@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/16 17:31:11 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/17 15:39:36 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,20 @@ extern volatile sig_atomic_t	g_signal;
 # define TEMP "here_temp"
 
 // Error messages.
-# define ERR_MSG_MEM "malloc: Cannot allocate memory"
-# define ERR_MSG_FILE "open: Error opening file"
-# define ERR_MSG_QUOTE "syntax error: unclosed quote"
-# define ERR_MSG_PIPES "syntax error near unexpected token `|\'"
-# define ERR_MSG_REDIR "syntax error near unexpected token `redirection'"
-# define ERR_MSG_INPUT "maximum input length exceeded"
-# define ERR_MSG_HERE "maximum here-document count exceeded"
+# define ERR_MSG_AMB "redirection: ambiguous redirect"
+# define ERR_MSG_ENV "env: options and arguments are not supported"
 # define ERR_MSG_EOF "warning: here-document delimited by end-of-file"
 # define ERR_MSG_EXIT "exit"
-# define ERR_MSG_ENV "env: options and arguments are not supported"
+# define ERR_MSG_FILE "open: Error opening file"
+# define ERR_MSG_HERE "maximum here-document count exceeded"
+# define ERR_MSG_INPUT "maximum input length exceeded"
+# define ERR_MSG_MEM "malloc: Cannot allocate memory"
+# define ERR_MSG_NUMARG "exit: numeric argument required"
+# define ERR_MSG_PIPES "syntax error near unexpected token `|\'"
 # define ERR_MSG_PWD "pwd: options are not supported"
-# define ERR_MSG_AMB "redirection: ambiguous redirect"
+# define ERR_MSG_QUOTE "syntax error: unclosed quote"
+# define ERR_MSG_REDIR "syntax error near unexpected token `redirection'"
+# define ERR_MSG_TOOARG "exit: too many arguments"
 
 // Return / exit values (general).
 # define SUCCESS 0
@@ -108,6 +110,14 @@ int		builtin_echo(t_exec *current);
  * @return Integer signaling whether token is a builtin, or error on execution.
  */
 int		builtin_env(t_exec *current, t_data *data);
+
+/**
+ * @brief Tries to execute the exit builtin.
+ * @param current Current token.
+ * @param data Data struct of all core variables.
+ * @return Integer signaling whether token is a builtin, or error on execution.
+ */
+int		builtin_exit(t_exec *current, t_data *data);
 
 /**
  * @brief Tries to execute the pwd builtin.
@@ -223,6 +233,13 @@ void	error_synt(t_data *data);
  * @return None.
  */
 void	error_tok(char *input, t_data *data);
+
+/**
+ * @brief Executes parsed tokens.
+ * @param data Data struct of all core variables.
+ * @return None.
+ */
+void	execution(t_data *data);
 
 /**
  * @brief Expands question mark variable in a heredoc.
@@ -371,13 +388,6 @@ bool	syntax_checker(t_data *data);
  * @return None.
  */
 void	tokenizer(char *input, t_data *data);
-
-/**
- * @brief Execuion part.
- * @param data Data struct of all core variables.
- * @return None.
- */
-void	execution(t_data *data);
 
 /**
  * @brief Replaces variables with their expanded values (quoted).

@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/08/15 15:20:30 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/17 15:43:38 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 // Library Headers
 //------------------------------------------------------------------------------
 
+# include <limits.h>
 # include <stdbool.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -29,6 +30,7 @@
 # define DELIMITERS "|<> \t\n"
 
 // Return / exit values (general).
+# define ERROR -1
 # define SUCCESS 0
 # define FAILURE 1
 
@@ -79,6 +81,13 @@ typedef struct s_exec
 //------------------------------------------------------------------------------
 // Function Prototypes
 //------------------------------------------------------------------------------
+
+/**
+ * @brief Converts a string into an integer.
+ * @param s String to convert.
+ * @return Converted string as int.
+ */
+int		ft_atoi(const char *s);
 
 /**
  * @brief Erases data in a memory by writing \0 to that area.

@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 16:39:57 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/16 17:34:18 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/17 13:45:09 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	builtin_pwd(t_exec *current, t_data *data)
 	return (BUILT_NO);
 }
 
+// Checks if the argument is an invalid option.
 static bool	is_invalid_option(char *content)
 {
 	if (!content || content[0] != '-')
