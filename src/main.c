@@ -105,6 +105,7 @@ static int	test_builtins(t_data *data)
 	int		return_value;
 	t_exec	*current;
 
+	(void)return_value;
 	printf("\n%s\n", "BUILTINS:");
 	current = data->lst_exec;
 	while (current)

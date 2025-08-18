@@ -75,6 +75,9 @@ typedef struct s_exec
 	char			**cmd_arg;
 	char			**red_in;
 	char			**red_out;
+	int				infile;	
+	int				outfile;	
+	int				num_cmds; // number of pipes + 1
 	struct s_exec	*next;
 }	t_exec;
 

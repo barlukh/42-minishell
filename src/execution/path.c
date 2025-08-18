@@ -6,7 +6,6 @@
 // 	char	*path;
 // 	char	*command;
 // 	int		i;
-
 // 	i = 0;
 // 	command = "PATH";
 // 	path = NULL;
@@ -23,14 +22,14 @@
 // 		return (NULL);
 // 	return (ft_split(path, ':'));
 // }
-
+//
 // char	*ft_find_path(char *cmd, char **envp)
 // {
 // 	int		i;
 // 	char	*tmp;
 // 	char	**paths;
 // 	char	*full_path;
-
+//
 // 	if (!cmd || !*cmd)
 // 		return (ft_strdup(""));
 // 	paths = ft_get_env_paths(envp);

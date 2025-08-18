@@ -2,30 +2,25 @@
 // #include "../include/minishell.h"
 
 // #define MAX_CMDS 5
-
 // char *cmds[MAX_CMDS][5] = {
 //     {"cat", NULL},
 //     {"grep", "DIR", NULL},
 //     {"wc", "-l", NULL},
 // };
-
 // int main(void) {
 //     int pipe_fd[2][2];
 //     int num_cmds = 3;
 //     int i;
-
 //     int infile_fd = open("infile", O_RDONLY);
 //     if (infile_fd == -1) {
 //         perror("open infile");
 //         exit(EXIT_FAILURE);
 //     }
-
 //     int outfile_fd = open("outfile", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 //     if (outfile_fd == -1) {
 //         perror("open outfile");
 //         exit(EXIT_FAILURE);
 //     }
-
 //     for (i = 0; i < num_cmds; i++) {
 //         int current = i % 2;
 //         int previous = (i + 1) % 2;
@@ -87,4 +82,3 @@
 //     }
 //     return 0;
 // }
-

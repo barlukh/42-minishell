@@ -7,3 +7,6 @@ subject.pdf
 vg.txt
 compile_commands.json
 .cache
+build/
+CMakeLists.txt
+
