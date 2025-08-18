@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 07:52:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/16 16:29:52 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/18 11:30:13 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,12 @@ bool	parse_input(char *input, t_data *data)
 		return (FAILURE);
 	}
 	env_expander(data);
+	if (ambiguous_redir(data))
+	{
+		ft_lst_tok_clear(&data->lst_tok);
+		data->exit_status = 1;
+		return (FAILURE);
+	}
 	heredoc_identifier(data);
 	word_splitter(data);
 	quote_remover(data);

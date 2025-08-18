@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/18 10:12:23 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/18 11:34:11 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,13 @@ typedef struct s_data
 //------------------------------------------------------------------------------
 // Function Prototypes
 //------------------------------------------------------------------------------
+
+/**
+ * @brief Checks if the file name contains a space character.
+ * @param data Data struct of all core variables.
+ * @return Bool true or false.
+ */
+bool	ambiguous_redir(t_data *data);
 
 /**
  * @brief Tries to execute the cd builtin.
