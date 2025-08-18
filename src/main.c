@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:40:06 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/17 17:25:03 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/18 10:22:52 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 volatile sig_atomic_t	g_signal = 0;
 
 static void		test_tok(t_data *data);
-static int		test_builtins(t_data *data);
+static bool		test_builtins(t_data *data);
 
 int	main(int argc, char **argv, char **env)
 {
@@ -39,8 +39,8 @@ int	main(int argc, char **argv, char **env)
 		merger(data);
 		// execution(data);
 		test_tok(data);
-		if (test_builtins(data) == BUILT_ERR)
-			continue ;
+		test_builtins(data);
+		data->cmd_count = 0;
 		ft_lst_exec_clear(&data->lst_exec);
 	}
 	clear_history();
@@ -62,6 +62,9 @@ static void	test_tok(t_data *data)
 	t_exec	*current_exec;
 
 	printf("\n%s\n", "ARRAYS:");
+	printf("%-20s", "cmd_count:");
+	printf("%zu", data->cmd_count);
+	printf("\n%s\n", "-------");
 	current_exec = data->lst_exec;
 	while (current_exec)
 	{
@@ -100,23 +103,17 @@ static void	test_tok(t_data *data)
 }
 
 // TEST - prints builtins. (REMOVE BEFORE SUBMISSION!)
-static int	test_builtins(t_data *data)
+static bool	test_builtins(t_data *data)
 {
-	int		return_value;
 	t_exec	*current;
 
-	(void)return_value;
 	printf("\n%s\n", "BUILTINS:");
 	current = data->lst_exec;
 	while (current)
 	{
-		builtins_check(&return_value, current, data);
-		if (return_value == BUILT_ERR)
-		{
-			ft_lst_exec_clear(&data->lst_exec);
-			return (BUILT_ERR);
-		}
+		if (builtins_check(current, data))
+			return (true);
 		current = current->next;
 	}
-	return (BUILT_NO);
+	return (false);
 }

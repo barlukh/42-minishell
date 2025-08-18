@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 12:27:45 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/16 14:52:07 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/18 10:09:43 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	skip_n_option(int *passed_n_option, size_t *i, t_exec *current);
 static void	output_argument(int *passed_word, size_t i, t_exec *current);
 static void	end_line(int passed_n_option);
 
-int	builtin_echo(t_exec *current)
+bool	builtin_echo(t_exec *current)
 {
 	int		passed_n_option;
 	int		passed_word;
@@ -41,9 +41,9 @@ int	builtin_echo(t_exec *current)
 			i++;
 		}
 		end_line(passed_n_option);
-		return (BUILT_YES);
+		return (true);
 	}
-	return (BUILT_NO);
+	return (false);
 }
 
 // Checks if the token is a valid -n option.

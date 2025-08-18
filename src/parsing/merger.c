@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 08:51:55 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/15 15:19:12 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/18 10:20:45 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ static t_token	*merge_main(t_exec *node, t_token *current, t_data *data)
 		copy = ft_strdup(current->content);
 		if (!copy)
 			clean_merge(node, data);
+		if (current->type == TOK_CMD)
+			data->cmd_count++;
 		if (current->type == TOK_CMD || current->type == TOK_ARG)
 			node->cmd_arg[i[0]++] = copy;
 		else if (current->type == TOK_IN || current->type == TOK_HERE)

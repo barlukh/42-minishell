@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 16:39:57 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/17 13:45:09 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/18 10:11:03 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static bool	is_invalid_option(char *content);
 
-int	builtin_pwd(t_exec *current, t_data *data)
+bool	builtin_pwd(t_exec *current, t_data *data)
 {
 	char	*cwd;
 	size_t	i;
@@ -26,7 +26,7 @@ int	builtin_pwd(t_exec *current, t_data *data)
 		{
 			ft_putendl_fd(ERR_MSG_PWD, STDERR_FILENO);
 			data->exit_status = 2;
-			return (BUILT_ERR);
+			return (true);
 		}
 		cwd = NULL;
 		cwd = getcwd(cwd, 0);
@@ -35,9 +35,9 @@ int	builtin_pwd(t_exec *current, t_data *data)
 		ft_putendl_fd(cwd, STDOUT_FILENO);
 		free(cwd);
 		get_data()->exit_status = 0;
-		return (BUILT_YES);
+		return (true);
 	}
-	return (BUILT_NO);
+	return (false);
 }
 
 // Checks if the argument is an invalid option.

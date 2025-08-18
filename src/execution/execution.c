@@ -20,7 +20,7 @@ void	execution(t_data *data)
 	while (current)
 	{
 		// open_fds(*current); // inside child or builting
-		if (builtins_check(current->cmd_arg[0])) // check if cmd is a builting
+		if (builtins_check(current, data)) // check if cmd is a builting
 			builting_process(*current);
 		else
 			child_process(*current);

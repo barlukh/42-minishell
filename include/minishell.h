@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/18 09:52:21 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/18 10:12:23 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ extern volatile sig_atomic_t	g_signal;
 // Return / exit values (builtins).
 # define BUILT_NO 0
 # define BUILT_YES 1
-# define BUILT_ERR 2
 
 //------------------------------------------------------------------------------
 // Type Definitions
@@ -80,6 +79,7 @@ extern volatile sig_atomic_t	g_signal;
 typedef struct s_data
 {
 	int		exit_status;
+	size_t	cmd_count;
 	t_env	*lst_env;
 	t_token	*lst_tok;
 	t_exec	*lst_exec;
@@ -92,49 +92,48 @@ typedef struct s_data
 /**
  * @brief Tries to execute the cd builtin.
  * @param current Current token.
- * @return Integer signaling whether token is a builtin, or error on execution.
+ * @return Bool true or false.
  */
-int		builtin_cd(t_exec *current);
+bool	builtin_cd(t_exec *current);
 
 /**
  * @brief Tries to execute the echo builtin.
  * @param current Current token.
- * @return Integer signaling whether token is a builtin, or error on execution.
+ * @return Bool true or false.
  */
-int		builtin_echo(t_exec *current);
+bool	builtin_echo(t_exec *current);
 
 /**
  * @brief Tries to execute the env builtin.
  * @param current Current token.
  * @param data Data struct of all core variables.
- * @return Integer signaling whether token is a builtin, or error on execution.
+ * @return Bool true or false.
  */
-int		builtin_env(t_exec *current, t_data *data);
+bool	builtin_env(t_exec *current, t_data *data);
 
 /**
  * @brief Tries to execute the exit builtin.
  * @param current Current token.
  * @param data Data struct of all core variables.
- * @return Integer signaling whether token is a builtin, or error on execution.
+ * @return Bool true or false.
  */
-int		builtin_exit(t_exec *current, t_data *data);
+bool	builtin_exit(t_exec *current, t_data *data);
 
 /**
  * @brief Tries to execute the pwd builtin.
  * @param current Current token.
  * @param data Data struct of all core variables.
- * @return Integer signaling whether token is a builtin, or error on execution.
+ * @return Bool true or false.
  */
-int		builtin_pwd(t_exec *current, t_data *data);
+bool	builtin_pwd(t_exec *current, t_data *data);
 
 /**
  * @brief Checks if the current token is a builtin command.
- * @param return_value Return value of a builtin check.
  * @param current Current token.
  * @param data Data struct of all core variables.
- * @return Integer signaling whether token is a builtin, or error on execution.
+ * @return Bool true or false.
  */
-int		builtins_check(int *return_value, t_exec *current, t_data *data);
+bool	builtins_check(t_exec *current, t_data *data);
 
 /**
  * @brief Frees all allocated memory in the data struct.
@@ -247,7 +246,7 @@ void	execution(t_data *data);
  * @param tok_key Key string.
  * @param i Index of a character.
  * @param data Data struct of all core variables.
- * @return None.
+ * @return SUCCESS or FAILURE.
  */
 bool	exp_exit_heredoc(char **input, char *tok_key, size_t i, t_data *data);
 
@@ -333,7 +332,7 @@ void	quote_remover(t_data *data);
  * @brief Reads input from the command line.
  * @param input Pointer to a string in which to store the input.
  * @param data Data struct of all core variables.
- * @return None.
+ * @return SUCCESS or FAILURE.
  */
 bool	read_input(char **input, t_data *data);
 

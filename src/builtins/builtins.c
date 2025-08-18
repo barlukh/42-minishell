@@ -6,36 +6,29 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 14:13:09 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/17 13:56:24 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/18 10:12:27 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	builtins_check(int *return_value, t_exec *current, t_data *data)
+bool	builtins_check(t_exec *current, t_data *data)
 {
 	if (!current || !current->cmd_arg || !current->cmd_arg[0])
-		return (BUILT_NO);
-	*return_value = builtin_echo(current);
-	if (*return_value != BUILT_NO)
-		return (*return_value);
-	*return_value = builtin_cd(current);
-	if (*return_value != BUILT_NO)
-		return (*return_value);
-	*return_value = builtin_pwd(current, data);
-	if (*return_value != BUILT_NO)
-		return (*return_value);
-	// return_value = builtin_export(current);
-	// if (return_value != BUILT_NO)
-	// 	return (return_value);
-	// return_value = builtin_unset(current);
-	// if (return_value != BUILT_NO)
-	// 	return (return_value);
-	*return_value = builtin_env(current, data);
-	if (*return_value != BUILT_NO)
-		return (*return_value);
-	*return_value = builtin_exit(current, data);
-	if (*return_value != BUILT_NO)
-		return (*return_value);
-	return (BUILT_NO);
+		return (false);
+	if (builtin_echo(current))
+		return (true);
+	if (builtin_cd(current))
+		return (true);
+	if (builtin_pwd(current, data))
+		return (true);
+	//if (builtin_export(current)
+	// 	return (true);
+	//if (builtin_unset(current)
+	// 	return (true);
+	if (builtin_env(current, data))
+		return (true);
+	if (builtin_exit(current, data))
+		return (true);
+	return (false);
 }

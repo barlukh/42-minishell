@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 13:02:30 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/17 17:31:46 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/18 10:10:30 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	exit_atoi_overflow(t_data *data);
 static void	exit_with_arg(int exit_number, t_data *data);
 static void	exit_without_arg(t_data *data);
 
-int	builtin_exit(t_exec *current, t_data *data)
+bool	builtin_exit(t_exec *current, t_data *data)
 {
 	int	exit_num;
 
@@ -30,7 +30,7 @@ int	builtin_exit(t_exec *current, t_data *data)
 			ft_putendl_fd(ERR_MSG_TOOARG, STDERR_FILENO);
 			if (data->exit_status == 0)
 				data->exit_status = 1;
-			return (BUILT_ERR);
+			return (true);
 		}
 		if (current->cmd_arg[1])
 		{
@@ -41,7 +41,7 @@ int	builtin_exit(t_exec *current, t_data *data)
 		}
 		exit_without_arg(data);
 	}
-	return (BUILT_NO);
+	return (false);
 }
 
 // Checks if the second argument is a numerical value.
