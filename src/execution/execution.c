@@ -2,21 +2,29 @@
 #include "minishell.h"
 
 void	error_msg(char *str);
+int		redirections_io(t_exec current);
 int		open_fds_in(t_exec current);
 int		open_fds_out(t_exec current);
 int		xopen(const char *pathname, bool is_infile);
 int		update_pipes(int pipe_fd[2][2], int i, int num_cmds);
 int		builting_process(t_exec current);
 int		child_process(t_exec current);
+int		dup_io(int oldfd, int newfd);
+int		node_count(t_env *temp, int count);
+char	*path_finder(char **command);
+char	**rebuild_env(t_env lst_env, int i, int count);
 bool	wait_process(pid_t *pid, t_data *data);
 
 void	execution(t_data *data)
 {
 	t_exec		*current;
 	int			i;
+	char		**env;
 
 	i = 0;
 	current = data->lst_exec;
+	// Rebuild env from struct for execve
+	env = rebuild_env(*data->lst_env, i, i);
 	while (current)
 	{
 		// open_fds(*current); // inside child or builting
@@ -24,11 +32,50 @@ void	execution(t_data *data)
 			builting_process(*current);
 		else
 			child_process(*current);
-		update_pipes(); // update_pipe on parent side
+		update_pipes(current->pipe_fd, i, data->cmd_count); // update_pipe on parent side
 		current= data->lst_exec->next;
 		i++;
 	}
-	wait_process();
+	// wait_process();
+}
+
+int	node_count(t_env *temp, int count)
+{
+	while (temp)
+	{
+		count++;
+		temp = temp->next;
+	}
+	return (count);
+}
+
+char	**rebuild_env(t_env lst_env, int i, int count)
+{
+	t_env	*temp;
+	char	**env_array;
+	char	*key_eq;
+
+	temp = &lst_env;
+	key_eq = NULL;
+	count = node_count(temp, i);
+	env_array = malloc(sizeof(char *) * (count + 1));
+	if (!env_array)
+		return NULL;
+	temp = &lst_env;
+	while (temp)
+	{
+		key_eq = ft_strjoin(temp->key, "=");
+		if (!key_eq)
+			return NULL;
+		env_array[i] = ft_strjoin(key_eq, temp->value);
+		free(key_eq);
+		if (!env_array[i])
+			return NULL;
+		i++;
+		temp = temp->next;
+	}
+	env_array[i] = NULL;
+	return (env_array);
 }
 
 int	builting_process(t_exec current)
@@ -40,7 +87,10 @@ int	builting_process(t_exec current)
 int	child_process(t_exec current)
 {
 	pid_t	pids;
+	char	*path;
+	char	**env;
 
+	path = NULL;
 	pids = fork();
 	if (pids < 0)
 	{
@@ -49,14 +99,37 @@ int	child_process(t_exec current)
 	}
 	if (pids == 0) // child process
 	{
-		redirections_io(current); // resets the reclying system of pipes
+		// resets the reclying system of pipes
+		redirections_io(current);
+		// solve paths.
+		path = path_finder(current.cmd_arg);
+		execve(path, current.cmd_arg, env);
 	}
 	return (0);
+}
+
+char	*path_finder(char **command)
+{
+	// if the cmd has already the fullpath
+	if (check_access(command[0]) == true) // TODO:
+		return (ft_strdup(command[0]));
 }
 
 int	redirections_io(t_exec current)
 {
 
+}
+
+int	dup_io(int oldfd, int newfd)
+{
+	if (dup2(oldfd, newfd) == -1)
+	{
+		close (oldfd);
+		return (-1);
+	}
+	if (oldfd != newfd)
+		close (oldfd);
+	return (newfd);
 }
 
 int	update_pipes(int pipe_fd[2][2], int i, int num_cmds)
@@ -132,13 +205,3 @@ int	xopen(const char *pathname, bool is_infile)
 	}
 	return fd;
 }
-
-// void	error_msg(char *str)
-// {
-// 	perror(str);
-// }
-
-// dup2 (red_in);
-// dup2 (red_out);
-//
-// execve(data->cmd_arg, PATH, data->lst_env)
