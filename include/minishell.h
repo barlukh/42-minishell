@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/18 17:41:21 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/19 09:36:25 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,14 @@ bool	builtin_env(t_exec *current, t_data *data);
  * @return Bool true or false.
  */
 bool	builtin_exit(t_exec *current, t_data *data);
+
+/**
+ * @brief Tries to execute the export builtin.
+ * @param current Current token.
+ * @param data Data struct of all core variables.
+ * @return Bool true or false.
+ */
+bool	builtin_export(t_exec *current, t_data *data);
 
 /**
  * @brief Tries to execute the pwd builtin.

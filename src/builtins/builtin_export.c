@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_pwd.c                                      :+:      :+:    :+:   */
+/*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/16 16:39:57 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/19 09:29:23 by bgazur           ###   ########.fr       */
+/*   Created: 2025/08/19 09:18:05 by bgazur            #+#    #+#             */
+/*   Updated: 2025/08/19 09:49:51 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,25 @@
 
 static bool	is_invalid_option(char *content);
 
-bool	builtin_pwd(t_exec *current, t_data *data)
+bool	builtin_export(t_exec *current, t_data *data)
 {
-	char	*cwd;
+	size_t	i;
 
-	if (ft_strcmp(current->cmd_arg[0], "pwd") == 0)
+	i = 0;
+	if (ft_strcmp(current->cmd_arg[i], "export") == 0)
 	{
-		if (current->cmd_arg[1] && is_invalid_option(current->cmd_arg[1]))
+		i++;
+		if (current->cmd_arg[i] && is_invalid_option(current->cmd_arg[i]))
 		{
 			ft_putendl_fd(ERR_MSG_PWD, STDERR_FILENO);
 			data->exit_status = 2;
 			return (true);
 		}
-		cwd = NULL;
-		cwd = getcwd(cwd, 0);
-		if (!cwd)
-			error_general_mem(data);
-		ft_putendl_fd(cwd, STDOUT_FILENO);
-		free(cwd);
-		get_data()->exit_status = 0;
+		while (current->cmd_arg[i])
+		{
+			export(current->cmd_arg[i], data);
+			i++;
+		}
 		return (true);
 	}
 	return (false);
@@ -50,4 +50,10 @@ static bool	is_invalid_option(char *content)
 	if (content[1] == '-' && content[2] == '\0')
 		return (false);
 	return (true);
+}
+
+// Main function to export a variable.
+static bool	export(char *content, t_data *data)
+{
+	
 }
