@@ -450,4 +450,21 @@ void	var_remove(char *content, char **tok_key, size_t i);
  */
 void	word_splitter(t_data *data);
 
+/* ************************************************************************** */
+
+void	error_msg(char *str);
+int		redirections_io(t_exec *current, int i);
+int		open_fds_in(t_exec *current);
+int		open_fds_out(t_exec *current);
+int		xopen(const char *pathname, bool is_infile);
+int		update_pipes(int pipe_fd[2][2], int i);
+int		builting_process(t_exec *current, int i);
+int		child_process(t_exec *current, int i, char **env);
+int		dup_io(int oldfd, int newfd);
+int		node_count(t_env *temp, int count);
+char	*path_finder(char **command, char **env);
+char	**rebuild_env(t_env lst_env, int i, int count);
+bool	wait_process(pid_t *pid, t_data *data);
+void	execution(t_data *data);
+
 #endif

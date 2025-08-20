@@ -63,4 +63,3 @@ int	child_process(t_exec *current, int i, char **env, t_data *data)
 	// }
 	return (0);
 }
-
