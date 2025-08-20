@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 08:53:07 by bgazur            #+#    #+#              #
-#    Updated: 2025/08/19 09:23:07 by bgazur           ###   ########.fr        #
+#    Updated: 2025/08/20 09:14:22 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC			=	$(DIR_BUILTIN)/builtin_cd.c \
 				$(DIR_BUILTIN)/builtin_echo.c \
 				$(DIR_BUILTIN)/builtin_env.c \
 				$(DIR_BUILTIN)/builtin_exit.c \
+				$(DIR_BUILTIN)/builtin_export_utils.c \
 				$(DIR_BUILTIN)/builtin_export.c \
 				$(DIR_BUILTIN)/builtin_pwd.c \
 				$(DIR_BUILTIN)/builtins.c \

@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/19 09:36:25 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/20 09:31:09 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,10 @@ extern volatile sig_atomic_t	g_signal;
 # define ERR_MSG_ENV "env: options and arguments are not supported"
 # define ERR_MSG_EOF "warning: here-document delimited by end-of-file"
 # define ERR_MSG_EXIT "exit"
+# define ERR_MSG_EXPORT "export: options are not supported"
 # define ERR_MSG_FILE "open: Error opening file"
 # define ERR_MSG_HERE "maximum here-document count exceeded"
+# define ERR_MSG_IDEN "export: not a valid identifier"
 # define ERR_MSG_INPUT "maximum input length exceeded"
 # define ERR_MSG_MEM "malloc: Cannot allocate memory"
 # define ERR_MSG_NUMARG "exit: numeric argument required"
@@ -187,6 +189,16 @@ void	create_lst_env(char **env, t_data *data);
 void	env_expander(t_data *data);
 
 /**
+ * @brief Handles errors when creating an exported variable.
+ * @param str_arg Argument to be exported.
+ * @param key Key string.
+ * @param value Value string.
+ * @param data Data struct of all core variables.
+ * @return None.
+ */
+void	error_export(char *str_arg, char *key, char *value, t_data *data);
+
+/**
  * @brief Handles general memory errors.
  * @param data Data struct of all core variables.
  * @return None.
@@ -253,6 +265,14 @@ void	error_tok(char *input, t_data *data);
  * @return None.
  */
 void	execution(t_data *data);
+
+/**
+ * @brief Main function to export a variable.
+ * @param inv_id Flag to signal a succesful export.
+ * @param content Content to export.
+ * @param data Data struct of all core variables.
+ */
+void	export_loop(bool *inv_id, char *content, t_data *data);
 
 /**
  * @brief Expands question mark variable in a heredoc.
