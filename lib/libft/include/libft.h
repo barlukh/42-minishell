@@ -76,7 +76,6 @@ typedef struct s_exec
 	char			**cmd_arg;
 	char			**red_in;
 	char			**red_out;
-	pid_t			*pids;
 	int				infile;	
 	int				outfile;	
 	int				pipe_fd[2][2];	
