@@ -2,13 +2,13 @@
 #include "minishell.h"
 
 void	error_msg(char *str);
-int		redirections_io(t_exec current, int i);
-int		open_fds_in(t_exec current);
-int		open_fds_out(t_exec current);
+int		redirections_io(t_exec *current, int i);
+int		open_fds_in(t_exec *current);
+int		open_fds_out(t_exec *current);
 int		xopen(const char *pathname, bool is_infile);
-int		update_pipes(int pipe_fd[2][2], int i, int num_cmds);
-int		builting_process(t_exec current, int i);
-int		child_process(t_exec current, int i, char **env);
+int		update_pipes(int pipe_fd[2][2], int i);
+int		builting_process(t_exec *current, int i);
+int		child_process(t_exec *current, int i, char **env);
 int		dup_io(int oldfd, int newfd);
 int		node_count(t_env *temp, int count);
 char	*path_finder(char **command, char **env);
@@ -25,24 +25,23 @@ void	execution(t_data *data)
 	current = data->lst_exec;
 	// Rebuild env from struct for execve
 	env = rebuild_env(*data->lst_env, i, i);
-	current->pids = malloc(sizeof(pid_t) * data->cmd_count);  // num_cmds is the number of commands in the pipeline
-	if (current->pids == NULL) {
+	data->pids = malloc(sizeof(pid_t) * data->cmd_count);  // num_cmds is the number of commands in the pipeline
+	if (data->pids == NULL) {
 		perror("malloc failed for pids");
 		exit(EXIT_FAILURE);
 	}
 	while (current)
 	{
-		// ft_memset(current->pids, 0, sizeof(pid_t));
 		// open_fds(*current); // inside child or builting
+		// update_pipes(current->pipe_fd, i, data->cmd_count); // update_pipe on parent side
 		if (builtins_check(current, data)) // check if cmd is a builting
-			builting_process(*current, i);
+			builting_process(current, i);
 		else
-			child_process(*current, i, env);
-		update_pipes(current->pipe_fd, i, data->cmd_count); // update_pipe on parent side
+			child_process(current, i, env);
 		current= current->next;
 		i++;
 	}
-	wait_process(current->pids, data);
+	wait_process(data->pids, data);
 }
 
 bool	wait_process(pid_t *pid, t_data *data)
@@ -105,40 +104,41 @@ char	**rebuild_env(t_env lst_env, int i, int count)
 	return (env_array);
 }
 
-int	builting_process(t_exec current, int i)
+int	builting_process(t_exec *current, int i)
 {
 	redirections_io(current, i); // resets the reclying system of pipes
 	return (0);
 }
 
-int	child_process(t_exec current, int i, char **env)
+int	child_process(t_exec *current, int i, char **env)
 {
 	char	*path;
 	int		previous;
 
 	path = NULL;
 	previous = (i + 1) % 2;
-	current.pids[i] = fork();
-	if (current.pids[i] < 0)
+	open_fds_in(current);								
+	update_pipes(current->pipe_fd, i); // update_pipe on parent side
+	get_data()->pids[i] = fork();
+	if (get_data()->pids[i] < 0)
 	{
 		perror("fork error:");
 		exit(EXIT_FAILURE);
 	}
-	open_fds_in(current);								
 	open_fds_out(current);								
-	if (current.pids[i] == 0) // child process
+	if (get_data()->pids[i] == 0) // child process
 	{
 		// resets the reclying system of pipes
 		redirections_io(current, i); // TODO:
-		// solve paths.
-		path = path_finder(current.cmd_arg, env); // TODO:
-		execve(path, current.cmd_arg, env);
+									 // solve paths.
+		path = path_finder(current->cmd_arg, env); // TODO:
+		execve(path, current->cmd_arg, env);
 		free(env);
 	}
 	if (i != 0)
 	{
-		close(current.pipe_fd[previous][0]);
-		close(current.pipe_fd[previous][1]);
+		close(current->pipe_fd[previous][0]);
+		close(current->pipe_fd[previous][1]);
 	}
 	return (0);
 }
@@ -200,7 +200,7 @@ char	*path_finder(char **command, char **env)
 	return NULL;
 }
 
-int	redirections_io(t_exec current, int i) // TODO:
+int	redirections_io(t_exec *current, int i) // TODO:
 {
 	int cmds;
 	int actual;
@@ -210,30 +210,29 @@ int	redirections_io(t_exec current, int i) // TODO:
 	previous = (i + 1) % 2;
 	cmds = get_data()->cmd_count;
 	if (i == 0)
-	{
-		if (dup_io(current.infile, STDIN_FILENO) < 0)
-			return (4);
-	}
+		dup_io(current->infile, STDIN_FILENO);
 	else
-		if (dup_io(current.pipe_fd[previous][0], STDIN_FILENO) < 0)
-			return (4);
+		dup_io(current->pipe_fd[previous][0], STDIN_FILENO);
 	if (i == cmds -1)
 	{
-		if (dup_io(current.outfile, STDOUT_FILENO) < 0)
-			return (4);
+		if (current->outfile != 0)
+			dup_io(current->outfile, STDOUT_FILENO);
 	}
 	else
-		if (dup_io(current.pipe_fd[actual][1], STDOUT_FILENO) < 0)
-			return (4);
+		dup_io(current->pipe_fd[actual][1], STDOUT_FILENO);
 	if (i != 0)
 	{
-		close(current.pipe_fd[previous][0]);
-		close(current.pipe_fd[previous][1]);
+		if (current->pipe_fd[previous][0] != STDIN_FILENO)
+			close(current->pipe_fd[previous][0]);
+		if (current->pipe_fd[previous][1] != STDOUT_FILENO)
+			close(current->pipe_fd[previous][1]);
 	}
-	if (i == cmds -1)
+	if (i != 0 && i == cmds - 1)
 	{
-		close(current.pipe_fd[actual][0]);
-		close(current.pipe_fd[actual][1]);
+		if (current->pipe_fd[actual][0] != STDIN_FILENO)
+			close(current->pipe_fd[actual][0]);
+		if (current->pipe_fd[actual][1] != STDOUT_FILENO)
+			close(current->pipe_fd[actual][1]);
 	}
 	return (0);
 }
@@ -241,22 +240,21 @@ int	redirections_io(t_exec current, int i) // TODO:
 int	dup_io(int oldfd, int newfd)
 {
 	if (dup2(oldfd, newfd) == -1)
-	{
-		close (oldfd);
 		return (-1);
-	}
 	if (oldfd != newfd)
 		close (oldfd);
 	return (newfd);
 }
 
-int	update_pipes(int pipe_fd[2][2], int i, int num_cmds)
+int	update_pipes(int pipe_fd[2][2], int i)
 {
 	int current;
 	int previous;
+	int num_cmds;
 
 	current = i % 2;
 	previous = (i + 1) % 2;
+	num_cmds = get_data()->cmd_count;
 	if (i != num_cmds - 1)
 	{
 		if (pipe(pipe_fd[current]) == -1)
@@ -273,27 +271,27 @@ int	update_pipes(int pipe_fd[2][2], int i, int num_cmds)
 	return (0);
 }
 
-int	open_fds_in(t_exec current)
+int	open_fds_in(t_exec *current)
 {
 	int i;
 
 	i = 0;
-	while (current.red_in[i])
+	while (current->red_in[i])
 	{
-		current.infile = xopen(current.red_in[i], true); // open return int, red_in is of type char **
+		current->infile = xopen(current->red_in[i], true); // open return int, red_in is of type char **
 		i++;
 	}
 	return (0);
 }
 
-int	open_fds_out(t_exec current)
+int	open_fds_out(t_exec *current)
 {
 	int i;
 
 	i = 0;
-	while (current.red_out[i])
+	while (current->red_out[i])
 	{
-		current.outfile = xopen(current.red_out[i], false); // open return int, red_in is of type char **
+		current->outfile = xopen(current->red_out[i], false); // open return int, red_in is of type char **
 		i++;
 	}
 	return (0);

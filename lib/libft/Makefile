@@ -83,7 +83,6 @@ $(DIR_OBJ):
 
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c $(HDR)
 	@$(CC) $(CFLAGS) -I $(DIR_HDR) -c $< -o $@
-	@echo "... 🛠️ compiling $<"
 
 clean:
 	@$(RM) $(DIR_OBJ)

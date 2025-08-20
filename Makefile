@@ -65,7 +65,7 @@ $(NAME): $(OBJ)
 	@echo "✅ Build $(GREEN)$(NAME) $(NC)successfully! 🎉"
 
 $(LIBFT):
-	@$(MAKE) -C $(DIR_LIBFT)
+	@$(MAKE) --no-print-directory -C $(DIR_LIBFT)
 
 $(DIR_OBJ):
 	@mkdir -p $(DIR_OBJ)
@@ -74,15 +74,14 @@ $(DIR_OBJ):
 $(DIR_OBJ)/%.o: $(DIR_SRC)/%.c $(HDR)
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -I$(DIR_HDR) -I$(DIR_LIBFT)/include -c $< -o $@
-	@echo "... 🛠️ compiling $<"
 
 clean:
-	@$(MAKE) -C $(DIR_LIBFT) clean
+	@$(MAKE) --no-print-directory -C $(DIR_LIBFT) clean
 	@$(RM) $(DIR_OBJ)
 	@echo "🧹 Objects of $(NAME) are removed! -> 🗑️"
 
 fclean:
-	@$(MAKE) -C $(DIR_LIBFT) fclean
+	@$(MAKE) --no-print-directory -C $(DIR_LIBFT) fclean
 	@$(RM) $(DIR_OBJ)
 	@echo "🧹 Objects of $(NAME) are removed! -> 🗑️"
 	@$(RM) $(NAME)

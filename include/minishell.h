@@ -83,6 +83,7 @@ typedef struct s_data
 	t_env	*lst_env;
 	t_token	*lst_tok;
 	t_exec	*lst_exec;
+	pid_t			*pids;
 }	t_data;
 
 //------------------------------------------------------------------------------
