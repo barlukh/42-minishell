@@ -84,7 +84,8 @@ typedef struct s_data
 	t_env	*lst_env;
 	t_token	*lst_tok;
 	t_exec	*lst_exec;
-	int				pipe_fd[2][2];	
+	int				pipe_fd1[2];	
+	int				pipe_fd2[2];	
 	pid_t			*pids;
 }	t_data;
 

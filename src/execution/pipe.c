@@ -13,14 +13,14 @@ int	redirections_io(t_exec *current, int i, t_data *data)
 	if (i == 0)
 		dup_io(current->infile, STDIN_FILENO);
 	else
-		dup_io(data->pipe_fd[previous][0], STDIN_FILENO); //from pipe
+		dup_io(data->pipe_fd1[0], STDIN_FILENO); //from pipe
 	if (i == cmds -1)
 	{
 		if (current->outfile != 0)
 			dup_io(current->outfile, STDOUT_FILENO);
 	}
 	else
-		dup_io(data->pipe_fd[actual][1], STDOUT_FILENO); //from pipe
+		dup_io(data->pipe_fd2[1], STDOUT_FILENO); //from pipe
 	// if (i != 0)
 	// {
 	// 	if (get_data()->pipe_fd[previous][0] != STDIN_FILENO)
@@ -38,6 +38,12 @@ int	redirections_io(t_exec *current, int i, t_data *data)
 	return (0);
 }
 
+int	open_pipes(t_data *data)
+{
+	 pipe(data->pipe_fd1);
+	 pipe(data->pipe_fd2);
+	 return 0;
+}
 int	update_pipes(int pipe_fd[2][2], int i, int num_cmds)
 {
 	int current;
