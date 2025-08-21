@@ -1,0 +1,78 @@
+
+
+execution
+{
+	rebuild_env
+	loop(current node)
+	{
+		open fd in()
+		open fd out()
+		update pipes()
+		if builtins
+			builtins process
+		else
+			child process
+		update node
+	}
+	wait all process
+}
+
+1 commando
+infile, stdin
+outfile, stdout
+
+2 commandos
+infile, pipe w
+pipe r, stdout
+
+3 commandos
+infile, pipe w
+pipe r, pipe w
+pipe r, stdout
+
+
+
+update pipes(i)
+{
+	2 pipe will need to be open
+	current = i % 2
+	if (i != nb_cmds -1) last command)
+		pipe(pipe_fd[current])
+	sets pipes for children
+	if (i % 2 == 0)
+		close pipe_fd[0][0]
+		close pipe_fd[1][1]
+	else
+		close pipe_fd[1][1]
+		close pipe_fd[0][0]
+}
+
+primeira pipe 0,1
+rebuild_env()
+{
+	number of nodes
+	malloc array with number of nodes
+
+	loop()
+	{
+		ft_strjoin = on key
+		strjoin key and value
+		increment
+	}
+null array
+return array
+}
+
+open fd in()
+{
+	count nb of in
+	open each one of them 
+	close all except the last one
+}
+
+open fd out()
+{
+	count nb of out 
+	open each one of them 
+	close all except the last one
+}
