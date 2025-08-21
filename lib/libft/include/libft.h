@@ -77,7 +77,6 @@ typedef struct s_exec
 	char			**red_out;
 	int				infile;	
 	int				outfile;	
-	int				pipe_fd[2][2];	
 	struct s_exec	*next;
 }	t_exec;
 
