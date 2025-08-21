@@ -84,6 +84,7 @@ typedef struct s_data
 	t_env	*lst_env;
 	t_token	*lst_tok;
 	t_exec	*lst_exec;
+	int				pipe_fd[2][2];	
 	pid_t			*pids;
 }	t_data;
 
@@ -453,13 +454,13 @@ void	word_splitter(t_data *data);
 /* ************************************************************************** */
 
 void	error_msg(char *str);
-int		redirections_io(t_exec *current, int i);
+int		redirections_io(t_exec *current, int i, t_data *data);
 int		open_fds_in(t_exec *current);
 int		open_fds_out(t_exec *current);
 int		xopen(const char *pathname, bool is_infile);
-int		update_pipes(int pipe_fd[2][2], int i);
-int		builting_process(t_exec *current, int i);
-int		child_process(t_exec *current, int i, char **env);
+int		update_pipes(int pipe_fd[2][2], int i, int cmd_count);
+int		builting_process(t_exec *current, int i, t_data *data);
+int		child_process(t_exec *current, int i, char **env, t_data *data);
 int		dup_io(int oldfd, int newfd);
 int		node_count(t_env *temp, int count);
 char	*path_finder(char **command, char **env);
