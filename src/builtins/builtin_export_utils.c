@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 09:11:23 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/22 10:04:51 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/22 16:49:17 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 static void	export_action(char *content, t_data *data);
 static void	add_to_env(char *equal, char *key, char *value, t_data *data);
-static void	set_assigned_flag(char *equal, t_env *node);
+static void	finalize_flag_node(char *equal, t_env *node, t_data *data);
 
 void	builtin_export_loop(bool *inv_id, char *content, t_data *data)
 {
 	size_t	i;
 
-	(void)data;
 	i = 0;
 	if (!ft_isalpha(content[i]) && content[i] != '_')
 	{
@@ -40,7 +39,6 @@ void	builtin_export_loop(bool *inv_id, char *content, t_data *data)
 		return ;
 	}
 	export_action(content, data);
-	return ;
 }
 
 // Performs the export action.
@@ -71,38 +69,39 @@ static void	export_action(char *content, t_data *data)
 // Adds the exported variable to env.
 static void	add_to_env(char *equal, char *key, char *value, t_data *data)
 {
-	bool	replaced;
 	t_env	*current;
 	t_env	*node;
 
-	replaced = false;
 	current = data->lst_env;
 	while (current)
 	{
-		if (ft_strcmp(key, current->key) == 0 && equal != NULL)
+		if (ft_strcmp(key, current->key) == 0)
 		{
-			free(current->value);
-			current->value = value;
-			replaced = true;
-			current->assigned = true;
+			if (equal != NULL)
+			{
+				free(current->value);
+				current->value = value;
+				current->assigned = true;
+			}
+			else
+				free(value);
+			free(key);
+			return ;
 		}
 		current = current->next;
 	}
-	if (replaced == false)
-	{
-		node = ft_lst_env_new(key, value);
-		if (!node)
-			error_lst_env(key, value, data);
-		set_assigned_flag(equal, node);
-		ft_lst_env_add_back(&data->lst_env, node);
-	}
+	node = ft_lst_env_new(key, value);
+	if (!node)
+		error_lst_env(key, value, data);
+	finalize_flag_node(equal, node, data);
 }
 
-// Checks the assignnment operator and sets a flag accordingly.
-static void	set_assigned_flag(char *equal, t_env *node)
+// Sets the flag and adds the node to env.
+static void	finalize_flag_node(char *equal, t_env *node, t_data *data)
 {
 	if (!equal)
 		node->assigned = false;
 	else
 		node->assigned = true;
+	ft_lst_env_add_back(&data->lst_env, node);
 }

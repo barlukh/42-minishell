@@ -6,13 +6,14 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 09:18:05 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/22 11:39:00 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/22 16:54:06 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static bool	print_check(char *arg, t_data *data);
+static bool	print_action(t_env **arr, t_data *data);
 static bool	is_invalid_option(char *content);
 static bool	update_exit_status(bool inv_id, t_data *data);
 
@@ -45,25 +46,62 @@ bool	builtin_export(t_exec *current, t_data *data)
 	return (false);
 }
 
-// Check if the second argument exists and prints export if it doesn't.
+// Checks if the second argument exists prepares the env for printing.
 static bool	print_check(char *arg, t_data *data)
 {
+	size_t	i;
+	t_env	**arr;
 	t_env	*current;
 
 	if (!arg)
 	{
+		i = ft_lst_env_size(data->lst_env);
+		arr = ft_calloc(i + 1, sizeof(t_env *));
+		if (!arr)
+			error_general_mem(data);
+		i = 0;
 		current = data->lst_env;
 		while (current)
 		{
-			ft_putstr_fd(current->key, STDOUT_FILENO);
-			write(STDOUT_FILENO, "=", 1);
-			ft_putendl_fd(current->value, STDOUT_FILENO);
+			arr[i] = current;
+			i++;
 			current = current->next;
 		}
-		data->exit_status = 0;		
-		return (true);
+		arr[i] = NULL;
+		ft_lst_env_sort(arr, i);
+		return (print_action(arr, data));
 	}
 	return (false);
+}
+
+// Prints sorted env.
+static bool	print_action(t_env **arr, t_data *data)
+{
+	size_t	i;
+
+	i = 0;
+	while (arr[i])
+	{
+		if (ft_strcmp("_", arr[i]->key) == 0)
+		{
+			i++;
+			continue ;
+		}
+		ft_putstr_fd("declare -x ", STDOUT_FILENO);
+		if (arr[i]->assigned == true)
+		{
+			ft_putstr_fd(arr[i]->key, STDOUT_FILENO);
+			write(STDOUT_FILENO, "=\"", 2);
+			ft_putstr_fd(arr[i]->value, STDOUT_FILENO);
+			write(STDOUT_FILENO, "\"\n", 2);
+		}
+		else
+			ft_putendl_fd(arr[i]->key, STDOUT_FILENO);
+		i++;
+	}
+	free(arr);
+	data->exit_status = 0;
+	return (true);
 }
 
 // Checks if the argument is an invalid option.
