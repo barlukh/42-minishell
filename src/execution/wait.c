@@ -12,7 +12,7 @@ bool	wait_process(pid_t *pid, t_data *data)
 	cmds_count = data->cmd_count;
 	while (i < cmds_count)
 	{
-		term_pid = waitpid(*pid, &status, 0);
+		term_pid = waitpid(data->pids[i], &status, 0);
 		if (term_pid == -1)
 			return (false);
 		if (term_pid == pid[cmds_count - 1] && (WIFEXITED(status)))
