@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 12:27:45 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/18 10:09:43 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/22 11:29:28 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 static bool	is_valid_n_option(char *content);
 static void	skip_n_option(int *passed_n_option, size_t *i, t_exec *current);
 static void	output_argument(int *passed_word, size_t i, t_exec *current);
-static void	end_line(int passed_n_option);
+static void	end_line(int passed_n_option, t_data *data);
 
-bool	builtin_echo(t_exec *current)
+bool	builtin_echo(t_exec *current, t_data *data)
 {
 	int		passed_n_option;
 	int		passed_word;
@@ -40,7 +40,7 @@ bool	builtin_echo(t_exec *current)
 				output_argument(&passed_word, i, current);
 			i++;
 		}
-		end_line(passed_n_option);
+		end_line(passed_n_option, data);
 		return (true);
 	}
 	return (false);
@@ -84,9 +84,9 @@ static void	output_argument(int *passed_word, size_t i, t_exec *current)
 }
 
 // Inserts a newline symbol where applicable and updates the exit status.
-static void	end_line(int passed_n_option)
+static void	end_line(int passed_n_option, t_data *data)
 {
 	if (passed_n_option == false)
 		write(STDOUT_FILENO, "\n", 1);
-	get_data()->exit_status = 0;
+	data->exit_status = 0;
 }

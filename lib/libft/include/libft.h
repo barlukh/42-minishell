@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/08/19 09:00:53 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/21 10:29:28 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_env
 {
 	char			*key;
 	char			*value;
+	bool			assigned;
 	struct s_env	*next;
 }	t_env;
 

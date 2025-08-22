@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 17:57:25 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/13 10:48:39 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/22 09:28:24 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	create_lst_env(char **env, t_data *data)
 	{
 		equal = ft_strchr(*env, '=');
 		if (!equal)
-			error_lst_env(key, value, data);
+			continue ;
 		key = ft_substr(*env, 0, equal - *env);
 		if (!key)
 			error_lst_env(key, value, data);
@@ -37,6 +37,7 @@ void	create_lst_env(char **env, t_data *data)
 		node = ft_lst_env_new(key, value);
 		if (!node)
 			error_lst_env(key, value, data);
+		node->assigned = true;
 		ft_lst_env_add_back(&data->lst_env, node);
 		env++;
 	}

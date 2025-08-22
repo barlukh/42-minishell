@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 16:39:57 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/19 09:29:23 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/22 11:26:39 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ bool	builtin_pwd(t_exec *current, t_data *data)
 			error_general_mem(data);
 		ft_putendl_fd(cwd, STDOUT_FILENO);
 		free(cwd);
-		get_data()->exit_status = 0;
+		data->exit_status = 0;
 		return (true);
 	}
 	return (false);

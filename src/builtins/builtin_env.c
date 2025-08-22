@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 11:37:15 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/19 09:30:41 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/22 09:32:39 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,15 @@ bool	builtin_env(t_exec *current, t_data *data)
 		current_env = data->lst_env;
 		while (current_env)
 		{
-			ft_putstr_fd(current_env->key, STDOUT_FILENO);
-			write(STDOUT_FILENO, "=", 1);
-			ft_putendl_fd(current_env->value, STDOUT_FILENO);
+			if (current_env->assigned == true)
+			{
+				ft_putstr_fd(current_env->key, STDOUT_FILENO);
+				write(STDOUT_FILENO, "=", 1);
+				ft_putendl_fd(current_env->value, STDOUT_FILENO);
+			}
 			current_env = current_env->next;
 		}
-		get_data()->exit_status = 0;
+		data->exit_status = 0;
 		return (true);
 	}
 	return (false);

@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/20 09:31:09 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/22 11:30:08 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,10 @@ bool	builtin_cd(t_exec *current);
 /**
  * @brief Tries to execute the echo builtin.
  * @param current Current token.
+ * @param data Data struct of all core variables.
  * @return Bool true or false.
  */
-bool	builtin_echo(t_exec *current);
+bool	builtin_echo(t_exec *current, t_data *data);
 
 /**
  * @brief Tries to execute the env builtin.
@@ -134,6 +135,14 @@ bool	builtin_exit(t_exec *current, t_data *data);
  * @return Bool true or false.
  */
 bool	builtin_export(t_exec *current, t_data *data);
+
+/**
+ * @brief Main function to export a variable.
+ * @param inv_id Flag to signal a succesful export.
+ * @param content Content to export.
+ * @param data Data struct of all core variables.
+ */
+void	builtin_export_loop(bool *inv_id, char *content, t_data *data);
 
 /**
  * @brief Tries to execute the pwd builtin.
@@ -187,16 +196,6 @@ void	create_lst_env(char **env, t_data *data);
  * @return None.
  */
 void	env_expander(t_data *data);
-
-/**
- * @brief Handles errors when creating an exported variable.
- * @param str_arg Argument to be exported.
- * @param key Key string.
- * @param value Value string.
- * @param data Data struct of all core variables.
- * @return None.
- */
-void	error_export(char *str_arg, char *key, char *value, t_data *data);
 
 /**
  * @brief Handles general memory errors.
@@ -265,14 +264,6 @@ void	error_tok(char *input, t_data *data);
  * @return None.
  */
 void	execution(t_data *data);
-
-/**
- * @brief Main function to export a variable.
- * @param inv_id Flag to signal a succesful export.
- * @param content Content to export.
- * @param data Data struct of all core variables.
- */
-void	export_loop(bool *inv_id, char *content, t_data *data);
 
 /**
  * @brief Expands question mark variable in a heredoc.
