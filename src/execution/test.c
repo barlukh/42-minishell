@@ -1,6 +1,6 @@
-
+//
 // #include "../include/minishell.h"
-
+//
 // #define MAX_CMDS 5
 // char *cmds[MAX_CMDS][5] = {
 //     {"cat", NULL},

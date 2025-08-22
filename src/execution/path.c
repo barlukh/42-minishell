@@ -1,7 +1,7 @@
 
 // #include "minishell.h"
-
-// char	get_env_paths(char **envp)
+//
+// char	ft_get_env_paths(char **envp)
 // {
 // 	char	*path;
 // 	char	*command;
