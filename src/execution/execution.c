@@ -19,7 +19,7 @@ void	execution(t_data *data)
 	{
 		open_fds_in(current);								
 		open_fds_out(current);								
-		update_pipes(data->pipe_fd, i, data->cmd_count);
+		// update_pipes(data->pipe_fd, i, data->cmd_count);
 		if (builtins_check(current, data))
 			builting_process(current, i, data);
 		else 
@@ -55,10 +55,12 @@ int	child_process(t_exec *current, int i, char **env, t_data *data)
 		free(env);
 	}
 	// int prev = (i + 1) % 2;
-	// if (i != 0)
+	// if (i == 0)
 	// {
 	// 	close(data->pipe_fd[prev][0]);
 	// 	close(data->pipe_fd[prev][1]);
+	// 	close(current->infile);
+	// 	close(current->outfile);
 	// }
 	return (0);
 }

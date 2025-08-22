@@ -1,14 +1,27 @@
 
 #include "minishell.h"
 
-int	dup_io(int oldfd, int newfd)
+int	dup_io(int *oldfd, int newfd)
 {
-	if (dup2(oldfd, newfd) == -1)
+	if (dup2(*oldfd, newfd) == -1)
 		return (-1);
-	if (oldfd != newfd)
-		close (oldfd);
+	// if (oldfd != newfd)
+	close (*oldfd);
+	*oldfd = -1;
 	return (newfd);
 }
+
+// void dup_io(int fd1, int fd2)
+// {
+// 	if (fd1 == fd2 || fd1 == -1)
+// 		return;
+// 	if (dup2(fd1, fd2) == -1)
+// 	{
+// 		perror("dup2 failed");
+// 		exit(EXIT_FAILURE);
+// 	}
+// 	close(fd1);
+// }
 
 int	xopen(const char *pathname, bool is_infile)
 {
