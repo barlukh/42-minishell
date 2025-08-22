@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/08/21 10:29:28 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/22 15:43:39 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,6 +209,19 @@ t_env	*ft_lst_env_last(t_env *lst);
  * @return Pointer to a node, NULL if allocation fails.
  */
 t_env	*ft_lst_env_new(void *key, void *value);
+
+/** Returns a size of a linked list.
+ * @param lst Pointer to a first node of a linked list.
+ * @return Size of a list.
+ */
+size_t	ft_lst_env_size(t_env *lst);
+
+/** Sorts an array of env by ASCII values.
+ * @param arr Array of pointers to env structs.
+ * @param size Size of the array.
+ * @return None.
+ */
+void	ft_lst_env_sort(t_env **arr, size_t size);
 
 /**
  * @brief Adds a node at the end of a linked list.

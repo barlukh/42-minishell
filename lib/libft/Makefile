@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 10:50:25 by bgazur            #+#    #+#              #
-#    Updated: 2025/08/17 15:44:06 by bgazur           ###   ########.fr        #
+#    Updated: 2025/08/22 15:33:00 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,8 @@ SRC = 			ft_atoi.c \
 				ft_lst_env_clear.c \
 				ft_lst_env_last.c \
 				ft_lst_env_new.c \
+				ft_lst_env_size.c \
+				ft_lst_env_sort.c \
 				ft_lst_exec_add_back.c \
 				ft_lst_exec_clear.c \
 				ft_lst_exec_last.c \
