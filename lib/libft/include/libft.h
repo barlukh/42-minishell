@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/08/22 15:43:39 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/23 13:24:38 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,6 +208,14 @@ t_env	*ft_lst_env_last(t_env *lst);
  * @return Pointer to a node, NULL if allocation fails.
  */
 t_env	*ft_lst_env_new(void *key, void *value);
+
+/**
+ * @brief Removes a node from a linked list while preserving the links.
+ * @param lst  Pointer to the head pointer of a linked list.
+ * @param node Pointer to a node to be removed.
+ * @return None.
+ */
+void	ft_lst_env_remove(t_env **lst, t_env *node);
 
 /** Returns a size of a linked list.
  * @param lst Pointer to a first node of a linked list.
