@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 12:50:49 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/23 14:01:14 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/23 17:44:17 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,17 @@ static bool	is_invalid_option(char *content)
 }
 
 // Finds and unsets a variable from env.
-static void	unset_action(char *content, t_data *data)
+static void unset_action(char *content, t_data *data)
 {
 	t_env	*current;
+	t_env	*next;
 
 	current = data->lst_env;
 	while (current)
 	{
+		next = current->next;
 		if (ft_strcmp(content, current->key) == 0)
 			ft_lst_env_remove(&data->lst_env, current);
-		current = current->next;
+		current = next;
 	}
 }
