@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/22 11:30:08 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/23 14:04:32 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ extern volatile sig_atomic_t	g_signal;
 # define ERR_MSG_QUOTE "syntax error: unclosed quote"
 # define ERR_MSG_REDIR "syntax error near unexpected token `redirection'"
 # define ERR_MSG_TOOARG "exit: too many arguments"
+# define ERR_MSG_UNSET "unset: options are not supported"
 
 // Return / exit values (general).
 # define SUCCESS 0
@@ -84,9 +85,9 @@ typedef struct s_data
 	t_env	*lst_env;
 	t_token	*lst_tok;
 	t_exec	*lst_exec;
-	int				pipe_fd[2];	
-	int				tmp_fd;	
-	pid_t			*pids;
+	int		pipe_fd[2];	
+	int		tmp_fd;	
+	pid_t	*pids;
 }	t_data;
 
 //------------------------------------------------------------------------------
@@ -154,6 +155,14 @@ void	builtin_export_loop(bool *inv_id, char *content, t_data *data);
  * @return Bool true or false.
  */
 bool	builtin_pwd(t_exec *current, t_data *data);
+
+/**
+ * @brief Tries to execute the unset builtin.
+ * @param current Current token.
+ * @param data Data struct of all core variables.
+ * @return Bool true or false.
+ */
+bool	builtin_unset(t_exec *current, t_data *data);
 
 /**
  * @brief Checks if the current token is a builtin command.
