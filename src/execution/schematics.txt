@@ -1,4 +1,32 @@
+Checkar inicializacao dos infile e outfile 
 
+1 child
+
+data->pipe_fd = {3, 4}
+tmp_fd = {5, 6}
+infile = 7
+
+on redirections_io
+
+dupio(7, 0) 
+infile = -1 
+
+dup2(6, 1)
+close (3)
+
+2 child
+
+data->pipe_fd = {5, 4}
+tmp_fd = {5, 6}
+outfile = 8
+
+on redirections_io
+
+dupio(7, 0) 
+infile = -1 
+
+dup2(6, 1)
+close (3)
 
 execution
 {

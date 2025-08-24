@@ -1,51 +1,42 @@
 
 #include "minishell.h"
 
-int	redirections_io(t_exec *current, int i, t_data *data)
+int	redirections_io(t_exec *current, int i, t_data *data, int *tmp_fd)
 {
 	int cmds;
-	// int actual;
-	// int previous;
-	//
-	// actual = i % 2;
-	// previous = (i + 1) % 2;
+
 	cmds = data->cmd_count;
-	if (i == 0)
-	{
+	if (cmds == 1 && (current->infile == 0 && current->outfile == 0))
+		return (0);
+	if (i == 0 && current->infile != 0) // first command
+										// dup2(current->infile, STDIN_FILENO);
 		dup_io(&current->infile, STDIN_FILENO);
-		dup_io(&current->outfile, STDOUT_FILENO);
-	}
-	else if (i == cmds -1)
+	else
+		dup2(data->pipe_fd[READ], STDIN_FILENO);
+		// dup_io(&data->pipe_fd[READ], STDIN_FILENO);
+	if (i == cmds - 1 && current->outfile != 0) // last command 
 	{
-		dup_io(&data->tmp_fd, STDIN_FILENO);
-		dup_io(&current->outfile, STDOUT_FILENO);
+		dup2(current->outfile, STDOUT_FILENO);
+		// dup_io(&current->outfile, STDOUT_FILENO);
+		close(current->outfile);
 	}
+	else
+		dup2(tmp_fd[1], STDOUT_FILENO);
+	if (data->pipe_fd[READ] != -1)
+		close (data->pipe_fd[READ]);
+	close (tmp_fd[WRITE]);
 	return (0);
 }
 
-// int	update_pipes(int pipe_fd[2][2], int i, int num_cmds)
-// {
-// 	int current;
-//
-// 	current = i % 2;
-// 	if (i < num_cmds - 1)
-// 	{
-// 		if (pipe(pipe_fd[current]) == -1) {
-// 			perror("pipe");
-// 			exit(EXIT_FAILURE);
-// 		}
-// 	}
-// 	return 0;
-// 	// if (i != num_cmds - 1)
-// 	// {
-// 	// 	if (pipe(pipe_fd[0]) == -1 || pipe(pipe_fd[1]) == -1)
-// 	// 	{
-// 	// 		perror("pipe");
-// 	// 		exit(EXIT_FAILURE);
-// 	// 	}
-// 	// }
-// 	// return (0);
-// }
+int	update_pipes(int *pipe_fd, int i, int num_cmds, int *tmp_fd)
+{
+	(void)i;
+	if (num_cmds > 1)
+	{
+		pipe_fd[READ] = tmp_fd[READ];
+	}
+	return 0;
+}
 
 int	open_fds_in(t_exec *current)
 {
@@ -66,13 +57,16 @@ int	open_fds_in(t_exec *current)
 	return (0);
 }
 
-int	open_fds_out(t_exec *current)
+int	open_fds_out(t_exec *current, int command)
 {
 	int i;
 	int j;
+	// int cmds;
 
+	(void)command;
 	i = 0;
 	j = 0;
+	// cmds = get_data()->cmd_count;
 	while (current->red_out[i])
 		i++;
 	while (current->red_out[j])
@@ -82,5 +76,7 @@ int	open_fds_out(t_exec *current)
 			close(current->outfile);
 		j++;
 	}
+	// if (command == cmds - 1 && current->outfile == 0)
+	// 	current->outfile = 1;
 	return (0);
 }
