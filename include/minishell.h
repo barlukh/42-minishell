@@ -71,7 +71,7 @@ extern volatile sig_atomic_t	g_signal;
 # define BUILT_NO 0
 # define BUILT_YES 1
 
-// fd values (execution
+// fd values (execution).
 # define READ 0
 # define WRITE 1
 //------------------------------------------------------------------------------
@@ -82,7 +82,7 @@ extern volatile sig_atomic_t	g_signal;
 typedef struct s_data
 {
 	int		exit_status;
-	size_t	cmd_count;
+	int		cmd_count;
 	t_env	*lst_env;
 	t_token	*lst_tok;
 	t_exec	*lst_exec;
@@ -435,15 +435,17 @@ void	error_msg(char *str);
 int		redirections_io(t_exec *current, int i, t_data *data, int *tmp_fd);
 int		open_fds_in(t_exec *current);
 int		open_fds_out(t_exec *current, int i);
-int		xopen(const char *pathname, bool is_infile);
+int		safe_open(const char *pathname, bool is_infile);
 int		update_pipes(int *pipe_fd, int i, int cmd_count, int *tmp_fd);
 int		builting_process(t_exec *current, int i, t_data *data, int *tmp_fd);
 int		child_process(t_exec *current, int i, char **env, t_data *data, int *tmp_fd);
-int		dup_io(int *oldfd, int newfd);
+int		safe_dup(int *oldfd, int newfd);
+int		safe_close(int *fd);
 int		node_count(t_env *temp, int count);
 char	*path_finder(char **command, char **env);
 char	**rebuild_env(t_env lst_env, int i, int count);
 bool	wait_process(pid_t *pid, t_data *data);
 void	execution(t_data *data);
+void	initialize_execution(t_data *data, int *tmp_fd);
 
 #endif

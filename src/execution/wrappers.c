@@ -1,7 +1,7 @@
 
 #include "minishell.h"
 
-int	dup_io(int *oldfd, int newfd)
+int	safe_dup(int *oldfd, int newfd)
 {
 	if (dup2(*oldfd, newfd) == -1)
 		return (-1);
@@ -11,7 +11,7 @@ int	dup_io(int *oldfd, int newfd)
 	return (newfd);
 }
 
-// void dup_io(int fd1, int fd2)
+// void safe_dup(int fd1, int fd2)
 // {
 // 	if (fd1 == fd2 || fd1 == -1)
 // 		return;
@@ -23,7 +23,7 @@ int	dup_io(int *oldfd, int newfd)
 // 	close(fd1);
 // }
 
-int	xopen(const char *pathname, bool is_infile)
+int	safe_open(const char *pathname, bool is_infile)
 {
 	int fd;
 
@@ -46,4 +46,11 @@ int	xopen(const char *pathname, bool is_infile)
 		}
 	}
 	return fd;
+}
+
+int	safe_close(int *fd)
+{
+	close(*fd);
+	*fd = -1;
+	return (*fd);
 }
