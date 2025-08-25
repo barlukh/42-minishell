@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 12:50:49 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/23 14:01:14 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/25 16:14:47 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	builtin_unset(t_exec *current, t_data *data)
 	i = 1;
 	if (ft_strcmp(current->cmd_arg[0], "unset") == 0)
 	{
-		if (current->cmd_arg[i] && is_invalid_option(current->cmd_arg[i]))
+		if (current->cmd_arg[1] && is_invalid_option(current->cmd_arg[1]))
 		{
 			ft_putendl_fd(ERR_MSG_UNSET, STDERR_FILENO);
 			data->exit_status = 2;
@@ -57,12 +57,14 @@ static bool	is_invalid_option(char *content)
 static void	unset_action(char *content, t_data *data)
 {
 	t_env	*current;
+	t_env	*next;
 
 	current = data->lst_env;
 	while (current)
 	{
+		next = current->next;
 		if (ft_strcmp(content, current->key) == 0)
 			ft_lst_env_remove(&data->lst_env, current);
-		current = current->next;
+		current = next;
 	}
 }

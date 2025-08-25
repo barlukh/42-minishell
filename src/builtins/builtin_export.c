@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 09:18:05 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/23 12:46:58 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/25 09:34:10 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ bool	builtin_export(t_exec *current, t_data *data)
 	{
 		if (print_check(current->cmd_arg[1], data) == true)
 			return (true);
-		if (current->cmd_arg[i] && is_invalid_option(current->cmd_arg[i]))
+		if (current->cmd_arg[1] && is_invalid_option(current->cmd_arg[1]))
 		{
 			ft_putendl_fd(ERR_MSG_EXPORT, STDERR_FILENO);
 			data->exit_status = 2;
 			return (true);
 		}
-		if (current->cmd_arg[i][0] == '-')
+		if (current->cmd_arg[1][0] == '-')
 			i++;
 		while (current->cmd_arg[i])
 		{

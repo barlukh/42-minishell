@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 08:53:07 by bgazur            #+#    #+#              #
-#    Updated: 2025/08/23 12:55:12 by bgazur           ###   ########.fr        #
+#    Updated: 2025/08/25 13:45:26 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ DIR_SIGNALS	=	$(DIR_SRC)/signals
 LIBFT		=	$(DIR_LIBFT)/libft.a
 HDR			=	$(DIR_HDR)/minishell.h
 OBJ			=	$(SRC:$(DIR_SRC)/%.c=$(DIR_OBJ)/%.o)
-SRC			=	$(DIR_BUILTIN)/builtin_cd.c \
+SRC			=	$(DIR_BUILTIN)/builtin_cd_utils.c \
+				$(DIR_BUILTIN)/builtin_cd.c \
 				$(DIR_BUILTIN)/builtin_echo.c \
 				$(DIR_BUILTIN)/builtin_env.c \
 				$(DIR_BUILTIN)/builtin_exit.c \
