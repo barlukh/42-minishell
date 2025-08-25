@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 12:50:49 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/23 17:44:17 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/25 09:35:01 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	builtin_unset(t_exec *current, t_data *data)
 	i = 1;
 	if (ft_strcmp(current->cmd_arg[0], "unset") == 0)
 	{
-		if (current->cmd_arg[i] && is_invalid_option(current->cmd_arg[i]))
+		if (current->cmd_arg[1] && is_invalid_option(current->cmd_arg[1]))
 		{
 			ft_putendl_fd(ERR_MSG_UNSET, STDERR_FILENO);
 			data->exit_status = 2;

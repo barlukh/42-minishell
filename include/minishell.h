@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/23 14:04:32 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/25 14:15:39 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "libft.h"
 
 # include <stdio.h> // UNUSED, REMOVE BEFORE SUBMISSION !!!!!!!!!!!!!!!!!!!!!
+# include <errno.h>
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -40,16 +41,18 @@ extern volatile sig_atomic_t	g_signal;
 // Maximum length of a valid input for readline.
 # define INPUT_MAX 1024
 
-// Maximum number of bytes allowed in a full pathname.
-# define PATH_MAX 4096
-
 // Temp files naming prefix.
 # define TEMP "here_temp"
 
 // Error messages.
 # define ERR_MSG_AMB "redirection: ambiguous redirect"
+# define ERR_MSG_CD "cd: options are not supported"
+# define ERR_MSG_CDARG "cd: too many arguments"
+# define ERR_MSG_CDFILE "cd: file name too long"
+# define ERR_MSG_CDSET "cd: OLDPWD not set"
 # define ERR_MSG_ENV "env: options and arguments are not supported"
 # define ERR_MSG_EOF "warning: here-document delimited by end-of-file"
+# define ERR_MSG_EXARG "exit: too many arguments"
 # define ERR_MSG_EXIT "exit"
 # define ERR_MSG_EXPORT "export: options are not supported"
 # define ERR_MSG_FILE "open: Error opening file"
@@ -62,7 +65,6 @@ extern volatile sig_atomic_t	g_signal;
 # define ERR_MSG_PWD "pwd: options are not supported"
 # define ERR_MSG_QUOTE "syntax error: unclosed quote"
 # define ERR_MSG_REDIR "syntax error near unexpected token `redirection'"
-# define ERR_MSG_TOOARG "exit: too many arguments"
 # define ERR_MSG_UNSET "unset: options are not supported"
 
 // Return / exit values (general).
@@ -104,9 +106,10 @@ bool	ambiguous_redir(t_data *data);
 /**
  * @brief Tries to execute the cd builtin.
  * @param current Current token.
+ * @param data Data struct of all core variables.
  * @return Bool true or false.
  */
-bool	builtin_cd(t_exec *current);
+bool	builtin_cd(t_exec *current, t_data *data);
 
 /**
  * @brief Tries to execute the echo builtin.
@@ -341,6 +344,21 @@ void	heredoc_write(char *input, int *fd);
  * @return None.
  */
 void	merger(t_data *data);
+
+/**
+ * @brief Gets and returns the OLDPWD value from env.
+ * @param data Data struct of all core variables.
+ * @return OLDPWD or NULL if not found.
+ */
+char	*oldpwd_get(t_data *data);
+
+/**
+ * @brief Sets the OLDPWD value in env.
+ * @param cwd Current working directory.
+ * @param data Data struct of all core variables.
+ * @return True.
+ */
+bool	oldpwd_set(char *cwd, t_data *data);
 
 /**
  * @brief Parses command line input string.
