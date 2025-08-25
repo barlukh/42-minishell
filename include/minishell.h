@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/25 14:15:39 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/25 17:17:51 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ extern volatile sig_atomic_t	g_signal;
 # define ERR_MSG_CDARG "cd: too many arguments"
 # define ERR_MSG_CDFILE "cd: file name too long"
 # define ERR_MSG_CDSET "cd: OLDPWD not set"
+# define ERR_MSG_CDHOME "cd: HOME not set"
 # define ERR_MSG_ENV "env: options and arguments are not supported"
 # define ERR_MSG_EOF "warning: here-document delimited by end-of-file"
 # define ERR_MSG_EXARG "exit: too many arguments"
@@ -87,7 +88,7 @@ typedef struct s_data
 	t_env	*lst_env;
 	t_token	*lst_tok;
 	t_exec	*lst_exec;
-	int		pipe_fd[2];	
+	int		pipe_fd[2];
 	int		tmp_fd;	
 	pid_t	*pids;
 }	t_data;
@@ -337,6 +338,13 @@ void	heredoc_identifier(t_data *data);
  * @return None.
  */
 void	heredoc_write(char *input, int *fd);
+
+/**
+ * @brief Gets and returns the HOME value from env.
+ * @param data Data struct of all core variables.
+ * @return HOME or NULL if not found.
+ */
+char	*home_get(t_data *data);
 
 /**
  * @brief Merges parsed tokens into grouped up tokens separated by pipes.

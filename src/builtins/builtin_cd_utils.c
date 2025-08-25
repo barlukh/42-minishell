@@ -6,13 +6,31 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 13:42:57 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/25 15:20:38 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/25 16:05:25 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	create_oldpwd(char *cwd, t_data *data);
+
+char	*home_get(t_data *data)
+{
+	char	*home;
+	t_env	*current;
+
+	current = data->lst_env;
+	while (current)
+	{
+		if (ft_strcmp("HOME", current->key) == 0)
+		{
+			home = current->value;
+			return (home);
+		}
+		current = current->next;
+	}
+	return (NULL);
+}
 
 char	*oldpwd_get(t_data *data)
 {

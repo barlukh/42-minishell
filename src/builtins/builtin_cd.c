@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 10:43:16 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/25 15:56:29 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/25 16:14:58 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,24 +49,24 @@ bool	builtin_cd(t_exec *current, t_data *data)
 // Runs cd into HOME directory.
 static bool	cd_home(t_data *data)
 {
-	t_env	*current;
+	char	*cwd;
+	char	*home;
 
-	current = data->lst_env;
-	while (current)
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
+		error_general_mem(data);
+	home = home_get(data);
+	if (!home)
+		ft_putendl_fd(ERR_MSG_CDHOME, STDERR_FILENO);
+	else if (chdir(home) == -1)
 	{
-		if (ft_strcmp("HOME", current->key) == 0)
-		{
-			if (chdir(current->value) == -1)
-			{
-				ft_putstr_fd("cd: ", STDERR_FILENO);
-				ft_putendl_fd(strerror(errno), STDERR_FILENO);
-				data->exit_status = 1;
-				return (true);
-			}
-		}
-		current = current->next;
+		ft_putstr_fd("cd: ", STDERR_FILENO);
+		ft_putendl_fd(strerror(errno), STDERR_FILENO);
 	}
-	data->exit_status = 0;
+	else
+		return (oldpwd_set(cwd, data));
+	free(cwd);
+	data->exit_status = 1;
 	return (true);
 }
 
@@ -89,7 +89,7 @@ static bool	is_dash(char *arg, size_t *i, t_data *data)
 {
 	char	*cwd;
 	char	*oldpwd;
-	
+
 	if (ft_strcmp(arg, "-") == 0)
 	{
 		cwd = getcwd(NULL, 0);
@@ -118,7 +118,7 @@ static bool	is_dash(char *arg, size_t *i, t_data *data)
 static bool	cd_action(char *arg, t_data *data)
 {
 	char	*cwd;
-	
+
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
 		error_general_mem(data);

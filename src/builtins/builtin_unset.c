@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 12:50:49 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/25 09:35:01 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/25 16:14:47 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static bool	is_invalid_option(char *content)
 }
 
 // Finds and unsets a variable from env.
-static void unset_action(char *content, t_data *data)
+static void	unset_action(char *content, t_data *data)
 {
 	t_env	*current;
 	t_env	*next;
