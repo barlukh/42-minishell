@@ -1,86 +1,102 @@
 
 #include "minishell.h"
 
-int	redirections_io(t_exec *current, int i, t_data *data)
+int	redirections_io(t_exec *node, int i, t_data *data, int *tmp_fd)
 {
 	int cmds;
-	// int actual;
-	// int previous;
-	//
-	// actual = i % 2;
-	// previous = (i + 1) % 2;
+
 	cmds = data->cmd_count;
+
+	// first command
 	if (i == 0)
 	{
-		dup_io(&current->infile, STDIN_FILENO);
-		dup_io(&current->outfile, STDOUT_FILENO);
+		// with redirections to infile
+		if (node->infile > 2 )
+			safe_dup(&node->infile, STDIN_FILENO);
 	}
-	else if (i == cmds -1)
+	// other commands with redirections to pipe
+	else 
+		safe_dup(&data->pipe_fd[READ], STDIN_FILENO);
+
+	// last command 
+	if (i == cmds - 1)
 	{
-		dup_io(&data->tmp_fd, STDIN_FILENO);
-		dup_io(&current->outfile, STDOUT_FILENO);
+		// with redirections to outfile
+		if (node->outfile > 2)
+			safe_dup(&node->outfile, STDOUT_FILENO);
 	}
+	else
+		// other commands with redirections to pipe
+		safe_dup(&tmp_fd[1], STDOUT_FILENO);
+
+	//// close
+	// if (node->infile != -1)
+	// 	safe_close(&node->infile);
+	// if (node->outfile != -1)
+	// 	safe_close(&node->outfile);
+	// if (data->pipe_fd[0] != -1)
+	// 	safe_close(&data->pipe_fd[0]);
+	// if (data->pipe_fd[1] != -1)
+	// 	safe_close(&data->pipe_fd[1]);
+	// if (tmp_fd[0] != -1)
+	// 	safe_close(&tmp_fd[0]);
+	// if (tmp_fd[1] != -1)
+	// 	safe_close(&tmp_fd[1]);
 	return (0);
 }
 
-// int	update_pipes(int pipe_fd[2][2], int i, int num_cmds)
-// {
-// 	int current;
-//
-// 	current = i % 2;
-// 	if (i < num_cmds - 1)
-// 	{
-// 		if (pipe(pipe_fd[current]) == -1) {
-// 			perror("pipe");
-// 			exit(EXIT_FAILURE);
-// 		}
-// 	}
-// 	return 0;
-// 	// if (i != num_cmds - 1)
-// 	// {
-// 	// 	if (pipe(pipe_fd[0]) == -1 || pipe(pipe_fd[1]) == -1)
-// 	// 	{
-// 	// 		perror("pipe");
-// 	// 		exit(EXIT_FAILURE);
-// 	// 	}
-// 	// }
-// 	// return (0);
-// }
+int	update_pipes(int *pipe_fd, int i, int num_cmds, int *tmp_fd)
+{
+	(void)i;
+	if (num_cmds > 1)
+	{
+		pipe_fd[READ] = tmp_fd[READ];
+		// close(tmp_fd[READ]);
+	}
+	return 0;
+}
 
-int	open_fds_in(t_exec *current)
+int	open_fds_in(t_exec *node)
 {
 	int i;
 	int j;
 
 	i = 0;
 	j = 0;
-	while (current->red_in[i])
+	while (node->red_in[i])
 		i++;
-	while (current->red_in[j])
+	while (node->red_in[j])
 	{
-		current->infile = xopen(current->red_in[j], true);
+		node->infile = safe_open(node->red_in[j], true);
 		if (i != 1 && j != i - 1)
-			close(current->infile);
+			close(node->infile);
 		j++;
 	}
+	// if (!node->infile)
+	// 	node->infile = -1;
 	return (0);
 }
 
-int	open_fds_out(t_exec *current)
+int	open_fds_out(t_exec *node, int command)
 {
 	int i;
 	int j;
+	// int cmds;
 
+	(void)command;
 	i = 0;
 	j = 0;
-	while (current->red_out[i])
+	// cmds = get_data()->cmd_count;
+	while (node->red_out[i])
 		i++;
-	while (current->red_out[j])
+	while (node->red_out[j])
 	{
-		current->outfile = xopen(current->red_out[j], false);
+		node->outfile = safe_open(node->red_out[j], false);
 		if (i != 1 && j != i - 1)
-			close(current->outfile);
+			close(node->outfile);
 		j++;
 	}
+	// if (!node->outfile)
+	// 	node->outfile = -1;
 	return (0);
 }
