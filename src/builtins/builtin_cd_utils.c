@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 13:42:57 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/26 15:19:59 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/26 16:26:06 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,12 @@ bool	wd_set(char *cwd, t_data *data)
 	char	*new_pwd;
 	t_env	*current;
 
-	new_pwd = NULL;
 	current = data->lst_env;
 	while (current)
 	{
 		if (ft_strcmp("PWD", current->key) == 0)
 		{
-			new_pwd = getcwd(new_pwd, 0);
+			new_pwd = getcwd(NULL, 0);
 			if (!new_pwd)
 			{
 				ft_putstr_fd("cd: ", STDERR_FILENO);
