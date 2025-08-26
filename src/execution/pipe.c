@@ -1,12 +1,11 @@
 
 #include "minishell.h"
 
-int	redirections_io(t_exec *node, int i, t_data *data, int *tmp_fd)
+int	redirections_io(t_exec *node, int i, int pipefd_read, int pipefd_write)
 {
 	int cmds;
 
-	cmds = data->cmd_count;
-
+	cmds = get_data()->cmd_count;
 	// first command
 	if (i == 0)
 	{
@@ -16,7 +15,7 @@ int	redirections_io(t_exec *node, int i, t_data *data, int *tmp_fd)
 	}
 	// other commands with redirections to pipe
 	else 
-		safe_dup(&data->pipe_fd[READ], STDIN_FILENO);
+		safe_dup(&pipefd_read, STDIN_FILENO);
 
 	// last command 
 	if (i == cmds - 1)
@@ -27,31 +26,24 @@ int	redirections_io(t_exec *node, int i, t_data *data, int *tmp_fd)
 	}
 	else
 		// other commands with redirections to pipe
-		safe_dup(&tmp_fd[1], STDOUT_FILENO);
+		safe_dup(&pipefd_write, STDOUT_FILENO);
 
 	//// close
-	// if (node->infile != -1)
-	// 	safe_close(&node->infile);
-	// if (node->outfile != -1)
-	// 	safe_close(&node->outfile);
-	// if (data->pipe_fd[0] != -1)
-	// 	safe_close(&data->pipe_fd[0]);
-	// if (data->pipe_fd[1] != -1)
-	// 	safe_close(&data->pipe_fd[1]);
-	// if (tmp_fd[0] != -1)
-	// 	safe_close(&tmp_fd[0]);
-	// if (tmp_fd[1] != -1)
-	// 	safe_close(&tmp_fd[1]);
+	// if (pipe_tmp1[1] != -1)
+	// 	safe_close(&pipe_tmp1[1]);
+	// if (pipe_tmp2[0] != -1)
+	// 	safe_close(&pipe_tmp2[0]);
 	return (0);
 }
 
-int	update_pipes(int *pipe_fd, int i, int num_cmds, int *tmp_fd)
+int	update_pipes(int *pipe_fd, int i, int num_cmds, int *pipe_b)
 {
 	(void)i;
 	if (num_cmds > 1)
 	{
-		pipe_fd[READ] = tmp_fd[READ];
-		// close(tmp_fd[READ]);
+		pipe_fd[READ] = pipe_b[READ];
+		pipe_b[WRITE] = pipe_fd[WRITE];
+		// close(pipe_b[READ]);
 	}
 	return 0;
 }
