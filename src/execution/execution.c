@@ -45,8 +45,6 @@ int	child_process(t_exec *node, int i, char **env, t_data *data)
 	char	*path;
 
 	path = NULL;
-	// if (get_data()->cmd_count > 1)
-	// 	pipe(node->fd);
 	data->pids[i] = fork();
 	if (data->pids[i] < 0)
 	{

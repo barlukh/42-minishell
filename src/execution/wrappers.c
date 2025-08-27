@@ -5,7 +5,6 @@ int	safe_dup(int *oldfd, int newfd)
 {
 	if (dup2(*oldfd, newfd) == -1)
 		return (-1);
-	// if (oldfd != newfd)
 	close (*oldfd);
 	*oldfd = -1;
 	return (newfd);

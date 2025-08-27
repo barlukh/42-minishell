@@ -29,7 +29,6 @@ char	**rebuild_env(t_env lst_env, int i, int count)
 		key_eq = ft_strjoin(temp->key, "=");
 		if (!key_eq)
 			return NULL;
-		// if (temp->value != NULL)
 		env_array[i] = ft_strjoin(key_eq, temp->value);
 		free(key_eq);
 		if (!env_array[i])
