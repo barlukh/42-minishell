@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 10:43:16 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/25 16:14:58 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/26 15:10:22 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,7 @@ static bool	cd_home(t_data *data)
 	char	*cwd;
 	char	*home;
 
-	cwd = getcwd(NULL, 0);
-	if (!cwd)
-		error_general_mem(data);
+	cwd = pwd_get(data);
 	home = home_get(data);
 	if (!home)
 		ft_putendl_fd(ERR_MSG_CDHOME, STDERR_FILENO);
@@ -64,7 +62,7 @@ static bool	cd_home(t_data *data)
 		ft_putendl_fd(strerror(errno), STDERR_FILENO);
 	}
 	else
-		return (oldpwd_set(cwd, data));
+		return (wd_set(cwd, data));
 	free(cwd);
 	data->exit_status = 1;
 	return (true);
@@ -92,9 +90,7 @@ static bool	is_dash(char *arg, size_t *i, t_data *data)
 
 	if (ft_strcmp(arg, "-") == 0)
 	{
-		cwd = getcwd(NULL, 0);
-		if (!cwd)
-			error_general_mem(data);
+		cwd = pwd_get(data);
 		oldpwd = oldpwd_get(data);
 		if (!oldpwd)
 			ft_putendl_fd(ERR_MSG_CDSET, STDERR_FILENO);
@@ -104,7 +100,7 @@ static bool	is_dash(char *arg, size_t *i, t_data *data)
 			ft_putendl_fd(strerror(errno), STDERR_FILENO);
 		}
 		else
-			return (oldpwd_set(cwd, data));
+			return (wd_set(cwd, data));
 		free(cwd);
 		data->exit_status = 1;
 		return (true);
@@ -119,16 +115,14 @@ static bool	cd_action(char *arg, t_data *data)
 {
 	char	*cwd;
 
-	cwd = getcwd(NULL, 0);
-	if (!cwd)
-		error_general_mem(data);
-	else if (chdir(arg) == -1)
+	cwd = pwd_get(data);
+	if (chdir(arg) == -1)
 	{
 		ft_putstr_fd("cd: ", STDERR_FILENO);
 		ft_putendl_fd(strerror(errno), STDERR_FILENO);
 	}
 	else
-		return (oldpwd_set(cwd, data));
+		return (wd_set(cwd, data));
 	free(cwd);
 	data->exit_status = 1;
 	return (true);

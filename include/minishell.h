@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/25 18:21:58 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/26 15:11:11 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -363,14 +363,6 @@ void	merger(t_data *data);
 char	*oldpwd_get(t_data *data);
 
 /**
- * @brief Sets the OLDPWD value in env.
- * @param cwd Current working directory.
- * @param data Data struct of all core variables.
- * @return True.
- */
-bool	oldpwd_set(char *cwd, t_data *data);
-
-/**
  * @brief Parses command line input string.
  * @param input Input string received from a command line.
  * @param data Data struct of all core variables.
@@ -385,6 +377,13 @@ bool	parse_input(char *input, t_data *data);
  * @return SUCCESS or FAILURE.
  */
 int		parsing_finalizer(t_token *current, t_data *data);
+
+/**
+ * @brief Gets and returns the malloced PWD value from env.
+ * @param data Data struct of all core variables.
+ * @return PWD or NULL if not found.
+ */
+char	*pwd_get(t_data *data);
 
 /**
  * @brief Removes quotes in tokens.
@@ -481,6 +480,14 @@ void	var_exp_u(char *content, char *new_cont, size_t *i, t_env *current);
  * @return None.
  */
 void	var_remove(char *content, char **tok_key, size_t i);
+
+/**
+ * @brief Sets the PWD and OLDPWD values in env.
+ * @param cwd Current working directory.
+ * @param data Data struct of all core variables.
+ * @return True.
+ */
+bool	wd_set(char *cwd, t_data *data);
 
 /**
  * @brief Performs word splitting on expanded variables.
