@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 10:50:25 by bgazur            #+#    #+#              #
-#    Updated: 2025/08/25 13:41:52 by bgazur           ###   ########.fr        #
+#    Updated: 2025/08/27 17:00:32 by edlucca          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,10 @@ SRC = 			ft_atoi.c \
 				ft_substr.c \
 				ft_tolower.c \
 				ft_toupper.c \
-				ft_whichifs.c
+				ft_whichifs.c \
+				ft_strtrim.c \
+				get_next_line.c \
+				get_next_line_utils.c
 
 all: $(DIR_OBJ) $(NAME)
 

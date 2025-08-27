@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 07:52:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/18 11:30:13 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/27 17:03:40 by edlucca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,15 @@
 
 bool	read_input(char **input, t_data *data)
 {
-	*input = readline("minishell$ ");
+	if (isatty(fileno(stdin)))
+		*input = readline("minishell$ ");
+	else
+	{
+		char *line;
+		line = get_next_line(fileno(stdin));
+		*input = ft_strtrim(line, "\n");
+		free(line);
+	}
 	if (!*input)
 	{
 		ft_lst_env_clear(&data->lst_env);

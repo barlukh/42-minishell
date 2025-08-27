@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/08/25 13:41:11 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/27 17:03:28 by edlucca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -466,5 +466,20 @@ int		ft_toupper(int c);
  * @return Specified input field separator.
  */
 char	ft_whichifs(int c);
+
+/* GNL*********************************************************************** */
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10 
+# endif
+
+char	*ft_strtrim(char const *s1, char const *set);
+
+char	*ft_substr_gnl(char const *src, unsigned int start, size_t len);
+size_t	ft_strlen_gnl(const char *s);
+char	*ft_strjoin_gnl(char const *s1, char const *s2);
+char	*ft_strchr_gnl(char *s, char c);
+char	*ft_strdup_copy(const char *src);
+char	*get_next_line(int fd);
 
 #endif
