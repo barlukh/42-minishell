@@ -91,7 +91,7 @@ typedef struct s_data
 	t_env	*lst_env;
 	t_token	*lst_tok;
 	t_exec	*lst_exec;
-	int				pipe_fd[2];	
+	int		tmp_fd;
 	pid_t			*pids;
 }	t_data;
 
@@ -492,20 +492,19 @@ void	word_splitter(t_data *data);
 /* ************************************************************************** */
 
 void	error_msg(char *str);
-int		redirections_io(t_exec *current, int i, t_data *data, int *tmp_fd);
+int		redirections_io(t_exec *current, int i);
 int		open_fds_in(t_exec *current);
-int		open_fds_out(t_exec *current, int i);
+int		open_fds_out(t_exec *current);
 int		safe_open(const char *pathname, bool is_infile);
-int		update_pipes(int *pipe_fd, int i, int cmd_count, int *tmp_fd);
-int		builting_process(t_exec *current, int i, t_data *data, int *tmp_fd);
-int		child_process(t_exec *current, int i, char **env, t_data *data, int *tmp_fd);
+int		child_process(t_exec *current, int i, char **env, t_data *data);
 int		safe_dup(int *oldfd, int newfd);
 int		safe_close(int *fd);
 int		node_count(t_env *temp, int count);
 char	*path_finder(char **command, char **env);
 char	**rebuild_env(t_env lst_env, int i, int count);
 bool	wait_process(pid_t *pid, t_data *data);
+bool	is_builtins(char **command);
 void	execution(t_data *data);
-void	initialize_execution(t_data *data, int *tmp_fd);
+void	initialize_execution(t_data *data);
 
 #endif

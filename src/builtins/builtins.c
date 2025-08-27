@@ -32,3 +32,24 @@ bool	builtins_check(t_exec *current, t_data *data)
 		return (true);
 	return (false);
 }
+
+bool	is_builtins(char **command)
+{
+	if (!command || !command[0])
+		return (false);
+	if (!ft_strcmp(command[0], "cd"))
+		return (true);
+	if (!ft_strcmp(command[0], "echo"))
+		return (true);
+	if (!ft_strcmp(command[0], "env"))
+		return (true);
+	if (!ft_strcmp(command[0], "exit"))
+		return (true);
+	if (!ft_strcmp(command[0], "export"))
+		return (true);
+	if (!ft_strcmp(command[0], "pwd"))
+		return (true);
+	if (!ft_strcmp(command[0], "unset"))
+		return (true);
+	return (false);
+}
