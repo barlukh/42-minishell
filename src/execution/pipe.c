@@ -7,6 +7,9 @@ int	redirections_io(t_exec *node, int i)
 
 	cmds = get_data()->cmd_count;
 	// first command
+	if (cmds == 1 && node->outfile == 0)
+		return (0);
+
 	if (i == 0)
 	{
 		// with redirections to infile
@@ -17,19 +20,28 @@ int	redirections_io(t_exec *node, int i)
 	else
 		safe_dup(&get_data()->tmp_fd, STDIN_FILENO);
 
+	// // inner commands
+	// if (i != cmds - 1)
+	// {
+	// 	if (node->outfile > 2)
+	// 	safe_dup(&node->outfile, STDOUT_FILENO);
+	// }
+	// else 
+	// 	// other commands with redirections to pipe
+	// 	safe_dup(&node->fd[WRITE], STDOUT_FILENO);
+
 	// last command 
-	if (i == cmds - 1)
+	if (node->outfile > 2)
 	{
 		// with redirections to outfile
-		if (node->outfile > 2)
-			safe_dup(&node->outfile, STDOUT_FILENO);
+		safe_dup(&node->outfile, STDOUT_FILENO);
 	}
 	else
 		// other commands with redirections to pipe
 		safe_dup(&node->fd[WRITE], STDOUT_FILENO);
 
 	// close
-	if (node->fd[READ] < 0 )
+	if (node->fd[READ] > 2 )
 		safe_close(&node->fd[READ]);
 	return (0);
 }
