@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 13:02:30 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/25 09:30:35 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/28 08:58:14 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	builtin_exit(t_exec *current, t_data *data)
 
 	if (ft_strcmp(current->cmd_arg[0], "exit") == 0)
 	{
-		ft_putendl_fd(ERR_MSG_EXIT, STDERR_FILENO);
+		ft_putendl_fd(ERR_MSG_EXIT, STDOUT_FILENO);
 		if (!current->cmd_arg[1])
 			exit_without_arg(data);
 		check_invalid_numerical(current, data);
