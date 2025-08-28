@@ -71,13 +71,13 @@ char	*path_finder(char **command, char **env)
 	int i = 0;
 
 	if (!command || !command[0])
-		return NULL;
+		return (NULL);
 	// if the cmd has already the fullpath
 	if (access(command[0], X_OK) == 0)
 		return (ft_strdup(command[0]));
 	path_env = get_env_value(env);
 	if (!path_env)
-		return NULL;
+		return (NULL);
 	paths = ft_split(path_env, ':');
 	while (paths && paths[i])
 	{
@@ -88,11 +88,11 @@ char	*path_finder(char **command, char **env)
 		free(tmp);
 		if (!full)
 			return (ft_free_array(paths), NULL);
-		if (access(full, X_OK) == 0)
+		if (access(full, F_OK) == 0)
 			return (ft_free_array(paths), full);
 		free(full);
 		i++;
 	}
 	ft_free_array(paths);
-	return NULL;
+	return (NULL);
 }
