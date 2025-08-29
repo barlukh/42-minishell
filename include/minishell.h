@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/29 09:06:46 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/29 10:55:43 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -506,9 +506,8 @@ int		safe_open(const char *pathname, bool is_infile);
 int		child_process(t_exec *current, int i, char **env, t_data *data);
 int		safe_dup(int *oldfd, int newfd);
 int		safe_close(int *fd);
-int		node_count(t_env *temp, int count);
 char	*path_finder(char **command, char **env);
-char	**rebuild_env(t_env lst_env, int i, int count);
+char	**rebuild_env(t_data *data);
 bool	wait_process(pid_t *pid, t_data *data);
 bool	is_builtins(char **command);
 void	execution(t_data *data);

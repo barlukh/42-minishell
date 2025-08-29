@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 08:51:55 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/18 10:20:45 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/29 10:39:51 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	merger(t_data *data)
 			current = current->next;
 	}
 	ft_lst_tok_clear(&data->lst_tok);
+	data->lst_tok = NULL;
 }
 
 // Main loop for token merge.
