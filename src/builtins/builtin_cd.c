@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 10:43:16 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/26 15:10:22 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/29 13:54:11 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,12 @@ static bool	is_dash(char *arg, size_t *i, t_data *data)
 			ft_putendl_fd(strerror(errno), STDERR_FILENO);
 		}
 		else
+		{
+			ft_putendl_fd(oldpwd, STDOUT_FILENO);
 			return (wd_set(cwd, data));
+		}
 		free(cwd);
-		data->exit_status = 1;
-		return (true);
+		return (data->exit_status = 1, true);
 	}
 	if (arg[0] == '-')
 		(*i)++;
