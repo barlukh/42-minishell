@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/29 10:55:43 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/29 18:42:52 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ extern volatile sig_atomic_t	g_signal;
 typedef struct s_data
 {
 	int		exit_status;
-	int		cmd_count;
+	int		tok_count;
 	t_env	*lst_env;
 	t_token	*lst_tok;
 	t_exec	*lst_exec;

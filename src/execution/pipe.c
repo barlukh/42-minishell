@@ -5,7 +5,7 @@ int	redirections_io(t_exec *node, int i)
 {
 	int cmds;
 
-	cmds = get_data()->cmd_count;
+	cmds = get_data()->tok_count;
 	if (cmds == 1 && node->outfile == 0 && node->infile == 0)
 		return (0);
 
@@ -27,7 +27,7 @@ int	redirections_builtin(t_exec *node, int i)
 {
 	int cmds;
 
-	cmds = get_data()->cmd_count;
+	cmds = get_data()->tok_count;
 	if (cmds == 1 && node->outfile == 0 && node->infile == 0)
 		return (0);
 

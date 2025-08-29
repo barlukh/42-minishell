@@ -20,7 +20,7 @@ void	execution(t_data *data)
 		ft_memset(node->fd, -1, sizeof(int) * 2);
 		node->infile = -1;
 		node->outfile = -1;
-		if (i != get_data()->cmd_count - 1)
+		if (i != get_data()->tok_count - 1)
 			pipe(node->fd);
 		if (open_fds_in(node) == false)
 			return ;
@@ -45,7 +45,7 @@ void	execution(t_data *data)
 void	initialize_execution(t_data *data)
 {
 	data->tmp_fd = dup(STDIN_FILENO);
-	data->pids = ft_calloc(sizeof(pid_t), data->cmd_count);
+	data->pids = ft_calloc(sizeof(pid_t), data->tok_count);
 	if (data->pids == NULL)
 	{
 		perror("malloc failed for pids");
@@ -67,7 +67,7 @@ int	builtin_process(t_exec *node, int i, char **env, t_data *data)
 		redirections_io(node, i);
 		builtins_check(node, data);
 	}
-	if (get_data()->cmd_count > 1)
+	if (get_data()->tok_count > 1)
 	{
 		safe_close(&node->fd[WRITE]);
 		safe_close(&data->tmp_fd);
@@ -101,7 +101,7 @@ int	child_process(t_exec *node, int i, char **env, t_data *data)
 		free(env);
 		exit(127);
 	}
-	if (get_data()->cmd_count > 1)
+	if (get_data()->tok_count > 1)
 	{
 		safe_close(&node->fd[WRITE]);
 		safe_close(&data->tmp_fd);

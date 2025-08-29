@@ -9,7 +9,7 @@ bool	wait_process(pid_t *pid, t_data *data)
 	pid_t	term_pid;
 
 	i = 0;
-	cmds_count = data->cmd_count;
+	cmds_count = data->tok_count;
 	while (i < cmds_count)
 	{
 		term_pid = waitpid(data->pids[i], &status, 0);
