@@ -26,7 +26,7 @@ void	execution(t_data *data)
 			return ;
 		if (open_fds_out(node) == false)
 			return ;
-		if (is_builtins(node->cmd_arg) == 1)
+		if (is_builtins(node->cmd_arg) == true)
 		{
 			builtin_process(node, i, env, data);
 			// builtins_check(node, data);
@@ -42,7 +42,7 @@ void	execution(t_data *data)
 	wait_process(data->pids, data);
 }
 \
-void	initialize_execution(t_data *data)
+		void	initialize_execution(t_data *data)
 {
 	data->tmp_fd = dup(STDIN_FILENO);
 	data->pids = ft_calloc(sizeof(pid_t), data->tok_count);
@@ -56,19 +56,28 @@ void	initialize_execution(t_data *data)
 int	builtin_process(t_exec *node, int i, char **env, t_data *data)
 {
 	(void)env;
-	data->pids[i] = fork();
-	if (data->pids[i] < 0)
+	if (get_data()->tok_count > 1)
 	{
-		perror("fork error:");
-		exit(EXIT_FAILURE);
+		data->pids[i] = fork();
+		if (data->pids[i] < 0)
+		{
+			perror("fork error:");
+			exit(EXIT_FAILURE);
+		}
+		if (data->pids[i] == 0)
+		{
+			redirections_io(node, i);
+			builtins_check(node, data);
+			exit(0); // check code
+		}
+		safe_close(&node->fd[WRITE]);
+		safe_close(&data->tmp_fd);
+		data->tmp_fd = node->fd[READ];
 	}
-	if (data->pids[i] == 0)
+	else
 	{
 		redirections_io(node, i);
 		builtins_check(node, data);
-	}
-	if (get_data()->tok_count > 1)
-	{
 		safe_close(&node->fd[WRITE]);
 		safe_close(&data->tmp_fd);
 		data->tmp_fd = node->fd[READ];
