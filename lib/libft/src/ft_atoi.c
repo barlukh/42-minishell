@@ -6,13 +6,13 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 15:12:15 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/17 17:31:02 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/29 09:06:05 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *nptr)
+int	ft_atoi(const char *nptr, t_data *data)
 {
 	int			digit;
 	int			sign;
@@ -32,9 +32,9 @@ int	ft_atoi(const char *nptr)
 	{
 		digit = nptr[i] - '0';
 		if (sign == 1 && (result > (LLONG_MAX - digit) / 10))
-			return (ERROR);
+			exit_atoi_overflow(data);
 		if (sign == -1 && (-result < (LLONG_MIN + digit) / 10))
-			return (ERROR);
+			exit_atoi_overflow(data);
 		result = result * 10 + digit;
 		i++;
 	}
