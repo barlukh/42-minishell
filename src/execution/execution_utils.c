@@ -39,7 +39,6 @@ char	**rebuild_env(t_data *data)
 		current = current->next;
 	}
 	env[i] = NULL;
-	ft_lst_env_clear(&data->lst_env);
 	return (env);
 }
 

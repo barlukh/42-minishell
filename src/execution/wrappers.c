@@ -10,29 +10,29 @@ int	safe_dup(int *oldfd, int newfd)
 	return (newfd);
 }
 
-int	safe_open(const char *pathname, bool is_infile)
+bool	safe_open(t_exec *node, bool is_infile)
 {
-	int fd;
-
 	if (is_infile == true)
 	{
-		fd = open(pathname, O_RDONLY);
-		if (fd == -1)
+		node->infile = open(node->red_in[0], O_RDONLY);
+		if (node->infile == -1)
 		{
-			ft_putstr_fd("open failed", 2);
-			exit(3);
+			get_data()->exit_status = 1;
+			perror(node->red_in[0]);
+			return (false);
 		}
 	}
 	else
 	{
-		fd = open(pathname, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		if (fd == -1)
+		node->outfile = open(node->red_out[0], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		if (node->outfile == -1)
 		{
-			ft_putstr_fd("open failed", 2);
-			exit(3);
+			get_data()->exit_status = 1;
+			perror(node->red_in[0]);
+			return (false);
 		}
 	}
-	return fd;
+	return (true);
 }
 
 int	safe_close(int *fd)
