@@ -9,6 +9,8 @@ void	execution(t_data *data)
 
 	i = 0;
 	node = data->lst_exec;
+	if (!node)
+		return ;
 	env = rebuild_env(data);
 	initialize_execution(data);
 	ft_memset(node->fd, -1, sizeof(int) * 2);
@@ -30,7 +32,7 @@ void	execution(t_data *data)
 	}
 	wait_process(data->pids, data);
 }
-
+\
 void	initialize_execution(t_data *data)
 {
 	data->tmp_fd = dup(STDIN_FILENO);

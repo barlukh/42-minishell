@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 10:30:43 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/29 10:57:30 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/29 11:45:08 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ char	**rebuild_env(t_data *data)
 		current = current->next;
 	}
 	env[i] = NULL;
-	ft_lst_env_clear(&data->lst_env);
 	return (env);
 }
 

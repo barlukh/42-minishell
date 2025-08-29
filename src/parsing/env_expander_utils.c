@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 16:04:56 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/26 16:05:44 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/29 14:27:41 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	exp_loop(char *new_cont, size_t *j, size_t *k, t_env *current)
 				new_cont[(*j)++] = ' ';
 				break ;
 			}
-			if (in && !ft_isifs(current->value[*k + 1]))
+			if ((in && !ft_isifs(current->value[*k + 1])) || *k == 0)
 				new_cont[(*j)++] = ' ';
 			(*k)++;
 			continue ;
