@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/08/28 14:03:08 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/29 09:06:36 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,16 @@
 # define DELIMITERS "|<> \t\n"
 
 // Return / exit values (general).
-# define ERROR -1
 # define SUCCESS 0
 # define FAILURE 1
 
 //------------------------------------------------------------------------------
 // Type Definitions
 //------------------------------------------------------------------------------
+
+// Data struct typedef from "minishell.h".
+struct					s_data;
+typedef struct s_data	t_data;
 
 // Token type enumeration.
 typedef enum e_token_type
@@ -87,11 +90,19 @@ typedef struct s_exec
 //------------------------------------------------------------------------------
 
 /**
+ * @brief Exit function for overflow in ft_atoi().
+ * @param data Data struct of all core variables.
+ * @return None.
+ */
+void	exit_atoi_overflow(t_data *data);
+
+/**
  * @brief Converts a string into an integer.
- * @param s String to convert.
+ * @param nptr String to convert.
+ * @param data Data struct of all core variables.
  * @return Converted string as int.
  */
-int		ft_atoi(const char *s);
+int		ft_atoi(const char *nptr, t_data *data);
 
 /**
  * @brief Erases data in a memory by writing \0 to that area.

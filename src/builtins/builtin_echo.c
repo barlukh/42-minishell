@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 12:27:45 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/22 11:29:28 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/28 16:33:54 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ static bool	is_valid_n_option(char *content)
 	if (content[i] == '-')
 	{
 		i++;
+		if (content[i] == '\0')
+			return (false);
 		while (content[i])
 		{
 			if (content[i] != 'n')
