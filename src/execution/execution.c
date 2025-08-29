@@ -1,3 +1,4 @@
+
 #include "minishell.h"
 
 void	execution(t_data *data)
@@ -10,6 +11,7 @@ void	execution(t_data *data)
 	node = data->lst_exec;
 	env = rebuild_env(*data->lst_env, i, i);
 	initialize_execution(data);
+	ft_memset(node->fd, -1, sizeof(int) * 2);
 	while (node)
 	{
 		if (get_data()->cmd_count > 1)
@@ -55,12 +57,15 @@ int	child_process(t_exec *node, int i, char **env, t_data *data)
 	{
 		redirections_io(node, i);
 		path = path_finder(node->cmd_arg, env);
-		if (execve(path, node->cmd_arg, env) == -1)
+		if (path && access(path, X_OK) == 0)
 		{
-			perror("execve");
+			execve(path, node->cmd_arg, env);
+			perror(node->cmd_arg[0]);
 			exit(EXIT_FAILURE);
 		}
+		perror(node->cmd_arg[0]);
 		free(env);
+		exit(127);
 	}
 	if (get_data()->cmd_count > 1)
 	{
