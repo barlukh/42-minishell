@@ -9,7 +9,7 @@ void	execution(t_data *data)
 
 	i = 0;
 	node = data->lst_exec;
-	env = rebuild_env(*data->lst_env, i, i);
+	env = rebuild_env(data);
 	initialize_execution(data);
 	ft_memset(node->fd, -1, sizeof(int) * 2);
 	while (node)

@@ -1,45 +1,6 @@
 
 #include "minishell.h"
 
-int	node_count(t_env *temp, int count)
-{
-	while (temp)
-	{
-		count++;
-		temp = temp->next;
-	}
-	return (count);
-}
-
-char	**rebuild_env(t_env lst_env, int i, int count)
-{
-	t_env	*temp;
-	char	**env_array;
-	char	*key_eq;
-
-	temp = &lst_env;
-	key_eq = NULL;
-	count = node_count(temp, i);
-	env_array = malloc(sizeof(char *) * (count + 1));
-	if (!env_array)
-		return NULL;
-	temp = &lst_env;
-	while (temp)
-	{
-		key_eq = ft_strjoin(temp->key, "=");
-		if (!key_eq)
-			return NULL;
-		env_array[i] = ft_strjoin(key_eq, temp->value);
-		free(key_eq);
-		if (!env_array[i])
-			return NULL;
-		i++;
-		temp = temp->next;
-	}
-	env_array[i] = NULL;
-	return (env_array);
-}
-
 char	*get_env_value(char **envp)
 {
 	char	*path;
