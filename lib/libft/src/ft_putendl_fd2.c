@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_handlers.c                                  :+:      :+:    :+:   */
+/*   ft_putendl_fd2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/07 13:24:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/07 13:28:17 by bgazur           ###   ########.fr       */
+/*   Created: 2025/08/30 16:17:38 by bgazur            #+#    #+#             */
+/*   Updated: 2025/08/30 16:19:55 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	signal_handler_main(int signum)
+void	ft_putendl_fd2(char *s1, char *s2, int fd)
 {
-	write(STDOUT_FILENO, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-	g_signal = 128 + signum;
-	get_data()->exit_status = g_signal;
-}
-
-void	signal_handler_heredoc(int signum)
-{
-	g_signal = 128 + signum;
-	get_data()->exit_status = g_signal;
+	while (*s1)
+		write(fd, s1++, 1);
+	if (s2)
+		while (*s2)
+			write(fd, s2++, 1);
+	write(fd, "\n", 1);
 }

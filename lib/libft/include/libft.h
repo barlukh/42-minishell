@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/08/29 09:06:36 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/30 16:21:03 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -341,6 +341,15 @@ void	ft_putchar_fd(char c, int fd);
  * @return None.
  */
 void	ft_putendl_fd(char *s, int fd);
+
+/**
+ * @brief Outputs strings to a specified file descriptor, followed by a newline.
+ * @param s1 String to output.
+ * @param s2 String to output.
+ * @param fd File descriptor.
+ * @return None.
+ */
+void	ft_putendl_fd2(char *s1, char *s2, int fd);
 
 /**
  * @brief Outputs an integer to a specified file descriptor.

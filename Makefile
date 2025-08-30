@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 08:53:07 by bgazur            #+#    #+#              #
-#    Updated: 2025/08/29 10:30:40 by bgazur           ###   ########.fr        #
+#    Updated: 2025/08/30 14:29:09 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,8 +66,10 @@ SRC			=	$(DIR_BUILTIN)/builtin_cd_utils.c \
 				$(DIR_PARSING)/syntax_checker.c \
 				$(DIR_PARSING)/tokenizer.c \
 				$(DIR_PARSING)/word_splitter.c \
-				$(DIR_SIGNALS)/signal_handlers.c \
-				$(DIR_SIGNALS)/signals.c \
+				$(DIR_SIGNALS)/signals_exec_child.c \
+				$(DIR_SIGNALS)/signals_exec_parent.c \
+				$(DIR_SIGNALS)/signals_heredoc.c \
+				$(DIR_SIGNALS)/signals_readline.c \
 				$(DIR_SRC)/main.c
 
 all: $(DIR_OBJ) $(LIBFT) $(NAME)

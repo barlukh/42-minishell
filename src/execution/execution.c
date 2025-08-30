@@ -26,14 +26,13 @@ void	execution(t_data *data)
 			return ;
 		if (open_fds_out(node) == false)
 			return ;
-		if (is_builtins(node->cmd_arg) == true)
+		if (node->cmd_arg[0])
 		{
-			builtin_process(node, i, env, data);
-			// builtins_check(node, data);
-			// safe_close(&data->tmp_fd); //still hangs
+			if (is_builtins(node->cmd_arg) == true)
+				builtin_process(node, i, env, data);
+			else
+				child_process(node, i, env, data);
 		}
-		else
-			child_process(node, i, env, data);
 		node= node->next;
 		i++;
 	}
@@ -98,6 +97,7 @@ int	child_process(t_exec *node, int i, char **env, t_data *data)
 	}
 	if (data->pids[i] == 0)
 	{
+		signals_exec_child();
 		redirections_io(node, i);
 		path = path_finder(node->cmd_arg, env);
 		if (path && access(path, X_OK) == 0)

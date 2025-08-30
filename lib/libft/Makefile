@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 10:50:25 by bgazur            #+#    #+#              #
-#    Updated: 2025/08/27 17:00:32 by edlucca          ###   ########.fr        #
+#    Updated: 2025/08/30 16:21:18 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ SRC = 			ft_atoi.c \
 				ft_memset.c  \
 				ft_putchar_fd.c \
 				ft_putendl_fd.c \
+				ft_putendl_fd2.c \
 				ft_putnbr_fd.c \
 				ft_putstr_fd.c \
 				ft_split.c \

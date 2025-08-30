@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/29 18:42:52 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/30 14:30:49 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -410,18 +410,18 @@ bool	read_input(char **input, t_data *data);
 void	rename_heredoc_token(size_t i, t_token *current, t_data *data);
 
 /**
- * @brief Executes when a signal is received in heredoc.
- * @param signum Signal number.
+ * @brief Defines behaviour of signals in execution child path.
+ * @param void None.
  * @return None.
  */
-void	signal_handler_heredoc(int signum);
+void	signals_exec_child(void);
 
 /**
- * @brief Executes when a signal is received in the main process.
- * @param signum Signal number.
+ * @brief Defines behaviour of signals in execution parent path.
+ * @param void None.
  * @return None.
  */
-void	signal_handler_main(int signum);
+void	signals_exec_parent(void);
 
 /**
  * @brief Defines behaviour of signals in heredoc.
@@ -431,11 +431,11 @@ void	signal_handler_main(int signum);
 void	signals_heredoc(void);
 
 /**
- * @brief Defines behaviour of signals in the main processs.
+ * @brief Defines behaviour of signals in the readline prompt.
  * @param void None.
  * @return None.
  */
-void	signals_main(void);
+void	signals_readline(void);
 
 /**
  * @brief Checks for syntax errors in tokens.
