@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 10:43:16 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/29 13:54:11 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/30 16:22:02 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,7 @@ static bool	cd_home(t_data *data)
 	if (!home)
 		ft_putendl_fd(ERR_MSG_CDHOME, STDERR_FILENO);
 	else if (chdir(home) == -1)
-	{
-		ft_putstr_fd("cd: ", STDERR_FILENO);
-		ft_putendl_fd(strerror(errno), STDERR_FILENO);
-	}
+		ft_putendl_fd2("cd: ", strerror(errno), STDERR_FILENO);
 	else
 		return (wd_set(cwd, data));
 	free(cwd);
