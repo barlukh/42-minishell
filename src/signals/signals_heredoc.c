@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_handlers.c                                  :+:      :+:    :+:   */
+/*   signals_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/07 13:24:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/07 13:28:17 by bgazur           ###   ########.fr       */
+/*   Created: 2025/08/30 13:43:56 by bgazur            #+#    #+#             */
+/*   Updated: 2025/08/30 15:24:09 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	signal_handler_main(int signum)
+static void	signal_handler_sigint(int signum);
+
+void	signals_heredoc(void)
 {
-	write(STDOUT_FILENO, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-	g_signal = 128 + signum;
-	get_data()->exit_status = g_signal;
+	struct sigaction	action;
+
+	g_signal = 0;
+	ft_bzero(&action, sizeof(action));
+	action.sa_handler = signal_handler_sigint;
+	sigemptyset(&action.sa_mask);
+	action.sa_flags = SA_RESTART;
+	sigaction(SIGINT, &action, NULL);
 }
 
-void	signal_handler_heredoc(int signum)
+// Executes when SIGINT is received in heredoc.
+static void	signal_handler_sigint(int signum)
 {
 	g_signal = 128 + signum;
 	get_data()->exit_status = g_signal;

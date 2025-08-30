@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:40:06 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/29 18:45:41 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/30 14:31:26 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int argc, char **argv, char **env)
 	create_lst_env(env, data);
 	while (true)
 	{
-		signals_main();
+		signals_readline();
 		if (read_input(&input, data) != SUCCESS)
 			continue ;
 		if (parse_input(input, data) != SUCCESS)
@@ -34,6 +34,7 @@ int	main(int argc, char **argv, char **env)
 		if (create_heredocs(data) != SUCCESS)
 			continue ;
 		merger(data);
+		signals_exec_parent();
 		execution(data);
 		data->tok_count = 0;
 		ft_lst_exec_clear(&data->lst_exec);
