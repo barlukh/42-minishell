@@ -47,6 +47,7 @@ SRC			=	$(DIR_BUILTIN)/builtin_cd_utils.c \
 				$(DIR_EXEC)/pipe.c \
 				$(DIR_EXEC)/wrappers.c \
 				$(DIR_EXEC)/wait.c \
+				$(DIR_EXEC)/builtin.c \
 				$(DIR_HEREDOC)/errors_heredocs.c \
 				$(DIR_HEREDOC)/exp_exit_heredoc.c \
 				$(DIR_HEREDOC)/heredocs_expander.c \
