@@ -24,41 +24,21 @@ int	redirections_io(t_exec *node, int i)
 }
 int redirections_builtin(t_exec *node, int i)
 {
-    int cmds = get_data()->tok_count;
-    int saved_stdin = dup(STDIN_FILENO);
-    int saved_stdout = dup(STDOUT_FILENO);
+	int cmds;
 
-    if (saved_stdin == -1 || saved_stdout == -1)
-        return (perror("dup"), -1);
+	cmds = get_data()->tok_count;
+	if (node->infile > 2)
+		safe_dup(&node->infile, STDIN_FILENO);
+	else if (i != 0)
+		safe_dup(&get_data()->tmp_fd, STDIN_FILENO);
+	if (node->outfile > 2)
+		safe_dup(&node->outfile, STDOUT_FILENO);
+	else if (i != cmds - 1)
+		safe_dup(&node->fd[WRITE], STDOUT_FILENO);
 
-    // Handle infile
-    if (node->infile > 2)
-        safe_dup(&node->infile, STDIN_FILENO);
-    else if (i != 0)
-        safe_dup(&get_data()->tmp_fd, STDIN_FILENO);
-
-    // Handle outfile
-    if (node->outfile > 2)
-        safe_dup(&node->outfile, STDOUT_FILENO);
-    else if (i != cmds - 1)
-        safe_dup(&node->fd[WRITE], STDOUT_FILENO);
-
-    // Save the pipe read end for the next command
-    get_data()->tmp_fd = dup(node->fd[READ]);
-
-    // Close unused fds to avoid hanging
-    if (node->fd[READ] > 2)
-        safe_close(&node->fd[READ]);
-    if (node->fd[WRITE] > 2)
-        safe_close(&node->fd[WRITE]);
-
-    // Restore stdin/stdout
-    dup2(saved_stdin, STDIN_FILENO);
-    dup2(saved_stdout, STDOUT_FILENO);
-    close(saved_stdin);
-    close(saved_stdout);
-
-    return (0);
+	// if (cmds > 1)
+	// 	get_data()->tmp_fd = dup(node->fd[READ]);
+	return (0);
 }
 
 bool	open_fds_in(t_exec *node)

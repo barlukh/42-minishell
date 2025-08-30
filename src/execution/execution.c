@@ -1,8 +1,6 @@
 
 #include "minishell.h"
 
-int	builtin_process(t_exec *node, int i, char **env, t_data *data);
-
 void	execution(t_data *data)
 {
 	int			i;
@@ -26,23 +24,20 @@ void	execution(t_data *data)
 			return ;
 		if (open_fds_out(node) == false)
 			return ;
-		if (is_builtins(node->cmd_arg) == true)
+		if (node->cmd_arg[0])
 		{
-			builtin_process(node, i, env, data);
-			// builtins_check(node, data);
-			// safe_close(&data->tmp_fd); //still hangs
+			if (is_builtins(node->cmd_arg) == true)
+				builtin_process(node, i, data);
+			else
+				child_process(node, i, env, data);
 		}
-		else
-			child_process(node, i, env, data);
 		node= node->next;
 		i++;
 	}
-	// if (data->tmp_fd > 2 )
-	// 	safe_close(&data->tmp_fd);
 	wait_process(data->pids, data);
 }
-\
-		void	initialize_execution(t_data *data)
+
+void	initialize_execution(t_data *data)
 {
 	data->tmp_fd = dup(STDIN_FILENO);
 	data->pids = ft_calloc(sizeof(pid_t), data->tok_count);
@@ -51,38 +46,6 @@ void	execution(t_data *data)
 		perror("malloc failed for pids");
 		exit(EXIT_FAILURE);
 	}
-}
-
-int	builtin_process(t_exec *node, int i, char **env, t_data *data)
-{
-	(void)env;
-	if (get_data()->tok_count > 1)
-	{
-		data->pids[i] = fork();
-		if (data->pids[i] < 0)
-		{
-			perror("fork error:");
-			exit(EXIT_FAILURE);
-		}
-		if (data->pids[i] == 0)
-		{
-			redirections_io(node, i);
-			builtins_check(node, data);
-			exit(0); // check code
-		}
-		safe_close(&node->fd[WRITE]);
-		safe_close(&data->tmp_fd);
-		data->tmp_fd = node->fd[READ];
-	}
-	else
-	{
-		redirections_io(node, i);
-		builtins_check(node, data);
-		safe_close(&node->fd[WRITE]);
-		safe_close(&data->tmp_fd);
-		data->tmp_fd = node->fd[READ];
-	}
-	return (0);
 }
 
 int	child_process(t_exec *node, int i, char **env, t_data *data)
