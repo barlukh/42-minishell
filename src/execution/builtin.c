@@ -39,10 +39,8 @@ bool	pipeline_builtin(t_exec *node, int i)
 	builtins_check(node, get_data());
 	if (i != get_data()->tok_count - 1 && node->outfile == -1)
 		safe_dup(&node->fd[WRITE], STDOUT_FILENO);
-	dup2(saved_stdin, STDIN_FILENO);
-	dup2(saved_stdout, STDOUT_FILENO);
-	close(saved_stdin);
-	close(saved_stdout);
+	if (close_builtin(saved_stdin, saved_stdout) == false)
+		return (false);
 	safe_close(&node->fd[WRITE]);
 	safe_close(&get_data()->tmp_fd);
 	get_data()->tmp_fd = node->fd[READ];
@@ -61,8 +59,17 @@ bool	simple_builtin(t_exec *node, int i)
 	builtins_check(node, get_data());
 	if (i != get_data()->tok_count - 1 && node->outfile == -1)
 		safe_dup(&node->fd[WRITE], STDOUT_FILENO);
-	dup2(saved_stdin, STDIN_FILENO);
-	dup2(saved_stdout, STDOUT_FILENO);
+	if (close_builtin(saved_stdin, saved_stdout) == false)
+		return (false);
+	return (true);
+}
+
+bool	close_builtin(int saved_stdin, int saved_stdout)
+{
+	if (dup2(saved_stdin, STDIN_FILENO) == -1)
+		return (false);
+	if (dup2(saved_stdout, STDOUT_FILENO) == -1)
+		return (false);
 	close(saved_stdin);
 	close(saved_stdout);
 	return (true);

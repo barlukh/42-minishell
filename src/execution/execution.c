@@ -1,7 +1,6 @@
 
 #include "minishell.h"
 
-bool	open_fds(t_exec *node, int i);
 void	execution(t_data *data)
 {
 	int			i;

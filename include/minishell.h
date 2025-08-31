@@ -517,5 +517,7 @@ bool	simple_builtin(t_exec *node, int i);
 bool	pipeline_builtin(t_exec *node, int i);
 char	*path_joiner(char **paths, char **command, int i);
 
+bool	open_fds(t_exec *node, int i);
+bool	close_builtin(int saved_stdin, int saved_stdout);
 bool	safe_open(t_exec *current, bool is_infile);
 #endif
