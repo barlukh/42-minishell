@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/08/30 16:21:03 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/31 11:48:32 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,9 @@ typedef struct s_token
 typedef struct s_exec
 {
 	char			**cmd_arg;
-	char			**red_in;
-	char			**red_out;
+	char			**in;
+	char			**out;
+	char			**app;
 	int				infile;	
 	int				outfile;	
 	int				fd[2];	
@@ -266,11 +267,11 @@ t_exec	*ft_lst_exec_last(t_exec *lst);
 /**
  * @brief Creates a new node in a linked list.
  * @param cmd_arg Array of commands and arguments.
- * @param red_in Array of redirections in.
- * @param red_out Array of redirections out.
+ * @param in Array of redirections in.
+ * @param out Array of redirections out.
  * @return Pointer to a node, NULL if allocation fails.
  */
-t_exec	*ft_lst_exec_new(char **cmd_arg, char **red_in, char **red_out);
+t_exec	*ft_lst_exec_new(char **cmd_arg, char **in, char **out, char **app);
 
 /**
  * @brief Adds a node at the end of a linked list.

@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 10:43:16 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/30 17:33:09 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/31 12:07:29 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	builtin_cd(t_exec *current, t_data *data)
 	if (ft_strcmp(current->cmd_arg[0], "cd") == 0)
 	{
 		if (!current->cmd_arg[1] || (current->cmd_arg[1]
-			&& ft_strcmp(current->cmd_arg[1], "--") == 0))
+				&& ft_strcmp(current->cmd_arg[1], "--") == 0))
 			return (cd_home(data));
 		if (current->cmd_arg[1] && is_invalid_option(current->cmd_arg[1]))
 		{

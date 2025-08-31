@@ -1,0 +1,20 @@
+total 196
+drwxr-xr-x  9 edlucca 2020   4096 Aug 30 18:33 .
+drwxr-xr-x 15 edlucca 2020    252 Aug 30 17:08 ..
+drwxr-xr-x  3 edlucca 2020    118 Aug 15 17:32 build
+drwxr-x---  3 edlucca 2020     20 Aug 30 14:02 .cache
+-rw-r--r--  1 edlucca 2020    527 Aug 15 17:30 CMakeLists.txt
+-rw-r--r--  1 edlucca 2020  18249 Aug 13 11:49 compile_commands.json
+drwxr-xr-x  8 edlucca 2020   4096 Aug 30 18:32 .git
+-rw-r--r--  1 edlucca 2020    135 Aug 29 09:42 .gitignore
+drwxr-xr-x  2 edlucca 2020     25 Aug 30 18:30 include
+drwxr-xr-x  3 edlucca 2020     19 Aug 12 15:20 lib
+-rw-r--r--  1 edlucca 2020   3681 Aug 30 18:30 Makefile
+-rwxr-xr-x  1 edlucca 2020 134712 Aug 30 18:18 minishell
+drwxr-xr-x  7 edlucca 2020     99 Aug 30 18:18 objects
+-rw-r--r--  1 edlucca 2020      0 Aug 30 18:33 out
+-rw-r--r--  1 edlucca 2020      0 Aug 30 18:33 out0
+-rw-r--r--  1 edlucca 2020   1291 Aug 12 15:20 README.md
+drwxr-xr-x  7 edlucca 2020     99 Aug 30 18:21 src
+-rwxr-xr-x  1 edlucca 2020  14755 Aug 28 08:38 tester.sh
+-rw-r--r--  1 edlucca 2020    122 Aug 25 18:28 vg.supp
