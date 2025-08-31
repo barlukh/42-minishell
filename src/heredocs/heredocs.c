@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 19:17:04 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/22 11:28:27 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/31 16:23:05 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,12 @@ static bool	get_user_input(int *fd, t_token *current, t_data *data)
 {
 	char	*input;
 
+	input = NULL;
 	signals_heredoc();
 	while (true)
 	{
 		rl_event_hook = heredoc_event_hook;
-		input = readline("> ");
+		receive_input(&input, "> ");
 		if (g_signal == 130)
 		{
 			free(input);
@@ -104,6 +105,5 @@ static bool	get_user_input(int *fd, t_token *current, t_data *data)
 			break ;
 		expand_write(input, fd, current, data);
 	}
-	free(input);
-	return (SUCCESS);
+	return (free(input), SUCCESS);
 }

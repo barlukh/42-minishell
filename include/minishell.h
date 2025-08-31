@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/31 15:22:19 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/31 16:22:33 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -435,6 +435,14 @@ void	quote_remover(t_data *data);
  * @return SUCCESS or FAILURE.
  */
 bool	read_input(char **input, t_data *data);
+
+/**
+ * @brief Receives input from readline() or get_next_line().
+ * @param input Pointer to received input.
+ * @param prompt String to print on the terminal prompt.
+ * @return None.
+ */
+void	receive_input(char **input, char *prompt);
 
 /**
  * @brief Renames heredoc token with the file name.
