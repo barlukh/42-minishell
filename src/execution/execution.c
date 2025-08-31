@@ -1,4 +1,4 @@
-
+#include <sys/stat.h>
 #include "minishell.h"
 
 void	execution(t_data *data)
@@ -66,6 +66,7 @@ void	initialize_execution(t_data *data)
 int	child_process(t_exec *node, int i, char **env, t_data *data)
 {
 	char	*path;
+	struct	stat sb;
 
 	path = NULL;
 	data->pids[i] = fork();
@@ -79,8 +80,20 @@ int	child_process(t_exec *node, int i, char **env, t_data *data)
 		signals_exec_child();
 		redirections_io(node, i);
 		path = path_finder(node->cmd_arg, env);
+		if (ft_strcmp(path, ".") == 0)
+		{
+			fprintf(stderr, "%s: file argument required\n", path);
+			free(env);
+			exit(2);  // Common shell exit code for "command is not executable"
+		}
+		if (stat(path, &sb) == 0 && S_ISDIR(sb.st_mode))
+		{
+			fprintf(stderr, "%s: is a directory\n", path);
+			free(env);
+			exit(126);  // Common shell exit code for "command is not executable"
+		}
 		if (path && access(path, X_OK) == 0
-			&& !(!node->cmd_arg[0] || node->cmd_arg[0][0] == '\0'))
+				&& !(!node->cmd_arg[0] || node->cmd_arg[0][0] == '\0'))
 		{
 			execve(path, node->cmd_arg, env);
 			perror(node->cmd_arg[0]);
