@@ -15,13 +15,7 @@ void	execution(t_data *data)
 	initialize_execution(data);
 	while (node)
 	{
-		ft_memset(node->fd, -1, sizeof(int) * 2);
-		node->infile = -1;
-		node->outfile = -1;
-		if (i != get_data()->tok_count - 1)
-			pipe(node->fd);
-		open_fds_in(node);
-		open_fds_out(node);
+		open_fds(node, i);
 		if (node->cmd_arg[0])
 		{
 			if (is_builtins(node->cmd_arg) == true)
@@ -33,6 +27,17 @@ void	execution(t_data *data)
 		i++;
 	}
 	wait_process(data->pids, data);
+}
+
+void	open_fds(t_exec *node, int i)
+{
+	ft_memset(node->fd, -1, sizeof(int) * 2);
+	node->infile = -1;
+	node->outfile = -1;
+	if (i != get_data()->tok_count - 1)
+		pipe(node->fd);
+	open_fds_in(node);
+	open_fds_out(node);
 }
 
 void	initialize_execution(t_data *data)

@@ -551,7 +551,12 @@ int		redirections_builtin(t_exec *node, int i);
 int		builtin_process(t_exec *node, int i, t_data *data);
 bool	simple_builtin(t_exec *node, int i);
 bool	pipeline_builtin(t_exec *node, int i);
+char	*path_joiner(char **paths, char **command, int i);
+
+void	open_fds(t_exec *node, int i);
+bool	close_builtin(int saved_stdin, int saved_stdout);
 
 void	safe_open_in(t_exec *current, int j, bool *err_trig);
 bool	safe_open_out(t_exec *current, int j);
+
 #endif
