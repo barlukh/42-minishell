@@ -80,26 +80,28 @@ int	child_process(t_exec *node, int i, char **env, t_data *data)
 		signals_exec_child();
 		redirections_io(node, i);
 		path = path_finder(node->cmd_arg, env);
-		if (ft_strcmp(path, ".") == 0)
+		if (ft_strcmp(node->cmd_arg[0], ".") == 0)
 		{
-			fprintf(stderr, "%s: file argument required\n", path);
+			ft_putendl_fd(".: filename argument required", STDERR_FILENO);
+			ft_putendl_fd(".: usage: . filename [arguments]", STDERR_FILENO);
 			free(env);
-			exit(2);  // Common shell exit code for "command is not executable"
+			exit(2);
 		}
-		if (stat(path, &sb) == 0 && S_ISDIR(sb.st_mode))
+		if ((node->cmd_arg[0] && node->cmd_arg[0][0] != '\0') && 
+			stat(path, &sb) == 0 && S_ISDIR(sb.st_mode))
 		{
-			fprintf(stderr, "%s: is a directory\n", path);
+			ft_putendl_fd2(node->cmd_arg[0], ": Is a directory", STDERR_FILENO);
 			free(env);
-			exit(126);  // Common shell exit code for "command is not executable"
+			exit(126);
 		}
 		if (path && access(path, X_OK) == 0
-				&& !(!node->cmd_arg[0] || node->cmd_arg[0][0] == '\0'))
+				&& node->cmd_arg[0] && node->cmd_arg[0][0] != '\0')
 		{
 			execve(path, node->cmd_arg, env);
 			perror(node->cmd_arg[0]);
 			exit(EXIT_FAILURE);
 		}
-		perror(node->cmd_arg[0]);
+		ft_putendl_fd2(node->cmd_arg[0], ": command not found", STDERR_FILENO);
 		free(env);
 		exit(127);
 	}
