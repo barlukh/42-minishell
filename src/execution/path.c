@@ -1,7 +1,6 @@
 
 #include "minishell.h"
 
-char	*path_joiner(char **paths, char **command, int i);
 char	*get_env_value(char **envp)
 {
 	char	*path;

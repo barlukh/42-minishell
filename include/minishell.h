@@ -515,6 +515,7 @@ int		redirections_builtin(t_exec *node, int i);
 int		builtin_process(t_exec *node, int i, t_data *data);
 bool	simple_builtin(t_exec *node, int i);
 bool	pipeline_builtin(t_exec *node, int i);
+char	*path_joiner(char **paths, char **command, int i);
 
 bool	safe_open(t_exec *current, bool is_infile);
 #endif

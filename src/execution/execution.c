@@ -1,6 +1,7 @@
 
 #include "minishell.h"
 
+bool	open_fds(t_exec *node, int i);
 void	execution(t_data *data)
 {
 	int			i;
@@ -15,14 +16,7 @@ void	execution(t_data *data)
 	initialize_execution(data);
 	while (node)
 	{
-		ft_memset(node->fd, -1, sizeof(int) * 2);
-		node->infile = -1;
-		node->outfile = -1;
-		if (i != get_data()->tok_count - 1)
-			pipe(node->fd);
-		if (open_fds_in(node) == false)
-			return ;
-		if (open_fds_out(node) == false)
+		if (open_fds(node, i) == false)
 			return ;
 		if (node->cmd_arg[0])
 		{
@@ -35,6 +29,20 @@ void	execution(t_data *data)
 		i++;
 	}
 	wait_process(data->pids, data);
+}
+
+bool	open_fds(t_exec *node, int i)
+{
+	ft_memset(node->fd, -1, sizeof(int) * 2);
+	node->infile = -1;
+	node->outfile = -1;
+	if (i != get_data()->tok_count - 1)
+		pipe(node->fd);
+	if (open_fds_in(node) == false)
+		return (false);
+	if (open_fds_out(node) == false)
+		return (false);
+	return (true);
 }
 
 void	initialize_execution(t_data *data)
