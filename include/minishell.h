@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/31 12:17:05 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/31 13:44:33 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -536,8 +536,8 @@ void	word_splitter(t_data *data);
 
 void	error_msg(char *str);
 int		redirections_io(t_exec *current, int i);
-bool	open_fds_in(t_exec *current);
-bool	open_fds_out(t_exec *current);
+void	open_fds_in(t_exec *current);
+void	open_fds_out(t_exec *current);
 int		child_process(t_exec *current, int i, char **env, t_data *data);
 int		safe_dup(int *oldfd, int newfd);
 int		safe_close(int *fd);
@@ -552,5 +552,6 @@ int		builtin_process(t_exec *node, int i, t_data *data);
 bool	simple_builtin(t_exec *node, int i);
 bool	pipeline_builtin(t_exec *node, int i);
 
-bool	safe_open(t_exec *current, int j, bool is_infile);
+void	safe_open_in(t_exec *current, int j, bool *err_trig);
+bool	safe_open_out(t_exec *current, int j);
 #endif

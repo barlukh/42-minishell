@@ -12,25 +12,27 @@ int	safe_dup(int *oldfd, int newfd)
 	return (newfd);
 }
 
-bool	safe_open(t_exec *node, int j, bool is_infile)
+void	safe_open_in(t_exec *node, int j, bool *err_trig)
 {
-	if (is_infile == true)
+	node->infile = open(node->in[j], O_RDONLY);
+	if (node->infile == -1)
 	{
-		node->infile = open(node->in[0], O_RDONLY);
-		if (node->infile == -1)
-		{
-			get_data()->exit_status = 1;
-			perror(node->in[0]);
-			return (false);
-		}
+		if (*err_trig == false)
+			perror(node->in[j]);
+		*err_trig = true;
+		get_data()->exit_status = 1;
 	}
-	else if (is_out_append(node->out[j]))
+}
+
+bool	safe_open_out(t_exec *node, int j)
+{
+	if (is_out_append(node->out[j]))
 	{
 		node->outfile = open(node->out[j], O_CREAT | O_WRONLY | O_APPEND, 0644);
 		if (node->outfile == -1)
 		{
 			get_data()->exit_status = 1;
-			perror(node->in[0]);
+			perror(node->out[j]);
 			return (false);
 		}
 	}
@@ -40,7 +42,7 @@ bool	safe_open(t_exec *node, int j, bool is_infile)
 		if (node->outfile == -1)
 		{
 			get_data()->exit_status = 1;
-			perror(node->in[0]);
+			perror(node->out[j]);
 			return (false);
 		}
 	}
