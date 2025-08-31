@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/30 14:30:49 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/31 13:44:33 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -379,6 +379,42 @@ bool	parse_input(char *input, t_data *data);
 int		parsing_finalizer(t_token *current, t_data *data);
 
 /**
+ * @brief Allocates memory for an array of append redirections.
+ * @param node New token node.
+ * @param current Current token node.
+ * @param data Data struct of all core variables.
+ * @return None.
+ */
+void	prep_app(t_exec *node, t_token *current, t_data *data);
+
+/**
+ * @brief Allocates memory for an array of commands and arguments.
+ * @param node New token node.
+ * @param current Current token node.
+ * @param data Data struct of all core variables.
+ * @return None.
+ */
+void	prep_cmd_arg(t_exec *node, t_token *current, t_data *data);
+
+/**
+ * @brief Allocates memory for an array of redirections in.
+ * @param node New token node.
+ * @param current Current token node.
+ * @param data Data struct of all core variables.
+ * @return None.
+ */
+void	prep_in(t_exec *node, t_token *current, t_data *data);
+
+/**
+ * @brief Allocates memory for an array of redirections out.
+ * @param node New token node.
+ * @param current Current token node.
+ * @param data Data struct of all core variables.
+ * @return None.
+ */
+void	prep_out(t_exec *node, t_token *current, t_data *data);
+
+/**
  * @brief Gets and returns the malloced PWD value from env.
  * @param data Data struct of all core variables.
  * @return PWD or NULL if not found.
@@ -500,8 +536,8 @@ void	word_splitter(t_data *data);
 
 void	error_msg(char *str);
 int		redirections_io(t_exec *current, int i);
-bool	open_fds_in(t_exec *current);
-bool	open_fds_out(t_exec *current);
+void	open_fds_in(t_exec *current);
+void	open_fds_out(t_exec *current);
 int		child_process(t_exec *current, int i, char **env, t_data *data);
 int		safe_dup(int *oldfd, int newfd);
 int		safe_close(int *fd);
@@ -516,5 +552,6 @@ int		builtin_process(t_exec *node, int i, t_data *data);
 bool	simple_builtin(t_exec *node, int i);
 bool	pipeline_builtin(t_exec *node, int i);
 
-bool	safe_open(t_exec *current, bool is_infile);
+void	safe_open_in(t_exec *current, int j, bool *err_trig);
+bool	safe_open_out(t_exec *current, int j);
 #endif

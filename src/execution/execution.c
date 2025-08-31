@@ -20,10 +20,8 @@ void	execution(t_data *data)
 		node->outfile = -1;
 		if (i != get_data()->tok_count - 1)
 			pipe(node->fd);
-		if (open_fds_in(node) == false)
-			return ;
-		if (open_fds_out(node) == false)
-			return ;
+		open_fds_in(node);
+		open_fds_out(node);
 		if (node->cmd_arg[0])
 		{
 			if (is_builtins(node->cmd_arg) == true)
@@ -64,7 +62,8 @@ int	child_process(t_exec *node, int i, char **env, t_data *data)
 		signals_exec_child();
 		redirections_io(node, i);
 		path = path_finder(node->cmd_arg, env);
-		if (path && access(path, X_OK) == 0)
+		if (path && access(path, X_OK) == 0
+			&& !(!node->cmd_arg[0] || node->cmd_arg[0][0] == '\0'))
 		{
 			execve(path, node->cmd_arg, env);
 			perror(node->cmd_arg[0]);
