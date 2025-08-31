@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/30 14:30:49 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/31 12:17:05 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -379,6 +379,42 @@ bool	parse_input(char *input, t_data *data);
 int		parsing_finalizer(t_token *current, t_data *data);
 
 /**
+ * @brief Allocates memory for an array of append redirections.
+ * @param node New token node.
+ * @param current Current token node.
+ * @param data Data struct of all core variables.
+ * @return None.
+ */
+void	prep_app(t_exec *node, t_token *current, t_data *data);
+
+/**
+ * @brief Allocates memory for an array of commands and arguments.
+ * @param node New token node.
+ * @param current Current token node.
+ * @param data Data struct of all core variables.
+ * @return None.
+ */
+void	prep_cmd_arg(t_exec *node, t_token *current, t_data *data);
+
+/**
+ * @brief Allocates memory for an array of redirections in.
+ * @param node New token node.
+ * @param current Current token node.
+ * @param data Data struct of all core variables.
+ * @return None.
+ */
+void	prep_in(t_exec *node, t_token *current, t_data *data);
+
+/**
+ * @brief Allocates memory for an array of redirections out.
+ * @param node New token node.
+ * @param current Current token node.
+ * @param data Data struct of all core variables.
+ * @return None.
+ */
+void	prep_out(t_exec *node, t_token *current, t_data *data);
+
+/**
  * @brief Gets and returns the malloced PWD value from env.
  * @param data Data struct of all core variables.
  * @return PWD or NULL if not found.
@@ -516,5 +552,5 @@ int		builtin_process(t_exec *node, int i, t_data *data);
 bool	simple_builtin(t_exec *node, int i);
 bool	pipeline_builtin(t_exec *node, int i);
 
-bool	safe_open(t_exec *current, bool is_infile);
+bool	safe_open(t_exec *current, int j, bool is_infile);
 #endif

@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 10:52:37 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/17 13:51:31 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/08/31 11:48:32 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,10 @@ void	error_tok(char *input, t_data *data)
 
 void	clean_merge(t_exec *node, t_data *data)
 {
+	free(node->app);
 	free(node->cmd_arg);
-	free(node->red_in);
-	free(node->red_out);
+	free(node->in);
+	free(node->out);
 	free(node);
 	error_general_mem(data);
 }

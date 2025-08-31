@@ -48,11 +48,11 @@ bool	open_fds_in(t_exec *node)
 
 	i = 0;
 	j = 0;
-	while (node->red_in[i])
+	while (node->in[i])
 		i++;
-	while (node->red_in[j])
+	while (node->in[j])
 	{
-		if (safe_open(node, true) == false)
+		if (safe_open(node, j, true) == false)
 			return (false);
 		if (i != 1 && j != i - 1)
 			close(node->infile);
@@ -68,11 +68,11 @@ bool	open_fds_out(t_exec *node)
 
 	i = 0;
 	j = 0;
-	while (node->red_out[i])
+	while (node->out[i])
 		i++;
-	while (node->red_out[j])
+	while (node->out[j])
 	{
-		if (safe_open(node, false) == false)
+		if (safe_open(node, j, false) == false)
 			return (false);
 		if (i != 1 && j != i - 1)
 			close(node->outfile);
