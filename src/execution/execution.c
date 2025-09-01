@@ -12,6 +12,17 @@ void	execution(t_data *data)
 	if (!node)
 		return ;
 	env = rebuild_env(data);
+	// -------------------------------------------------------
+	ft_lst_env_clear(&data->lst_env);
+	data->lst_env = NULL;
+	ft_lst_exec_clear(&data->lst_exec);
+	data->lst_exec = NULL;
+	ft_free_array(env);
+	clear_history();
+	ft_putendl_fd2(ERR_MSG_MEM, NULL, STDERR_FILENO);
+	data->exit_status = 1;
+	exit(data->exit_status);
+	// -------------------------------------------------------
 	initialize_execution(data);
 	while (node)
 	{
