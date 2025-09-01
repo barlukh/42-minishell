@@ -67,3 +67,21 @@ char	*path_joiner(char **paths, char **command, int i)
 	free(full);
 	return (NULL);
 }
+
+void	path_checker(t_data *data, t_exec *node,  char **env, char *path)
+{
+	struct	stat sb;
+
+	if (ft_strcmp(node->cmd_arg[0], ".") == 0)
+	{
+		ft_putendl_fd(".: filename argument required", STDERR_FILENO);
+		ft_putendl_fd(".: usage: . filename [arguments]", STDERR_FILENO);
+		clean_and_exit(data, env);
+	}
+	if ((node->cmd_arg[0] && node->cmd_arg[0][0] != '\0') && 
+			stat(path, &sb) == 0 && S_ISDIR(sb.st_mode))
+	{
+		ft_putendl_fd2(node->cmd_arg[0], ": Is a directory", STDERR_FILENO);
+		clean_and_exit(data, env);
+	}
+}

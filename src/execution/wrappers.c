@@ -12,16 +12,16 @@ int	safe_dup(int *oldfd, int newfd)
 	return (newfd);
 }
 
-void	safe_open_in(t_exec *node, int j, bool *err_trig)
+bool	safe_open_in(t_exec *node, int j)
 {
 	node->infile = open(node->in[j], O_RDONLY);
 	if (node->infile == -1)
 	{
-		if (*err_trig == false)
-			perror(node->in[j]);
-		*err_trig = true;
+		perror(node->in[j]);
 		get_data()->exit_status = 1;
+		return (false);
 	}
+	return (true);
 }
 
 bool	safe_open_out(t_exec *node, int j)

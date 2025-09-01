@@ -39,7 +39,7 @@ int redirections_builtin(t_exec *node, int i)
 	return (0);
 }
 
-void	open_fds_in(bool *err_trig, t_exec *node)
+bool	open_fds_in(t_exec *node)
 {
 	int		i;
 	int		j;
@@ -50,11 +50,13 @@ void	open_fds_in(bool *err_trig, t_exec *node)
 		i++;
 	while (node->in[j])
 	{
-		safe_open_in(node, j, err_trig);
+		if (safe_open_in(node, j) == false)
+			return (false);
 		if (i != 1 && j != i - 1)
 			close(node->infile);
 		j++;
 	}
+	return (true);
 }
 
 bool	open_fds_out(t_exec *node)

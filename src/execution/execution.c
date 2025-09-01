@@ -1,4 +1,3 @@
-#include <sys/stat.h>
 #include "minishell.h"
 
 void	execution(t_data *data)
@@ -12,18 +11,7 @@ void	execution(t_data *data)
 	if (!node)
 		return ;
 	env = rebuild_env(data);
-	// -------------------------------------------------------
-	ft_lst_env_clear(&data->lst_env);
-	data->lst_env = NULL;
-	ft_lst_exec_clear(&data->lst_exec);
-	data->lst_exec = NULL;
-	ft_free_array(env);
-	clear_history();
-	ft_putendl_fd2(ERR_MSG_MEM, NULL, STDERR_FILENO);
-	data->exit_status = 1;
-	exit(data->exit_status);
-	// -------------------------------------------------------
-	initialize_execution(data);
+	initialize_execution(data, env);
 	while (node)
 	{
 		if (open_fds(node, i) == false)
@@ -35,7 +23,7 @@ void	execution(t_data *data)
 		if (node->cmd_arg[0])
 		{
 			if (is_builtins(node->cmd_arg) == true)
-				builtin_process(node, i, data);
+				builtin_process(node, i, data, env);
 			else
 				child_process(node, i, env, data);
 		}
@@ -47,39 +35,36 @@ void	execution(t_data *data)
 
 bool	open_fds(t_exec *node, int i)
 {
-	bool	err_trig;
-
-	err_trig = false;
 	ft_memset(node->fd, -1, sizeof(int) * 2);
 	node->infile = -1;
 	node->outfile = -1;
 	if (i != get_data()->tok_count - 1)
 		pipe(node->fd);
-	open_fds_in(&err_trig, node);
-	if (err_trig == true)
+	if (open_fds_in(node) == false)
 		return (false);
 	if (open_fds_out(node) == false)
 		return (false);
 	return (true);
 }
 
-void	initialize_execution(t_data *data)
+void	initialize_execution(t_data *data, char **env)
 {
 	data->tmp_fd = dup(STDIN_FILENO);
 	data->pids = ft_calloc(sizeof(pid_t), data->tok_count);
+	// data->pids = NULL;
 	if (data->pids == NULL)
 	{
-		perror("malloc failed for pids");
-		exit(EXIT_FAILURE);
+		safe_close(&data->tmp_fd);
+		clean_and_exit(data, env);
 	}
+	// {
+	// 	perror("malloc failed for pids");
+	// 	exit(EXIT_FAILURE);
+	// }
 }
 
 int	child_process(t_exec *node, int i, char **env, t_data *data)
 {
-	char	*path;
-	struct	stat sb;
-
-	path = NULL;
 	data->pids[i] = fork();
 	if (data->pids[i] < 0)
 	{
@@ -88,39 +73,29 @@ int	child_process(t_exec *node, int i, char **env, t_data *data)
 	}
 	if (data->pids[i] == 0)
 	{
-		signals_exec_child();
-		redirections_io(node, i);
-		path = path_finder(node->cmd_arg, env);
-		if (ft_strcmp(node->cmd_arg[0], ".") == 0)
-		{
-			ft_putendl_fd(".: filename argument required", STDERR_FILENO);
-			ft_putendl_fd(".: usage: . filename [arguments]", STDERR_FILENO);
-			free(env);
-			exit(2);
-		}
-		if ((node->cmd_arg[0] && node->cmd_arg[0][0] != '\0') && 
-			stat(path, &sb) == 0 && S_ISDIR(sb.st_mode))
-		{
-			ft_putendl_fd2(node->cmd_arg[0], ": Is a directory", STDERR_FILENO);
-			free(env);
-			exit(126);
-		}
-		if (path && access(path, X_OK) == 0
-				&& node->cmd_arg[0] && node->cmd_arg[0][0] != '\0')
-		{
-			execve(path, node->cmd_arg, env);
-			perror(node->cmd_arg[0]);
-			exit(EXIT_FAILURE);
-		}
-		ft_putendl_fd2(node->cmd_arg[0], ": command not found", STDERR_FILENO);
-		free(env);
-		exit(127);
+		execute_child(node, i, env, data);
 	}
 	if (get_data()->tok_count > 1)
-	{
-		safe_close(&node->fd[WRITE]);
-		safe_close(&data->tmp_fd);
-		data->tmp_fd = node->fd[READ];
-	}
+		parent_fds(node);
 	return (0);
+}
+
+void	execute_child(t_exec *node, int i, char **env, t_data *data)
+{
+	char	*path;
+
+	path = NULL;
+	signals_exec_child();
+	redirections_io(node, i);
+	path = path_finder(node->cmd_arg, env);
+	path_checker(data, node, env, path);
+	if (path && access(path, X_OK) == 0
+			&& node->cmd_arg[0] && node->cmd_arg[0][0] != '\0')
+	{
+		execve(path, node->cmd_arg, env);
+		perror(node->cmd_arg[0]);
+		exit(EXIT_FAILURE);
+	}
+	ft_putendl_fd2(node->cmd_arg[0], ": command not found", STDERR_FILENO);
+	clean_and_exit(data, env);
 }
