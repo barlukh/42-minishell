@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 10:20:15 by edlucca           #+#    #+#             */
-/*   Updated: 2025/08/31 12:04:22 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/01 09:24:56 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ft_lst_exec_clear(t_exec **lst)
 		tmp->in = NULL;
 		ft_free_array(tmp->out);
 		tmp->out = NULL;
+		free(tmp->app);
 		tmp->app = NULL;
 		free(tmp);
 		tmp = NULL;
