@@ -41,7 +41,11 @@ bool	open_fds(t_exec *node, int i)
 	if (i != get_data()->tok_count - 1)
 		pipe(node->fd);
 	if (open_fds_in(node) == false)
+	{
+
+		parent_fds(node);
 		return (false);
+	}
 	if (open_fds_out(node) == false)
 		return (false);
 	return (true);
