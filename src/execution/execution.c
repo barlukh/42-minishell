@@ -11,7 +11,7 @@ void	execution(t_data *data)
 	if (!node)
 		return ;
 	env = rebuild_env(data);
-	initialize_execution(data, env);
+	initialize_execution(data, node, env);
 	while (node)
 	{
 		if (open_fds(node, i) == false)
@@ -33,6 +33,7 @@ void	execution(t_data *data)
 	wait_process(data->pids, data);
 }
 
+// function to big
 bool	open_fds(t_exec *node, int i)
 {
 	ft_memset(node->fd, -1, sizeof(int) * 2);
@@ -44,7 +45,6 @@ bool	open_fds(t_exec *node, int i)
 	{
 		if (open_fds_in(node) == false)
 		{
-
 			parent_fds(node);
 			return (false);
 		}
@@ -57,7 +57,6 @@ bool	open_fds(t_exec *node, int i)
 			return (false);
 		if (open_fds_in(node) == false)
 		{
-
 			parent_fds(node);
 			return (false);
 		}
@@ -65,20 +64,16 @@ bool	open_fds(t_exec *node, int i)
 	return (true);
 }
 
-void	initialize_execution(t_data *data, char **env)
+void	initialize_execution(t_data *data, t_exec *node, char **env)
 {
 	data->tmp_fd = dup(STDIN_FILENO);
 	data->pids = ft_calloc(sizeof(pid_t), data->tok_count);
-	// data->pids = NULL;
+	// data->pids = NULL; // TESTING:
 	if (data->pids == NULL)
 	{
 		safe_close(&data->tmp_fd);
-		clean_and_exit(data, env, 127);
+		clean_and_exit(data, node, env, 127);
 	}
-	// {
-	// 	perror("malloc failed for pids");
-	// 	exit(EXIT_FAILURE);
-	// }
 }
 
 int	child_process(t_exec *node, int i, char **env, t_data *data)
@@ -86,8 +81,7 @@ int	child_process(t_exec *node, int i, char **env, t_data *data)
 	data->pids[i] = fork();
 	if (data->pids[i] < 0)
 	{
-		perror("fork error:");
-		exit(EXIT_FAILURE);
+		clean_and_exit(data, node, env, 1);
 	}
 	if (data->pids[i] == 0)
 	{
@@ -106,24 +100,26 @@ void	execute_child(t_exec *node, int i, char **env, t_data *data)
 	signals_exec_child();
 	redirections_io(node, i);
 	path = path_finder(node->cmd_arg, env);
+	if (!path)
+	{
+		ft_putendl_fd2(node->cmd_arg[0], ": command not found", STDERR_FILENO);
+		clean_and_exit(data, node, env, 127);
+	}
 	path_checker(data, node, env, path);
-	if (path && access(path, X_OK) == 0
-			&& node->cmd_arg[0] && node->cmd_arg[0][0] != '\0')
+	if (access(path, X_OK) == 0)
 	{
 		execve(path, node->cmd_arg, env);
 		perror(node->cmd_arg[0]);
-		exit(EXIT_FAILURE);
+		clean_and_exit(data, node, env, 126);
 	}
-	if (access(path, F_OK) == 0 && access(path, X_OK != 0))
+	else if (access(path, F_OK) == 0 && access(path, X_OK) != 0)
 	{
 		perror(path);
-		clean_and_exit(data, env, 126);
+		clean_and_exit(data, node, env, 126);
 	}
-	if (access(path, F_OK) != 0)
+	else
 	{
 		ft_putendl_fd2(node->cmd_arg[0], ": No such file or directory", STDERR_FILENO);
-		clean_and_exit(data, env, 127);
+		clean_and_exit(data, node, env, 127);
 	}
-	ft_putendl_fd2(node->cmd_arg[0], ": command not found", STDERR_FILENO);
-	clean_and_exit(data, env, 127);
 }

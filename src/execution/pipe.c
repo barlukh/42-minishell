@@ -17,7 +17,6 @@ int	redirections_io(t_exec *node, int i)
 		safe_dup(&node->outfile, STDOUT_FILENO);
 	else if (i != cmds - 1)
 		safe_dup(&node->fd[WRITE], STDOUT_FILENO);
-
 	if (node->fd[READ] > 2 )
 		safe_close(&node->fd[READ]);
 	return (0);
