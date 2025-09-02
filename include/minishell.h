@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/31 16:22:33 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/02 10:34:48 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -570,8 +570,10 @@ bool	safe_open_out(t_exec *current, int j);
 void	clean_and_exit(t_data *data, t_exec *node, char **env, int exit_code);
 
 bool	pipeline_builtin(t_exec *node, char **env, int i);
+void	initialize_execution(t_data *data, t_exec *node, char **env);
 void	parent_fds(t_exec *node);
 void	path_checker(t_data *data, t_exec *node,  char **env, char *path);
 void	execute_child(t_exec *node, int i, char **env, t_data *data);
+void	close_all_fds(t_data *data, t_exec *node);
 
 #endif

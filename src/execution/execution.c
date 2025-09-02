@@ -33,6 +33,7 @@ void	execution(t_data *data)
 	wait_process(data->pids, data);
 }
 
+// function to big
 bool	open_fds(t_exec *node, int i)
 {
 	ft_memset(node->fd, -1, sizeof(int) * 2);
@@ -59,13 +60,22 @@ bool	open_fds(t_exec *node, int i)
 			parent_fds(node);
 			return (false);
 		}
+<<<<<<< HEAD
 	}	return (true);
+=======
+	}
+	return (true);
+>>>>>>> ce54cff7f54b6631bc6f7d20b95c765004c7db6a
 }
 
 void	initialize_execution(t_data *data, t_exec *node, char **env)
 {
 	data->tmp_fd = dup(STDIN_FILENO);
 	data->pids = ft_calloc(sizeof(pid_t), data->tok_count);
+<<<<<<< HEAD
+=======
+	// data->pids = NULL; // TESTING:
+>>>>>>> ce54cff7f54b6631bc6f7d20b95c765004c7db6a
 	if (data->pids == NULL)
 	{
 		safe_close(&data->tmp_fd);
@@ -78,8 +88,7 @@ int	child_process(t_exec *node, int i, char **env, t_data *data)
 	data->pids[i] = fork();
 	if (data->pids[i] < 0)
 	{
-		perror("fork error:");
-		exit(EXIT_FAILURE);
+		clean_and_exit(data, node, env, 1);
 	}
 	if (data->pids[i] == 0)
 	{
@@ -117,7 +126,7 @@ void	execute_child(t_exec *node, int i, char **env, t_data *data)
 	} 
 	else
 	{
-		ft_putendl_fd2(node->cmd_arg[0], ": command not found", STDERR_FILENO);
+		ft_putendl_fd2(node->cmd_arg[0], ": No such file or directory", STDERR_FILENO);
 		clean_and_exit(data, node, env, 127);
 	}
 }

@@ -23,3 +23,13 @@ void	parent_fds(t_exec *node)
 	if (node->fd[READ] > 2)
 		get_data()->tmp_fd = node->fd[READ];
 }
+
+void	close_all_fds(t_data *data, t_exec *node)
+{
+	if (node->fd[READ] > 2)
+		safe_close(&node->fd[WRITE]);
+	if (node->fd[WRITE] > 2)
+		safe_close(&node->fd[WRITE]);
+	if (data->tmp_fd > 2)
+		safe_close(&data->tmp_fd);
+}

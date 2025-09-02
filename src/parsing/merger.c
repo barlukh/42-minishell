@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 08:51:55 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/31 12:05:51 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/02 11:04:41 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	flag_check(t_exec *node, t_token *current);
 static t_token	*merge_main(t_exec *node, t_token *current, t_data *data);
 static void		null_terminate_arrays(t_exec *node, size_t *i);
+static void		flag_check(t_exec *node, t_token *current);
 
 void	merger(t_data *data)
 {
@@ -81,6 +82,7 @@ static void	null_terminate_arrays(t_exec *node, size_t *i)
 	node->out[i[2]] = NULL;
 	node->app[i[3]] = NULL;
 }
+
 // Sets the redirection flag to detect in or out order.
 static void	flag_check(t_exec *node, t_token *current)
 {

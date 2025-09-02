@@ -7,7 +7,7 @@ int	builtin_process(t_exec *node, int i, t_data *data, char **env)
 	{
 		data->pids[i] = fork();
 		if (data->pids[i] < 0)
-			clean_and_exit(data, node, env, errno); // possible leak
+			clean_and_exit(data, node, env, 127); // possible leak
 		if (data->pids[i] == 0)
 		{
 			if (pipeline_builtin(node, env, i) == false)
