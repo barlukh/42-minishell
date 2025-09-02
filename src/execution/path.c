@@ -34,7 +34,7 @@ char	*path_finder(char **command, char **env)
 		return (NULL);
 	if (ft_strchr(command[0], '/'))
 		return (command[0]);
-	if (access(command[0], F_OK | X_OK) == 0)
+	if (access(command[0], F_OK) == 0)
 		return (command[0]);
 	path_env = get_env_value(env);
 	if (!path_env)
@@ -72,16 +72,21 @@ void	path_checker(t_data *data, t_exec *node,  char **env, char *path)
 {
 	struct	stat sb;
 
+	if (access(path, F_OK) != 0)
+	{
+		ft_putendl_fd2(node->cmd_arg[0], ": No such file or directory", STDERR_FILENO);
+		clean_and_exit(data, node, env, 127);
+	}
 	if (ft_strcmp(node->cmd_arg[0], ".") == 0)
 	{
 		ft_putendl_fd(".: filename argument required", STDERR_FILENO);
 		ft_putendl_fd(".: usage: . filename [arguments]", STDERR_FILENO);
-		clean_and_exit(data, env);
+		clean_and_exit(data, node, env, 127);
 	}
 	if ((node->cmd_arg[0] && node->cmd_arg[0][0] != '\0') && 
 			stat(path, &sb) == 0 && S_ISDIR(sb.st_mode))
 	{
 		ft_putendl_fd2(node->cmd_arg[0], ": Is a directory", STDERR_FILENO);
-		clean_and_exit(data, env);
+		clean_and_exit(data, node, env, 126);
 	}
 }

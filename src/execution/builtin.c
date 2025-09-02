@@ -7,10 +7,10 @@ int	builtin_process(t_exec *node, int i, t_data *data, char **env)
 	{
 		data->pids[i] = fork();
 		if (data->pids[i] < 0)
-			clean_and_exit(data, env); // possible leak
+			clean_and_exit(data, node, env, errno); // possible leak
 		if (data->pids[i] == 0)
 		{
-			if (pipeline_builtin(node, i) == false)
+			if (pipeline_builtin(node, env, i) == false)
 				return (0);
 		}
 	}
@@ -23,7 +23,7 @@ int	builtin_process(t_exec *node, int i, t_data *data, char **env)
 	return (0);
 }
 
-bool	pipeline_builtin(t_exec *node, int i)
+bool	pipeline_builtin(t_exec *node, char **env, int i)
 {
 	int saved_stdin;
 	int saved_stdout;
@@ -39,7 +39,9 @@ bool	pipeline_builtin(t_exec *node, int i)
 	if (close_builtin(saved_stdin, saved_stdout) == false)
 		return (false);
 	parent_fds(node);
-	exit(0); // error code should be handled
+	clean_and_exit(get_data(), node, env, 0);
+	// exit(0); // error code should be handled
+	return (true);
 }
 
 bool	simple_builtin(t_exec *node, int i)
@@ -49,7 +51,7 @@ bool	simple_builtin(t_exec *node, int i)
 	int saved_stdout = dup(STDOUT_FILENO);
 
 	if (saved_stdin == -1 || saved_stdout == -1)
-		return (perror("dup"), -1);
+		return (perror("dup"), -1); // possible leak
 	redirections_builtin(node, i);
 	builtins_check(node, get_data());
 	if (i != get_data()->tok_count - 1 && node->outfile == -1)

@@ -49,7 +49,6 @@ bool	safe_open_out(t_exec *node, int j)
 	return (true);
 }
 
-// Checks if an out file is an append file.
 static bool	is_out_append(char *out_file)
 {
 	char	**app_arr;

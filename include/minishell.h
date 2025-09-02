@@ -555,10 +555,9 @@ char	**rebuild_env(t_data *data);
 bool	wait_process(pid_t *pid, t_data *data);
 bool	is_builtins(char **command);
 void	execution(t_data *data);
-void	initialize_execution(t_data *data, char **env);
+void	initialize_execution(t_data *data, t_exec *node, char **env);
 int		redirections_builtin(t_exec *node, int i);
 bool	simple_builtin(t_exec *node, int i);
-bool	pipeline_builtin(t_exec *node, int i);
 char	*path_joiner(char **paths, char **command, int i);
 
 int		builtin_process(t_exec *node, int i, t_data *data, char **env);
@@ -568,8 +567,9 @@ bool	close_builtin(int saved_stdin, int saved_stdout);
 bool	safe_open_in(t_exec *node, int j);
 bool	safe_open_out(t_exec *current, int j);
 
-void clean_and_exit(t_data *data, char **env);
+void	clean_and_exit(t_data *data, t_exec *node, char **env, int exit_code);
 
+bool	pipeline_builtin(t_exec *node, char **env, int i);
 void	parent_fds(t_exec *node);
 void	path_checker(t_data *data, t_exec *node,  char **env, char *path);
 void	execute_child(t_exec *node, int i, char **env, t_data *data);

@@ -80,6 +80,8 @@ typedef struct s_exec
 	char			**in;
 	char			**out;
 	char			**app;
+	bool			in_first;
+	bool			out_passed;
 	int				infile;	
 	int				outfile;	
 	int				fd[2];	
