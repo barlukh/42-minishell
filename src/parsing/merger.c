@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 08:51:55 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/31 12:05:51 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/02 11:04:41 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static t_token	*merge_main(t_exec *node, t_token *current, t_data *data);
 static void		null_terminate_arrays(t_exec *node, size_t *i);
+static void		flag_check(t_exec *node, t_token *current);
 
 void	merger(t_data *data)
 {
@@ -26,6 +27,8 @@ void	merger(t_data *data)
 		node = ft_lst_exec_new(NULL, NULL, NULL, NULL);
 		if (!node)
 			error_general_mem(data);
+		node->in_first = false;
+		node->out_passed = false;
 		prep_app(node, current, data);
 		prep_cmd_arg(node, current, data);
 		prep_in(node, current, data);
@@ -63,6 +66,7 @@ static t_token	*merge_main(t_exec *node, t_token *current, t_data *data)
 			node->out[i[2]++] = copy;
 		if (current->type == TOK_APP)
 			node->app[i[3]++] = copy;
+		flag_check(node, current);
 		current = current->next;
 	}
 	null_terminate_arrays(node, i);
@@ -76,4 +80,13 @@ static void	null_terminate_arrays(t_exec *node, size_t *i)
 	node->in[i[1]] = NULL;
 	node->out[i[2]] = NULL;
 	node->app[i[3]] = NULL;
+}
+
+// Sets the redirection flag to detect in or out order.
+static void	flag_check(t_exec *node, t_token *current)
+{
+	if (current->type == TOK_OUT || current->type == TOK_APP)
+			node->out_passed = true;
+	if (node->out_passed == false && (current->type == TOK_IN || current->type == TOK_HERE))
+		node->in_first = true;
 }

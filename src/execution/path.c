@@ -76,12 +76,12 @@ void	path_checker(t_data *data, t_exec *node,  char **env, char *path)
 	{
 		ft_putendl_fd(".: filename argument required", STDERR_FILENO);
 		ft_putendl_fd(".: usage: . filename [arguments]", STDERR_FILENO);
-		clean_and_exit(data, env);
+		clean_and_exit(data, env, 126);
 	}
 	if ((node->cmd_arg[0] && node->cmd_arg[0][0] != '\0') && 
 			stat(path, &sb) == 0 && S_ISDIR(sb.st_mode))
 	{
 		ft_putendl_fd2(node->cmd_arg[0], ": Is a directory", STDERR_FILENO);
-		clean_and_exit(data, env);
+		clean_and_exit(data, env, 126);
 	}
 }

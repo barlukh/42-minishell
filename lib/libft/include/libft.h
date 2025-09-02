@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:19:38 by edlucca           #+#    #+#             */
-/*   Updated: 2025/08/31 11:48:32 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/02 10:11:11 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ typedef struct s_exec
 	char			**in;
 	char			**out;
 	char			**app;
+	bool			in_first;
+	bool			out_passed;
 	int				infile;	
 	int				outfile;	
 	int				fd[2];	

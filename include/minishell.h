@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/31 16:22:33 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/02 10:34:48 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -568,7 +568,7 @@ bool	close_builtin(int saved_stdin, int saved_stdout);
 bool	safe_open_in(t_exec *node, int j);
 bool	safe_open_out(t_exec *current, int j);
 
-void clean_and_exit(t_data *data, char **env);
+void clean_and_exit(t_data *data, char **env, int exit_code);
 
 void	parent_fds(t_exec *node);
 void	path_checker(t_data *data, t_exec *node,  char **env, char *path);

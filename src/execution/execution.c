@@ -40,14 +40,28 @@ bool	open_fds(t_exec *node, int i)
 	node->outfile = -1;
 	if (i != get_data()->tok_count - 1)
 		pipe(node->fd);
-	if (open_fds_in(node) == false)
+	if (node->in_first == true)
 	{
+		if (open_fds_in(node) == false)
+		{
 
-		parent_fds(node);
-		return (false);
+			parent_fds(node);
+			return (false);
+		}
+		if (open_fds_out(node) == false)
+			return (false);
 	}
-	if (open_fds_out(node) == false)
-		return (false);
+	else
+	{
+		if (open_fds_out(node) == false)
+			return (false);
+		if (open_fds_in(node) == false)
+		{
+
+			parent_fds(node);
+			return (false);
+		}
+	}
 	return (true);
 }
 
@@ -59,7 +73,7 @@ void	initialize_execution(t_data *data, char **env)
 	if (data->pids == NULL)
 	{
 		safe_close(&data->tmp_fd);
-		clean_and_exit(data, env);
+		clean_and_exit(data, env, 127);
 	}
 	// {
 	// 	perror("malloc failed for pids");
@@ -100,6 +114,16 @@ void	execute_child(t_exec *node, int i, char **env, t_data *data)
 		perror(node->cmd_arg[0]);
 		exit(EXIT_FAILURE);
 	}
+	if (access(path, F_OK) == 0 && access(path, X_OK != 0))
+	{
+		perror(path);
+		clean_and_exit(data, env, 126);
+	}
+	if (access(path, F_OK) != 0)
+	{
+		ft_putendl_fd2(node->cmd_arg[0], ": No such file or directory", STDERR_FILENO);
+		clean_and_exit(data, env, 127);
+	}
 	ft_putendl_fd2(node->cmd_arg[0], ": command not found", STDERR_FILENO);
-	clean_and_exit(data, env);
+	clean_and_exit(data, env, 127);
 }

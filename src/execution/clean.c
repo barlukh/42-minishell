@@ -1,7 +1,7 @@
 
 #include "minishell.h"
 
-void	clean_and_exit(t_data *data, char **env)
+void	clean_and_exit(t_data *data, char **env, int exit_code)
 {
 	ft_lst_env_clear(&get_data()->lst_env);
 	get_data()->lst_env = NULL;
@@ -9,8 +9,7 @@ void	clean_and_exit(t_data *data, char **env)
 	data->lst_exec = NULL;
 	ft_free_array(env);
 	clear_history();
-	ft_putendl_fd2(ERR_MSG_MEM, NULL, STDERR_FILENO);
-	data->exit_status = 127;
+	data->exit_status = exit_code;
 	exit(data->exit_status);
 }
 

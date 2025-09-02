@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 07:52:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/31 16:25:40 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/02 09:55:30 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	read_input(char **input, t_data *data)
 	{
 		ft_lst_env_clear(&data->lst_env);
 		clear_history();
-		// ft_putendl_fd(ERR_MSG_EXIT, STDOUT_FILENO);
+		ft_putendl_fd(ERR_MSG_EXIT, STDOUT_FILENO);
 		exit(data->exit_status);
 	}
 	if (ft_strlen(*input) > INPUT_MAX)
@@ -35,21 +35,21 @@ bool	read_input(char **input, t_data *data)
 
 void	receive_input(char **input, char *prompt)
 {
-	char	*line;
+	// char	*line;
 
-	if (isatty(fileno(stdin)))
+	// if (isatty(fileno(stdin)))
 		*input = readline(prompt);
-	else
-	{
-		line = get_next_line(fileno(stdin));
-		if (!line)
-			*input = NULL;
-		else
-		{
-			*input = ft_strtrim(line, "\n");
-			free(line);
-		}
-	}
+	// else
+	// {
+	// 	line = get_next_line(fileno(stdin));
+	// 	if (!line)
+	// 		*input = NULL;
+	// 	else
+	// 	{
+	// 		*input = ft_strtrim(line, "\n");
+	// 		free(line);
+	// 	}
+	// }
 }
 
 bool	parse_input(char *input, t_data *data)
