@@ -34,7 +34,7 @@ char	*path_finder(char **command, char **env)
 		return (NULL);
 	if (ft_strchr(command[0], '/'))
 		return (command[0]);
-	if (access(command[0], F_OK | X_OK) == 0)
+	if (access(command[0], F_OK) == 0)
 		return (command[0]);
 	path_env = get_env_value(env);
 	if (!path_env)
