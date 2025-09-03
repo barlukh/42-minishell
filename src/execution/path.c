@@ -44,6 +44,8 @@ char	*path_finder(char **command, char **env)
 	while (paths && paths[i])
 	{
 		final_path = path_joiner(paths, command, i);
+		if (final_path)
+			break ;
 		i++;
 	}
 	if (!final_path)	

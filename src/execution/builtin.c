@@ -46,14 +46,16 @@ bool	pipeline_builtin(t_exec *node, int i)
 bool	simple_builtin(t_exec *node, int i)
 {
 
-	int saved_stdin = dup(STDIN_FILENO);
-	int saved_stdout = dup(STDOUT_FILENO);
+	int saved_stdin;
+	int saved_stdout;
 
+	saved_stdin = dup(STDIN_FILENO);
+	saved_stdout = dup(STDOUT_FILENO);
 	if (saved_stdin == -1 || saved_stdout == -1)
 		return (perror("dup"), -1); // possible leak
 	redirections_builtin(node, i);
-	if (i != get_data()->tok_count - 1 && node->outfile == -1)
-		safe_dup(&node->fd[WRITE], STDOUT_FILENO);
+	// if (i != get_data()->tok_count - 1 && node->outfile == -1)
+	// 	safe_dup(&node->fd[WRITE], STDOUT_FILENO);
 	close_all_fds(get_data(), node);
 	if (close_builtin(&saved_stdin, &saved_stdout) == false)
 		return (false);
@@ -64,7 +66,7 @@ bool	simple_builtin(t_exec *node, int i)
 bool	close_builtin(int *saved_stdin, int *saved_stdout)
 {
 	if ((dup2(*saved_stdin, STDIN_FILENO) == -1)
-			&& (dup2(*saved_stdout, STDOUT_FILENO) == -1))
+			|| (dup2(*saved_stdout, STDOUT_FILENO) == -1))
 		return (false);
 	safe_close(saved_stdin);
 	safe_close(saved_stdout);
