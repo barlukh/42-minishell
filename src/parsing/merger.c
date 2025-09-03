@@ -6,13 +6,13 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 08:51:55 by bgazur            #+#    #+#             */
-/*   Updated: 2025/09/02 11:04:41 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/03 10:27:29 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	flag_check(t_exec *node, t_token *current);
+static void		flag_check(t_exec *node, t_token *current);
 static t_token	*merge_main(t_exec *node, t_token *current, t_data *data);
 static void		null_terminate_arrays(t_exec *node, size_t *i);
 static void		flag_check(t_exec *node, t_token *current);
@@ -87,7 +87,8 @@ static void	null_terminate_arrays(t_exec *node, size_t *i)
 static void	flag_check(t_exec *node, t_token *current)
 {
 	if (current->type == TOK_OUT || current->type == TOK_APP)
-			node->out_passed = true;
-	if (node->out_passed == false && (current->type == TOK_IN || current->type == TOK_HERE))
+		node->out_passed = true;
+	if (node->out_passed == false
+		&& (current->type == TOK_IN || current->type == TOK_HERE))
 		node->in_first = true;
 }

@@ -93,33 +93,27 @@ int	child_process(t_exec *node, int i, char **env, t_data *data)
 
 void	execute_child(t_exec *node, int i, char **env, t_data *data)
 {
+	char 	*is_path;
 	char	*path;
-
+	struct	stat sb;
+	
+	is_path = ft_strchr(node->cmd_arg[0], '/');
 	path = NULL;
 	signals_exec_child();
 	redirections_io(node, i);
 	path = path_finder(node->cmd_arg, env);
-	if (!path)
+	if (!path || node->cmd_arg[0][0] == '\0')
+		check_empty(node, data, env);
+	else if (stat(path, &sb) == 0)
 	{
-		ft_putendl_fd2(node->cmd_arg[0], ": command not found", STDERR_FILENO);
-		clean_and_exit(data, node, env, 127);
+		if (S_ISDIR(sb.st_mode))
+			check_dir(is_path, node, data, env);
+		else if (access(path, X_OK) != 0)
+			check_access(is_path, node, data, env);
 	}
-	path_checker(data, node, env, path);
-	if (access(path, X_OK) == 0)
-	{
-		execve(path, node->cmd_arg, env);
-		perror(node->cmd_arg[0]);
-		clean_and_exit(data, node, env, 126);
-	}
-	else if (access(path, F_OK) == 0 && access(path, X_OK) != 0)
-	{
-		perror(path);
-		clean_and_exit(data, node, env, 126);
-	} 
 	else
-	{
-		ft_putendl_fd2(node->cmd_arg[0], ": No such file or directory", STDERR_FILENO);
-		clean_and_exit(data, node, env, 127);
-	}
+		check_cmd(node, data, env);
+	execve(path, node->cmd_arg, env);
+	perror(node->cmd_arg[0]);
+	clean_and_exit(data, node, env, 126);
 }
-
