@@ -53,13 +53,17 @@ bool	simple_builtin(t_exec *node, int i)
 	saved_stdout = dup(STDOUT_FILENO);
 	if (saved_stdin == -1 || saved_stdout == -1)
 		return (perror("dup"), -1); // possible leak
+	// (void)i;
+	// safe_close(&get_data()->tmp_fd);
+	// if (node->infile > 2)
+	// 	safe_dup(&node->infile, STDIN_FILENO);
+	// if (node->outfile > 2)
+	// 	safe_dup(&node->outfile, STDOUT_FILENO);
 	redirections_builtin(node, i);
-	// if (i != get_data()->tok_count - 1 && node->outfile == -1)
-	// 	safe_dup(&node->fd[WRITE], STDOUT_FILENO);
+	builtins_check(node, get_data());
 	close_all_fds(get_data(), node);
 	if (close_builtin(&saved_stdin, &saved_stdout) == false)
 		return (false);
-	builtins_check(node, get_data());
 	return (true);
 }
 
