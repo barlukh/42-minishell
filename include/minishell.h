@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/09/02 10:34:48 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/03 10:39:29 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ extern volatile sig_atomic_t	g_signal;
 # define INPUT_MAX 1024
 
 // Temp files naming prefix.
-# define TEMP "here_temp"
+# define TEMP "/tmp/here_temp"
 
 // Error messages.
 # define ERR_MSG_AMB "redirection: ambiguous redirect"
@@ -572,8 +572,12 @@ void	clean_and_exit(t_data *data, t_exec *node, char **env, int exit_code);
 bool	pipeline_builtin(t_exec *node, char **env, int i);
 void	initialize_execution(t_data *data, t_exec *node, char **env);
 void	parent_fds(t_exec *node);
-void	path_checker(t_data *data, t_exec *node,  char **env, char *path);
 void	execute_child(t_exec *node, int i, char **env, t_data *data);
 void	close_all_fds(t_data *data, t_exec *node);
+
+void	check_dir(char *is_path, t_exec *node, t_data *data, char **env);
+void	check_access(char *is_path, t_exec *node, t_data *data, char **env);
+void	check_cmd(t_exec *node, t_data *data, char **env);
+void	check_empty(t_exec *node, t_data *data, char **env);
 
 #endif

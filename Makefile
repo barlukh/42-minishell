@@ -6,7 +6,7 @@
 #    By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 08:53:07 by bgazur            #+#    #+#              #
-#    Updated: 2025/08/31 11:41:46 by bgazur           ###   ########.fr        #
+#    Updated: 2025/09/03 10:24:35 by bgazur           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRC			=	$(DIR_BUILTIN)/builtin_cd_utils.c \
 				$(DIR_BUILTIN)/builtins.c \
 				$(DIR_EXEC)/execution_utils.c \
 				$(DIR_EXEC)/execution.c \
+				$(DIR_EXEC)/execve_checks.c \
 				$(DIR_EXEC)/path.c \
 				$(DIR_EXEC)/pipe.c \
 				$(DIR_EXEC)/wrappers.c \
