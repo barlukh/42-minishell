@@ -76,8 +76,8 @@ void	initialize_execution(t_data *data, t_exec *node, char **env)
 
 int	child_process(t_exec *node, int i, char **env, t_data *data)
 {
-	// data->pids[i] = fork();
-	data->pids[i] = -1;
+	data->pids[i] = fork();
+	// data->pids[i] = -1;
 	if (data->pids[i] < 0)
 	{
 		clean_and_exit(data, node, env, 1);
