@@ -10,7 +10,7 @@ void	clean_and_exit(t_data *data, t_exec *node, char **env, int exit_code)
 	ft_free_array(env);
 	clear_history();
 	data->exit_status = exit_code;
-	(void)node;
+	close_all_fds(data, node);
 	exit(data->exit_status);
 }
 

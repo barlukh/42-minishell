@@ -33,12 +33,8 @@ void	execution(t_data *data)
 	wait_process(data->pids, data);
 }
 
-// function to big
 bool	open_fds(t_exec *node, int i)
 {
-	ft_memset(node->fd, -1, sizeof(int) * 2);
-	node->infile = -1;
-	node->outfile = -1;
 	if (i != get_data()->tok_count - 1)
 		pipe(node->fd);
 	if (node->in_first == true)
@@ -60,22 +56,17 @@ bool	open_fds(t_exec *node, int i)
 			parent_fds(node);
 			return (false);
 		}
-<<<<<<< HEAD
 	}	return (true);
-=======
-	}
-	return (true);
->>>>>>> ce54cff7f54b6631bc6f7d20b95c765004c7db6a
 }
 
 void	initialize_execution(t_data *data, t_exec *node, char **env)
 {
+	ft_memset(node->fd, -1, sizeof(int) * 2);
+	node->infile = -1;
+	node->outfile = -1;
 	data->tmp_fd = dup(STDIN_FILENO);
 	data->pids = ft_calloc(sizeof(pid_t), data->tok_count);
-<<<<<<< HEAD
-=======
 	// data->pids = NULL; // TESTING:
->>>>>>> ce54cff7f54b6631bc6f7d20b95c765004c7db6a
 	if (data->pids == NULL)
 	{
 		safe_close(&data->tmp_fd);
@@ -85,7 +76,8 @@ void	initialize_execution(t_data *data, t_exec *node, char **env)
 
 int	child_process(t_exec *node, int i, char **env, t_data *data)
 {
-	data->pids[i] = fork();
+	// data->pids[i] = fork();
+	data->pids[i] = -1;
 	if (data->pids[i] < 0)
 	{
 		clean_and_exit(data, node, env, 1);
