@@ -88,4 +88,10 @@ void	clean_data(t_data *data)
 	data->lst_tok = NULL;
 	ft_lst_exec_clear(&data->lst_exec);
 	data->lst_exec = NULL;
+	ft_free_array(data->env);
+	data->env = NULL;
+	free(data->pids);
+	if (data->tmp_fd > 2)
+		safe_close(&data->tmp_fd);
+	data->pids = NULL;
 }

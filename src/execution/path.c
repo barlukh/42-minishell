@@ -28,8 +28,9 @@ char	*path_finder(char **command, char **env)
 	char	*path_env;
 	char	**paths;
 	char	*final_path;
-	int i = 0;
+	int		i;
 
+	i = 0;
 	if (!command || !command[0])
 		return (NULL);
 	if (ft_strchr(command[0], '/'))

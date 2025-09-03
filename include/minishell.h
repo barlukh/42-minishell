@@ -94,6 +94,7 @@ typedef struct s_data
 	t_exec	*lst_exec;
 	int		tmp_fd;
 	pid_t	*pids;
+	char	**env;
 }	t_data;
 
 //------------------------------------------------------------------------------
@@ -547,7 +548,7 @@ void	error_msg(char *str);
 int		redirections_io(t_exec *current, int i);
 bool	open_fds_in(t_exec *node);
 bool	open_fds_out(t_exec *current);
-int		child_process(t_exec *current, int i, char **env, t_data *data);
+int		child_process(t_exec *current, int i, t_data *data);
 int		safe_dup(int *oldfd, int newfd);
 int		safe_close(int *fd);
 char	*path_finder(char **command, char **env);
@@ -555,29 +556,29 @@ char	**rebuild_env(t_data *data);
 bool	wait_process(pid_t *pid, t_data *data);
 bool	is_builtins(char **command);
 void	execution(t_data *data);
-void	initialize_execution(t_data *data, t_exec *node, char **env);
+void	initialize_execution(t_data *data, t_exec *node);
 int		redirections_builtin(t_exec *node, int i);
 bool	simple_builtin(t_exec *node, int i);
 char	*path_joiner(char **paths, char **command, int i);
 
-int		builtin_process(t_exec *node, int i, t_data *data, char **env);
+int		builtin_process(t_exec *node, int i, t_data *data);
 bool	open_fds(t_exec *node, int i);
-bool	close_builtin(int saved_stdin, int saved_stdout);
+bool	close_builtin(int *saved_stdin, int *saved_stdout);
 
 bool	safe_open_in(t_exec *node, int j);
 bool	safe_open_out(t_exec *current, int j);
 
-void	clean_and_exit(t_data *data, t_exec *node, char **env, int exit_code);
+void	clean_and_exit(t_data *data, t_exec *node, int exit_code);
 
-bool	pipeline_builtin(t_exec *node, char **env, int i);
-void	initialize_execution(t_data *data, t_exec *node, char **env);
+bool	pipeline_builtin(t_exec *node, int i);
+void	initialize_execution(t_data *data, t_exec *node);
 void	parent_fds(t_exec *node);
-void	execute_child(t_exec *node, int i, char **env, t_data *data);
+void	execute_child(t_exec *node, int i, t_data *data);
 void	close_all_fds(t_data *data, t_exec *node);
 
-void	check_dir(char *is_path, t_exec *node, t_data *data, char **env);
-void	check_access(char *is_path, t_exec *node, t_data *data, char **env);
-void	check_cmd(t_exec *node, t_data *data, char **env);
-void	check_empty(t_exec *node, t_data *data, char **env);
+void	check_dir(char *is_path, t_exec *node, t_data *data);
+void	check_access(char *is_path, t_exec *node, t_data *data);
+void	check_cmd(t_exec *node, t_data *data);
+void	check_empty(t_exec *node, t_data *data);
 
 #endif

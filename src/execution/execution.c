@@ -3,15 +3,14 @@
 void	execution(t_data *data)
 {
 	int			i;
-	char		**env;
 	t_exec		*node;
 
 	i = 0;
 	node = data->lst_exec;
 	if (!node)
 		return ;
-	env = rebuild_env(data);
-	initialize_execution(data, node, env);
+	data->env = rebuild_env(data);
+	initialize_execution(data, node);
 	while (node)
 	{
 		if (open_fds(node, i) == false)
@@ -23,14 +22,16 @@ void	execution(t_data *data)
 		if (node->cmd_arg[0])
 		{
 			if (is_builtins(node->cmd_arg) == true)
-				builtin_process(node, i, data, env);
+				builtin_process(node, i, data);
 			else
-				child_process(node, i, env, data);
+				child_process(node, i, data);
 		}
 		node= node->next;
 		i++;
 	}
 	wait_process(data->pids, data);
+	ft_free_array(data->env);
+	free(data->pids);
 }
 
 bool	open_fds(t_exec *node, int i)
@@ -59,7 +60,7 @@ bool	open_fds(t_exec *node, int i)
 	}	return (true);
 }
 
-void	initialize_execution(t_data *data, t_exec *node, char **env)
+void	initialize_execution(t_data *data, t_exec *node)
 {
 	ft_memset(node->fd, -1, sizeof(int) * 2);
 	node->infile = -1;
@@ -70,28 +71,28 @@ void	initialize_execution(t_data *data, t_exec *node, char **env)
 	if (data->pids == NULL)
 	{
 		safe_close(&data->tmp_fd);
-		clean_and_exit(data, node, env, 127);
+		clean_and_exit(data, node, 127);
 	}
 }
 
-int	child_process(t_exec *node, int i, char **env, t_data *data)
+int	child_process(t_exec *node, int i, t_data *data)
 {
 	data->pids[i] = fork();
-	// data->pids[i] = -1;
+	// data->pids[i] = -1; //TESTING:
 	if (data->pids[i] < 0)
 	{
-		clean_and_exit(data, node, env, 1);
+		clean_and_exit(data, node, 1);
 	}
 	if (data->pids[i] == 0)
 	{
-		execute_child(node, i, env, data);
+		execute_child(node, i, data);
 	}
 	if (get_data()->tok_count > 1)
 		parent_fds(node);
 	return (0);
 }
 
-void	execute_child(t_exec *node, int i, char **env, t_data *data)
+void	execute_child(t_exec *node, int i, t_data *data)
 {
 	char 	*is_path;
 	char	*path;
@@ -101,19 +102,20 @@ void	execute_child(t_exec *node, int i, char **env, t_data *data)
 	path = NULL;
 	signals_exec_child();
 	redirections_io(node, i);
-	path = path_finder(node->cmd_arg, env);
+	path = path_finder(node->cmd_arg, data->env);
 	if (!path || node->cmd_arg[0][0] == '\0')
-		check_empty(node, data, env);
+		check_empty(node, data);
 	else if (stat(path, &sb) == 0)
 	{
 		if (S_ISDIR(sb.st_mode))
-			check_dir(is_path, node, data, env);
+			check_dir(is_path, node, data);
 		else if (access(path, X_OK) != 0)
-			check_access(is_path, node, data, env);
+			check_access(is_path, node, data);
 	}
 	else
-		check_cmd(node, data, env);
-	execve(path, node->cmd_arg, env);
+		check_cmd(node, data);
+	execve(path, node->cmd_arg, data->env);
 	perror(node->cmd_arg[0]);
-	clean_and_exit(data, node, env, 126);
+	free(path);
+	clean_and_exit(data, node, 126);
 }

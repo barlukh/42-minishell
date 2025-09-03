@@ -1,16 +1,17 @@
 
 #include "minishell.h"
 
-void	clean_and_exit(t_data *data, t_exec *node, char **env, int exit_code)
+void	clean_and_exit(t_data *data, t_exec *node, int exit_code)
 {
 	ft_lst_env_clear(&get_data()->lst_env);
 	get_data()->lst_env = NULL;
+	close_all_fds(data, node);
 	ft_lst_exec_clear(&data->lst_exec);
 	data->lst_exec = NULL;
-	ft_free_array(env);
+	ft_free_array(data->env);
+	free(data->pids);
 	clear_history();
 	data->exit_status = exit_code;
-	close_all_fds(data, node);
 	exit(data->exit_status);
 }
 
