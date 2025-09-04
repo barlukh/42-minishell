@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   path.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/04 14:08:57 by bgazur            #+#    #+#             */
+/*   Updated: 2025/09/04 14:11:56 by bgazur           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -6,13 +17,14 @@ char	*get_env_value(char **envp)
 	char	*path;
 	char	*command;
 	int		i;
+
 	i = 0;
 	command = "PATH";
 	path = NULL;
 	while (envp[++i])
 	{
 		if (ft_strncmp(command, envp[i], ft_strlen(command)) == 0
-				&& envp[i][ft_strlen(command)] == '=')
+			&& envp[i][ft_strlen(command)] == '=')
 		{
 			path = ft_strchr(envp[i], '=') + 1;
 			break ;
@@ -33,9 +45,7 @@ char	*path_finder(char **command, char **env)
 	i = 0;
 	if (!command || !command[0])
 		return (NULL);
-	if (ft_strchr(command[0], '/'))
-		return (command[0]);
-	if (access(command[0], F_OK) == 0)
+	if (ft_strchr(command[0], '/') != NULL || access(command[0], F_OK) == 0)
 		return (command[0]);
 	path_env = get_env_value(env);
 	if (!path_env)
@@ -48,7 +58,7 @@ char	*path_finder(char **command, char **env)
 			break ;
 		i++;
 	}
-	if (!final_path)	
+	if (!final_path)
 		ft_free_array(paths);
 	return (final_path);
 }

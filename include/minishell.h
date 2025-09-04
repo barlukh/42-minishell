@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/09/04 13:19:00 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/04 13:49:38 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ bool	builtin_env(t_exec *current, t_data *data);
  * @param data Data struct of all core variables.
  * @return Bool true or false.
  */
-// bool	builtin_exit(t_exec *current, t_data *data);
+bool	builtin_exit(t_exec *current, t_data *data);
 
 /**
  * @brief Tries to execute the export builtin.
@@ -584,5 +584,4 @@ void	check_access(char *is_path, t_exec *node, t_data *data);
 void	check_cmd(t_exec *node, t_data *data);
 void	check_empty(t_exec *node, t_data *data);
 
-bool	builtin_exit(t_exec *current, t_data *data, t_exec *node);
 #endif

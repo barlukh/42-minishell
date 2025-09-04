@@ -6,25 +6,23 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 13:02:30 by bgazur            #+#    #+#             */
-/*   Updated: 2025/09/04 11:52:52 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/04 14:07:32 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	exit_with_arg(int exit_number, t_data *data, t_exec *node);
-
+static void	exit_with_arg(int exit_number, t_data *data);
 static void	exit_without_arg(t_data *data);
 static void	check_invalid_numerical(t_exec *current, t_data *data);
-// static void	exit_with_arg(int exit_number, t_data *data);
 
-bool	builtin_exit(t_exec *current, t_data *data, t_exec *node)
+bool	builtin_exit(t_exec *current, t_data *data)
 {
 	int	exit_num;
 
 	if (ft_strcmp(current->cmd_arg[0], "exit") == 0)
 	{
-		// ft_putendl_fd(ERR_MSG_EXIT, STDOUT_FILENO);
+		ft_putendl_fd(ERR_MSG_EXIT, STDOUT_FILENO);
 		if (!current->cmd_arg[1])
 			exit_without_arg(data);
 		if (current->cmd_arg[1])
@@ -39,7 +37,7 @@ bool	builtin_exit(t_exec *current, t_data *data, t_exec *node)
 		if (current->cmd_arg[1])
 		{
 			exit_num = ft_atoi(current->cmd_arg[1], data);
-			exit_with_arg(exit_num, data, node);
+			exit_with_arg(exit_num, data);
 		}
 	}
 	return (false);
@@ -48,7 +46,6 @@ bool	builtin_exit(t_exec *current, t_data *data, t_exec *node)
 // Exits with an unmodified exit status.
 static void	exit_without_arg(t_data *data)
 {
-	// close_all_fds(data, node);
 	clean_data(data);
 	clear_history();
 	exit(data->exit_status);
@@ -85,9 +82,8 @@ static void	check_invalid_numerical(t_exec *current, t_data *data)
 }
 
 // Exits with an exit status set by the argument.
-static void	exit_with_arg(int exit_number, t_data *data, t_exec *node)
+static void	exit_with_arg(int exit_number, t_data *data)
 {
-	close_all_fds(data, node);
 	clean_data(data);
 	clear_history();
 	data->exit_status = exit_number;
