@@ -6,16 +6,16 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 10:43:16 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/31 12:07:29 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/04 11:14:23 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool	cd_home(t_data *data);
+static bool	cd_home(t_exec *current, t_data *data);
 static bool	is_invalid_option(char *content);
-static bool	is_dash(char *arg, size_t *i, t_data *data);
-static bool	cd_action(char *arg, t_data *data);
+static bool	is_dash(char *arg, size_t *i, t_data *data, t_exec *node);
+static bool	cd_action(char *arg, t_data *data, t_exec *node);
 
 bool	builtin_cd(t_exec *current, t_data *data)
 {
@@ -26,7 +26,7 @@ bool	builtin_cd(t_exec *current, t_data *data)
 	{
 		if (!current->cmd_arg[1] || (current->cmd_arg[1]
 				&& ft_strcmp(current->cmd_arg[1], "--") == 0))
-			return (cd_home(data));
+			return (cd_home(current, data));
 		if (current->cmd_arg[1] && is_invalid_option(current->cmd_arg[1]))
 		{
 			ft_putendl_fd(ERR_MSG_CD, STDERR_FILENO);
@@ -39,15 +39,15 @@ bool	builtin_cd(t_exec *current, t_data *data)
 			data->exit_status = 1;
 			return (true);
 		}
-		if (is_dash(current->cmd_arg[1], &i, data) == true)
+		if (is_dash(current->cmd_arg[1], &i, data, current) == true)
 			return (true);
-		return (cd_action(current->cmd_arg[i], data), true);
+		return (cd_action(current->cmd_arg[i], data, current), true);
 	}
 	return (false);
 }
 
 // Runs cd into HOME directory.
-static bool	cd_home(t_data *data)
+static bool	cd_home(t_exec *current, t_data *data)
 {
 	char	*cwd;
 	char	*home;
@@ -59,7 +59,7 @@ static bool	cd_home(t_data *data)
 	else if (chdir(home) == -1)
 		ft_putendl_fd2("cd: ", strerror(errno), STDERR_FILENO);
 	else
-		return (wd_set(cwd, data));
+		return (wd_set(cwd, current, data));
 	free(cwd);
 	data->exit_status = 1;
 	return (true);
@@ -80,7 +80,7 @@ static bool	is_invalid_option(char *content)
 }
 
 // Checks for the presence of a dash character and performs action accordingly.
-static bool	is_dash(char *arg, size_t *i, t_data *data)
+static bool	is_dash(char *arg, size_t *i, t_data *data, t_exec *node)
 {
 	char	*cwd;
 	char	*oldpwd;
@@ -96,7 +96,7 @@ static bool	is_dash(char *arg, size_t *i, t_data *data)
 		else
 		{
 			ft_putendl_fd(oldpwd, STDOUT_FILENO);
-			return (wd_set(cwd, data));
+			return (wd_set(cwd, node, data));
 		}
 		free(cwd);
 		return (data->exit_status = 1, true);
@@ -107,7 +107,7 @@ static bool	is_dash(char *arg, size_t *i, t_data *data)
 }
 
 // Runs the cd builtin with the selected argument.
-static bool	cd_action(char *arg, t_data *data)
+static bool	cd_action(char *arg, t_data *data, t_exec *node)
 {
 	char	*cwd;
 
@@ -115,7 +115,7 @@ static bool	cd_action(char *arg, t_data *data)
 	if (chdir(arg) == -1)
 		ft_putendl_fd2("cd: ", strerror(errno), STDERR_FILENO);
 	else
-		return (wd_set(cwd, data));
+		return (wd_set(cwd, node, data));
 	free(cwd);
 	data->exit_status = 1;
 	return (true);

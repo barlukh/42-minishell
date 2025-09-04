@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 13:02:30 by bgazur            #+#    #+#             */
-/*   Updated: 2025/09/03 10:40:21 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/04 11:52:52 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ bool	builtin_exit(t_exec *current, t_data *data, t_exec *node)
 // Exits with an unmodified exit status.
 static void	exit_without_arg(t_data *data)
 {
+	// close_all_fds(data, node);
 	clean_data(data);
 	clear_history();
 	exit(data->exit_status);
@@ -86,9 +87,9 @@ static void	check_invalid_numerical(t_exec *current, t_data *data)
 // Exits with an exit status set by the argument.
 static void	exit_with_arg(int exit_number, t_data *data, t_exec *node)
 {
+	close_all_fds(data, node);
 	clean_data(data);
 	clear_history();
-	close_all_fds(data, node);
 	data->exit_status = exit_number;
 	exit(data->exit_status);
 }

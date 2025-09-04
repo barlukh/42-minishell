@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/09/03 10:53:13 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/04 11:48:51 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,10 +151,11 @@ bool	builtin_export(t_exec *current, t_data *data);
 /**
  * @brief Main function to export a variable.
  * @param inv_id Flag to signal a succesful export.
- * @param content Content to export.
+ * @param con Content to export.
+ * @param node Current token node.
  * @param data Data struct of all core variables.
  */
-void	builtin_export_loop(bool *inv_id, char *content, t_data *data);
+void	builtin_exp_loop(bool *inv_id, char *con, t_exec *node, t_data *data);
 
 /**
  * @brief Tries to execute the pwd builtin.
@@ -530,10 +531,11 @@ void	var_remove(char *content, char **tok_key, size_t i);
 /**
  * @brief Sets the PWD and OLDPWD values in env.
  * @param cwd Current working directory.
+ * @param current Current token node.
  * @param data Data struct of all core variables.
  * @return True.
  */
-bool	wd_set(char *cwd, t_data *data);
+bool	wd_set(char *cwd, t_exec *current, t_data *data);
 
 /**
  * @brief Performs word splitting on expanded variables.
@@ -563,7 +565,7 @@ char	*path_joiner(char **paths, char **command, int i);
 
 int		builtin_process(t_exec *node, int i, t_data *data);
 bool	open_fds(t_exec *node, int i);
-bool	close_builtin(int *saved_stdin, int *saved_stdout);
+void	close_builtin(t_exec *node);
 
 bool	safe_open_in(t_exec *node, int j);
 bool	safe_open_out(t_exec *current, int j);

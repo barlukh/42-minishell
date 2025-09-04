@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 09:18:05 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/25 09:34:10 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/04 11:33:46 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ bool	builtin_export(t_exec *current, t_data *data)
 			i++;
 		while (current->cmd_arg[i])
 		{
-			builtin_export_loop(&inv_id, current->cmd_arg[i], data);
+			builtin_exp_loop(&inv_id, current->cmd_arg[i], current, data);
 			i++;
 		}
 		return (update_exit_status(inv_id, data));

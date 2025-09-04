@@ -25,19 +25,20 @@ int	builtin_process(t_exec *node, int i, t_data *data)
 
 bool	pipeline_builtin(t_exec *node, int i)
 {
-	int saved_stdin;
-	int saved_stdout;
-
-	saved_stdin = dup(STDIN_FILENO);
-	saved_stdout = dup(STDOUT_FILENO);
-	if (saved_stdin == -1 || saved_stdout == -1)
+	node->saved_stdin = dup(STDIN_FILENO);
+	node->saved_stdout = dup(STDOUT_FILENO);
+	if (node->saved_stdin == -1 || node->saved_stdout == -1)
 		return (perror("dup"), -1); // possible leak
 	redirections_builtin(node, i);
 	builtins_check(node, get_data()); // what if builting fail how return the correct code
 	if (i != get_data()->tok_count - 1 && node->outfile == -1)
 		safe_dup(&node->fd[WRITE], STDOUT_FILENO);
-	if (close_builtin(&saved_stdin, &saved_stdout) == false)
-		return (false);
+	if (ft_strcmp(node->cmd_arg[0], "exit") != 0)
+		builtins_check(node, get_data());
+	close_all_fds(get_data(), node);
+	close_builtin(node);
+	if (ft_strcmp(node->cmd_arg[0], "exit") == 0)
+		builtins_check(node, get_data());
 	parent_fds(node);
 	clean_and_exit(get_data(), node, 0);
 	return (true);
@@ -45,13 +46,9 @@ bool	pipeline_builtin(t_exec *node, int i)
 
 bool	simple_builtin(t_exec *node, int i)
 {
-
-	int saved_stdin;
-	int saved_stdout;
-	//
-	saved_stdin = dup(STDIN_FILENO);
-	saved_stdout = dup(STDOUT_FILENO);
-	if (saved_stdin == -1 || saved_stdout == -1)
+	node->saved_stdin = dup(STDIN_FILENO);
+	node->saved_stdout = dup(STDOUT_FILENO);
+	if (node->saved_stdin == -1 || node->saved_stdout == -1)
 		return (perror("dup"), -1); // possible leak
 	(void)i;
 	safe_close(&get_data()->tmp_fd);
@@ -60,22 +57,20 @@ bool	simple_builtin(t_exec *node, int i)
 	if (node->outfile > 2)
 		safe_dup(&node->outfile, STDOUT_FILENO);
 	// redirections_builtin(node, i);
-	if (ft_strcmp(node->cmd_arg[0], "exit"))
+	if (ft_strcmp(node->cmd_arg[0], "exit") != 0)
 		builtins_check(node, get_data());
 	close_all_fds(get_data(), node);
-	if (close_builtin(&saved_stdin, &saved_stdout) == false)
-		return (false);
-	if (!ft_strcmp(node->cmd_arg[0], "exit"))
+	close_builtin(node);
+	if (ft_strcmp(node->cmd_arg[0], "exit") == 0)
 		builtins_check(node, get_data());
 	return (true);
 }
 
-bool	close_builtin(int *saved_stdin, int *saved_stdout)
+void	close_builtin(t_exec *node)
 {
-	if ((dup2(*saved_stdin, STDIN_FILENO) == -1)
-			|| (dup2(*saved_stdout, STDOUT_FILENO) == -1))
-		return (false);
-	safe_close(saved_stdin);
-	safe_close(saved_stdout);
-	return (true);
+	if ((dup2(node->saved_stdin, STDIN_FILENO) == -1)
+			|| (dup2(node->saved_stdout, STDOUT_FILENO) == -1))
+		return ;
+	safe_close(&node->saved_stdin);
+	safe_close(&node->saved_stdout);
 }

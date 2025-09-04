@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 07:52:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/09/03 10:40:20 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/04 11:07:12 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ bool	parse_input(char *input, t_data *data)
 	return (SUCCESS);
 }
 
-void	clean_data(t_data *data, t_exec *node)
+void	clean_data(t_data *data)
 {
 	ft_lst_env_clear(&data->lst_env);
 	data->lst_env = NULL;
@@ -91,7 +91,5 @@ void	clean_data(t_data *data, t_exec *node)
 	ft_free_array(data->env);
 	data->env = NULL;
 	free(data->pids);
-	if (node)
-		close_all_fds(data, node);
 	data->pids = NULL;
 }
