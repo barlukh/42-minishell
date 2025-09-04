@@ -17,7 +17,7 @@ void	clean_and_exit(t_data *data, t_exec *node, int exit_code)
 	ft_lst_env_clear(&get_data()->lst_env);
 	get_data()->lst_env = NULL;
 	close_all_fds(data, node);
-	// close_builtin(node);
+	// restore_fds(node);
 	ft_lst_exec_clear(&data->lst_exec);
 	data->lst_exec = NULL;
 	ft_free_array(data->env);
@@ -53,9 +53,5 @@ void	close_all_fds(t_data *data, t_exec *node)
 		safe_close(&node->infile);
 	if (node->outfile > 2)
 		safe_close(&node->outfile);
-	if (node->saved_stdin > 2)
-		safe_close(&node->saved_stdin);
-	if (node->saved_stdout > 2)
-		safe_close(&node->saved_stdout);
-	// close_builtin(node);
+	restore_fds(node);
 }

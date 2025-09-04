@@ -85,7 +85,7 @@ static void	initialize_execution(t_data *data, t_exec *node)
 	}
 }
 
-int	child_process(t_exec *node, int i, t_data *data)
+void	child_process(t_exec *node, int i, t_data *data)
 {
 	data->pids[i] = fork();
 	if (data->pids[i] < 0)
@@ -98,7 +98,6 @@ int	child_process(t_exec *node, int i, t_data *data)
 	}
 	if (get_data()->tok_count > 1)
 		parent_fds(node);
-	return (0);
 }
 
 static void	execute_child(t_exec *node, int i, t_data *data)
