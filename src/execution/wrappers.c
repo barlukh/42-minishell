@@ -67,7 +67,8 @@ static bool	is_out_append(char *out_file)
 
 int	safe_close(int *fd)
 {
-	close(*fd);
+	if (*fd != -1)
+		close(*fd);
 	*fd = -1;
 	return (*fd);
 }

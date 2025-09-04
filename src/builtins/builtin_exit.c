@@ -12,11 +12,13 @@
 
 #include "minishell.h"
 
+static void	exit_with_arg(int exit_number, t_data *data, t_exec *node);
+
 static void	exit_without_arg(t_data *data);
 static void	check_invalid_numerical(t_exec *current, t_data *data);
-static void	exit_with_arg(int exit_number, t_data *data);
+// static void	exit_with_arg(int exit_number, t_data *data);
 
-bool	builtin_exit(t_exec *current, t_data *data)
+bool	builtin_exit(t_exec *current, t_data *data, t_exec *node)
 {
 	int	exit_num;
 
@@ -37,7 +39,7 @@ bool	builtin_exit(t_exec *current, t_data *data)
 		if (current->cmd_arg[1])
 		{
 			exit_num = ft_atoi(current->cmd_arg[1], data);
-			exit_with_arg(exit_num, data);
+			exit_with_arg(exit_num, data, node);
 		}
 	}
 	return (false);
@@ -82,10 +84,11 @@ static void	check_invalid_numerical(t_exec *current, t_data *data)
 }
 
 // Exits with an exit status set by the argument.
-static void	exit_with_arg(int exit_number, t_data *data)
+static void	exit_with_arg(int exit_number, t_data *data, t_exec *node)
 {
 	clean_data(data);
 	clear_history();
+	close_all_fds(data, node);
 	data->exit_status = exit_number;
 	exit(data->exit_status);
 }

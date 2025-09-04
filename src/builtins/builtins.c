@@ -22,7 +22,7 @@ bool	builtins_check(t_exec *current, t_data *data)
 		return (true);
 	if (builtin_env(current, data))
 		return (true);
-	if (builtin_exit(current, data))
+	if (builtin_exit(current, data, current))
 		return (true);
 	if (builtin_export(current, data))
 		return (true);

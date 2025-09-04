@@ -51,7 +51,7 @@ bool	open_fds_in(t_exec *node)
 		if (safe_open_in(node, j) == false)
 			return (false);
 		if (i != 1 && j != i - 1)
-			close(node->infile);
+			safe_close(&node->infile);
 		j++;
 	}
 	return (true);
@@ -71,7 +71,7 @@ bool	open_fds_out(t_exec *node)
 		if (safe_open_out(node, j) == false)
 			return (false);
 		if (i != 1 && j != i - 1)
-			close(node->outfile);
+			safe_close(&node->outfile);
 		j++;
 	}
 	return (true);

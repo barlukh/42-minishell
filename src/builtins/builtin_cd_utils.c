@@ -70,7 +70,7 @@ static void	create_oldpwd(char *cwd, t_data *data)
 	t_env	*node;
 
 	key = NULL;
-	key = ft_strdup("OLDPWD");
+	// key = ft_strdup("OLDPWD");
 	if (!key)
 		error_lst_env(key, cwd, data);
 	node = ft_lst_env_new(key, cwd);

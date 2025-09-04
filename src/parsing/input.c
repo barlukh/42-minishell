@@ -80,7 +80,7 @@ bool	parse_input(char *input, t_data *data)
 	return (SUCCESS);
 }
 
-void	clean_data(t_data *data)
+void	clean_data(t_data *data, t_exec *node)
 {
 	ft_lst_env_clear(&data->lst_env);
 	data->lst_env = NULL;
@@ -91,7 +91,7 @@ void	clean_data(t_data *data)
 	ft_free_array(data->env);
 	data->env = NULL;
 	free(data->pids);
-	if (data->tmp_fd > 2)
-		safe_close(&data->tmp_fd);
+	if (node)
+		close_all_fds(data, node);
 	data->pids = NULL;
 }
