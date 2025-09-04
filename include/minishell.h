@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/09/04 11:48:51 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/04 13:19:00 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -420,9 +420,10 @@ void	prep_out(t_exec *node, t_token *current, t_data *data);
 /**
  * @brief Gets and returns the malloced PWD value from env.
  * @param data Data struct of all core variables.
+ * @param node Current token node.
  * @return PWD or NULL if not found.
  */
-char	*pwd_get(t_data *data);
+char	*pwd_get(t_data *data, t_exec *node);
 
 /**
  * @brief Removes quotes in tokens.
