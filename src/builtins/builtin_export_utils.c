@@ -6,15 +6,16 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 09:11:23 by bgazur            #+#    #+#             */
-/*   Updated: 2025/09/04 12:00:25 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/04 13:12:48 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	export_action(char *content, t_exec *node, t_data *data);
-static void	add_to_env(char *equal, char *key, char *value, t_data *data);
+static bool	add_to_env(char *equal, char *key, char *value, t_data *data);
 static void	finalize_flag_node(char *equal, t_env *node, t_data *data);
+static void	export_clean(char *key, char *value, t_data *data, t_exec *node);
 
 void	builtin_exp_loop(bool *inv_id, char *con, t_exec *node, t_data *data)
 {
@@ -62,15 +63,13 @@ static void	export_action(char *content, t_exec *node, t_data *data)
 		value = ft_strdup(equal + 1);
 	}
 	if (!key || !value)
-	{
-		close_all_fds(data, node);
-		error_lst_env(key, value, data);
-	}
-	add_to_env(equal, key, value, data);
+		export_clean(key, value, data, node);
+	if (add_to_env(equal, key, value, data) != SUCCESS)
+		export_clean(key, value, data, node);
 }
 
 // Adds the exported variable to env.
-static void	add_to_env(char *equal, char *key, char *value, t_data *data)
+static bool	add_to_env(char *equal, char *key, char *value, t_data *data)
 {
 	t_env	*current;
 	t_env	*node;
@@ -89,14 +88,14 @@ static void	add_to_env(char *equal, char *key, char *value, t_data *data)
 			else
 				free(value);
 			free(key);
-			return ;
+			return (SUCCESS);
 		}
 		current = current->next;
 	}
 	node = ft_lst_env_new(key, value);
 	if (!node)
-		error_lst_env(key, value, data);
-	finalize_flag_node(equal, node, data);
+		return (FAILURE);
+	return (finalize_flag_node(equal, node, data), SUCCESS);
 }
 
 // Sets the flag and adds the node to env.
@@ -107,4 +106,11 @@ static void	finalize_flag_node(char *equal, t_env *node, t_data *data)
 	else
 		node->assigned = true;
 	ft_lst_env_add_back(&data->lst_env, node);
+}
+
+// Cleans the program on error.
+static void	export_clean(char *key, char *value, t_data *data, t_exec *node)
+{
+	close_all_fds(data, node);
+	error_lst_env(key, value, data);
 }

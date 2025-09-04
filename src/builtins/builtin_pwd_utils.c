@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 13:26:45 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/26 15:12:48 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/04 13:20:38 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*oldpwd_get(t_data *data)
 	return (NULL);
 }
 
-char	*pwd_get(t_data *data)
+char	*pwd_get(t_data *data, t_exec *node)
 {
 	char	*pwd;
 	t_env	*current;
@@ -60,7 +60,10 @@ char	*pwd_get(t_data *data)
 		{
 			pwd = ft_strdup(current->value);
 			if (!pwd)
+			{
+				close_all_fds(data, node);
 				error_general_mem(data);
+			}
 			return (pwd);
 		}
 		current = current->next;

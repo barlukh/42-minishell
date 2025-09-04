@@ -30,7 +30,6 @@ bool	pipeline_builtin(t_exec *node, int i)
 	if (node->saved_stdin == -1 || node->saved_stdout == -1)
 		return (perror("dup"), -1); // possible leak
 	redirections_builtin(node, i);
-	builtins_check(node, get_data()); // what if builting fail how return the correct code
 	if (i != get_data()->tok_count - 1 && node->outfile == -1)
 		safe_dup(&node->fd[WRITE], STDOUT_FILENO);
 	if (ft_strcmp(node->cmd_arg[0], "exit") != 0)

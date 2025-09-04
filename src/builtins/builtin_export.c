@@ -6,13 +6,13 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 09:18:05 by bgazur            #+#    #+#             */
-/*   Updated: 2025/09/04 11:33:46 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/04 13:17:41 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool	print_check(char *arg, t_data *data);
+static bool	print_check(char *arg, t_data *data, t_exec *node);
 static bool	print_action(t_env **arr, t_data *data);
 static bool	is_invalid_option(char *content);
 static bool	update_exit_status(bool inv_id, t_data *data);
@@ -26,7 +26,7 @@ bool	builtin_export(t_exec *current, t_data *data)
 	i = 1;
 	if (ft_strcmp(current->cmd_arg[0], "export") == 0)
 	{
-		if (print_check(current->cmd_arg[1], data) == true)
+		if (print_check(current->cmd_arg[1], data, current) == true)
 			return (true);
 		if (current->cmd_arg[1] && is_invalid_option(current->cmd_arg[1]))
 		{
@@ -47,7 +47,7 @@ bool	builtin_export(t_exec *current, t_data *data)
 }
 
 // Checks if the second argument exists prepares the env for printing.
-static bool	print_check(char *arg, t_data *data)
+static bool	print_check(char *arg, t_data *data, t_exec *node)
 {
 	size_t	i;
 	t_env	**arr;
@@ -58,13 +58,15 @@ static bool	print_check(char *arg, t_data *data)
 		i = ft_lst_env_size(data->lst_env);
 		arr = ft_calloc(i + 1, sizeof(t_env *));
 		if (!arr)
+		{
+			close_all_fds(data, node);
 			error_general_mem(data);
+		}
 		i = 0;
 		current = data->lst_env;
 		while (current)
 		{
-			arr[i] = current;
-			i++;
+			arr[i++] = current;
 			current = current->next;
 		}
 		arr[i] = NULL;

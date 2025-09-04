@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 16:39:57 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/26 15:03:44 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/04 13:19:46 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	builtin_pwd(t_exec *current, t_data *data)
 			data->exit_status = 2;
 			return (true);
 		}
-		pwd = pwd_get(data);
+		pwd = pwd_get(data, current);
 		ft_putendl_fd(pwd, STDOUT_FILENO);
 		free(pwd);
 		data->exit_status = 0;

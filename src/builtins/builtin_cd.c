@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 10:43:16 by bgazur            #+#    #+#             */
-/*   Updated: 2025/09/04 11:14:23 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/04 13:19:25 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static bool	cd_home(t_exec *current, t_data *data)
 	char	*cwd;
 	char	*home;
 
-	cwd = pwd_get(data);
+	cwd = pwd_get(data, current);
 	home = home_get(data);
 	if (!home)
 		ft_putendl_fd(ERR_MSG_CDHOME, STDERR_FILENO);
@@ -87,7 +87,7 @@ static bool	is_dash(char *arg, size_t *i, t_data *data, t_exec *node)
 
 	if (ft_strcmp(arg, "-") == 0)
 	{
-		cwd = pwd_get(data);
+		cwd = pwd_get(data, node);
 		oldpwd = oldpwd_get(data);
 		if (!oldpwd)
 			ft_putendl_fd(ERR_MSG_CDSET, STDERR_FILENO);
@@ -111,7 +111,7 @@ static bool	cd_action(char *arg, t_data *data, t_exec *node)
 {
 	char	*cwd;
 
-	cwd = pwd_get(data);
+	cwd = pwd_get(data, node);
 	if (chdir(arg) == -1)
 		ft_putendl_fd2("cd: ", strerror(errno), STDERR_FILENO);
 	else
