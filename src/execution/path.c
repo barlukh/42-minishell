@@ -6,34 +6,14 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 14:08:57 by bgazur            #+#    #+#             */
-/*   Updated: 2025/09/04 14:11:56 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/04 16:23:57 by edlucca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_env_value(char **envp)
-{
-	char	*path;
-	char	*command;
-	int		i;
-
-	i = 0;
-	command = "PATH";
-	path = NULL;
-	while (envp[++i])
-	{
-		if (ft_strncmp(command, envp[i], ft_strlen(command)) == 0
-			&& envp[i][ft_strlen(command)] == '=')
-		{
-			path = ft_strchr(envp[i], '=') + 1;
-			break ;
-		}
-	}
-	if (!path)
-		return (NULL);
-	return (path);
-}
+static char	*get_env_value(char **envp);
+static char	*path_joiner(char **paths, char **command, int i);
 
 char	*path_finder(char **command, char **env)
 {
@@ -63,7 +43,30 @@ char	*path_finder(char **command, char **env)
 	return (final_path);
 }
 
-char	*path_joiner(char **paths, char **command, int i)
+static char	*get_env_value(char **envp)
+{
+	char	*path;
+	char	*command;
+	int		i;
+
+	i = 0;
+	command = "PATH";
+	path = NULL;
+	while (envp[++i])
+	{
+		if (ft_strncmp(command, envp[i], ft_strlen(command)) == 0
+			&& envp[i][ft_strlen(command)] == '=')
+		{
+			path = ft_strchr(envp[i], '=') + 1;
+			break ;
+		}
+	}
+	if (!path)
+		return (NULL);
+	return (path);
+}
+
+static char	*path_joiner(char **paths, char **command, int i)
 {
 	char	*full;
 	char	*tmp;

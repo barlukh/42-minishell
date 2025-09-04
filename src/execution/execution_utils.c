@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: edlucca <edlucca@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/29 10:30:43 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/29 11:45:08 by bgazur           ###   ########.fr       */
+/*   Created: 2025/09/04 16:42:28 by edlucca           #+#    #+#             */
+/*   Updated: 2025/09/04 16:42:49 by edlucca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,17 @@ static void	error_env_rebuild(char **env, t_data *data)
 	ft_putendl_fd(ERR_MSG_MEM, STDERR_FILENO);
 	data->exit_status = 1;
 	exit(data->exit_status);
+}
+
+void	create_process(t_data *data, t_exec *node, int i)
+{
+	if (node->cmd_arg[0])
+	{
+		if (is_builtins(node->cmd_arg) == true)
+			builtin_process(node, i, data);
+		else
+			child_process(node, i, data);
+	}
+	if (data->tok_count == 1 && data->tmp_fd > 2)
+		safe_close(&data->tmp_fd);
 }
