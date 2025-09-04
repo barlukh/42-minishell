@@ -19,7 +19,7 @@ bool	read_input(char **input, t_data *data)
 	{
 		ft_lst_env_clear(&data->lst_env);
 		clear_history();
-		ft_putendl_fd(ERR_MSG_EXIT, STDOUT_FILENO);
+		// ft_putendl_fd(ERR_MSG_EXIT, STDOUT_FILENO);
 		exit(data->exit_status);
 	}
 	if (ft_strlen(*input) > INPUT_MAX)

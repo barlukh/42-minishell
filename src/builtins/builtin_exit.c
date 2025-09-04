@@ -22,8 +22,8 @@ bool	builtin_exit(t_exec *current, t_data *data)
 
 	if (ft_strcmp(current->cmd_arg[0], "exit") == 0)
 	{
-		if (data->tok_count < 2)
-			ft_putendl_fd(ERR_MSG_EXIT, STDOUT_FILENO);
+		// if (data->tok_count < 2)
+		// 	ft_putendl_fd(ERR_MSG_EXIT, STDOUT_FILENO);
 		if (!current->cmd_arg[1])
 			exit_without_arg(data);
 		if (current->cmd_arg[1])

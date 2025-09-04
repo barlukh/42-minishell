@@ -68,6 +68,7 @@ extern volatile sig_atomic_t	g_signal;
 # define ERR_MSG_QUOTE "syntax error: unclosed quote"
 # define ERR_MSG_REDIR "syntax error near unexpected token `redirection'"
 # define ERR_MSG_UNSET "unset: options are not supported"
+# define ERR_MSG_DUP "dup: failure"
 
 // Return / exit values (general).
 # define SUCCESS 0
