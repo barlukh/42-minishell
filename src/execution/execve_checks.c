@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 10:13:02 by bgazur            #+#    #+#             */
-/*   Updated: 2025/09/03 10:39:26 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/04 14:08:41 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	check_cmd(t_exec *node, t_data *data)
 	ft_putendl_fd2(node->cmd_arg[0], ": command not found", STDERR_FILENO);
 	clean_and_exit(data, node, 127);
 }
-
 
 void	check_empty(t_exec *node, t_data *data)
 {
