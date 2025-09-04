@@ -1,5 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: edlucca <edlucca@student.hive.fi>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/04 15:35:57 by edlucca           #+#    #+#             */
+/*   Updated: 2025/09/04 16:23:06 by edlucca          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
+
+static bool	pipeline_builtin(t_exec *node, int i);
+static bool	simple_builtin(t_exec *node, int i);
 
 int	builtin_process(t_exec *node, int i, t_data *data)
 {
@@ -7,7 +21,7 @@ int	builtin_process(t_exec *node, int i, t_data *data)
 	{
 		data->pids[i] = fork();
 		if (data->pids[i] < 0)
-			clean_and_exit(data, node, 127); // possible leak
+			clean_and_exit(data, node, 127);
 		if (data->pids[i] == 0)
 		{
 			if (pipeline_builtin(node, i) == false)
@@ -23,17 +37,17 @@ int	builtin_process(t_exec *node, int i, t_data *data)
 	return (0);
 }
 
-bool	pipeline_builtin(t_exec *node, int i)
+static bool	pipeline_builtin(t_exec *node, int i)
 {
 	node->saved_stdin = dup(STDIN_FILENO);
 	node->saved_stdout = dup(STDOUT_FILENO);
 	if (node->saved_stdin == -1 || node->saved_stdout == -1)
-		return (perror("dup"), -1); // possible leak
+		return (perror("dup"), -1);
 	redirections_builtin(node, i);
-	if (i != get_data()->tok_count - 1 && node->outfile == -1)
-		safe_dup(&node->fd[WRITE], STDOUT_FILENO);
 	if (ft_strcmp(node->cmd_arg[0], "exit") != 0)
 		builtins_check(node, get_data());
+	if (i != get_data()->tok_count - 1 && node->outfile == -1)
+		safe_dup(&node->fd[WRITE], STDOUT_FILENO);
 	close_all_fds(get_data(), node);
 	close_builtin(node);
 	if (ft_strcmp(node->cmd_arg[0], "exit") == 0)
@@ -43,19 +57,18 @@ bool	pipeline_builtin(t_exec *node, int i)
 	return (true);
 }
 
-bool	simple_builtin(t_exec *node, int i)
+static bool	simple_builtin(t_exec *node, int i)
 {
 	node->saved_stdin = dup(STDIN_FILENO);
 	node->saved_stdout = dup(STDOUT_FILENO);
 	if (node->saved_stdin == -1 || node->saved_stdout == -1)
-		return (perror("dup"), -1); // possible leak
+		return (perror("dup"), -1);
 	(void)i;
 	safe_close(&get_data()->tmp_fd);
 	if (node->infile > 2)
 		safe_dup(&node->infile, STDIN_FILENO);
 	if (node->outfile > 2)
 		safe_dup(&node->outfile, STDOUT_FILENO);
-	// redirections_builtin(node, i);
 	if (ft_strcmp(node->cmd_arg[0], "exit") != 0)
 		builtins_check(node, get_data());
 	close_all_fds(get_data(), node);
@@ -68,7 +81,7 @@ bool	simple_builtin(t_exec *node, int i)
 void	close_builtin(t_exec *node)
 {
 	if ((dup2(node->saved_stdin, STDIN_FILENO) == -1)
-			|| (dup2(node->saved_stdout, STDOUT_FILENO) == -1))
+		|| (dup2(node->saved_stdout, STDOUT_FILENO) == -1))
 		return ;
 	safe_close(&node->saved_stdin);
 	safe_close(&node->saved_stdout);
