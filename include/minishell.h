@@ -548,36 +548,191 @@ void	word_splitter(t_data *data);
 
 /* ************************************************************************** */
 
-void	error_msg(char *str);
-int		redirections_io(t_exec *current, int i);
-bool	open_fds_in(t_exec *node);
-bool	open_fds_out(t_exec *current);
-int		child_process(t_exec *current, int i, t_data *data);
-int		safe_dup(int *oldfd, int newfd);
-int		safe_close(int *fd);
-char	*path_finder(char **command, char **env);
-char	**rebuild_env(t_data *data);
-bool	wait_process(pid_t *pid, t_data *data);
+/**
+ * @brief Check if a given command is a builtin. 
+ * @param command command of the current node.
+ * @return true if is a bultin, false otherwise
+ */
 bool	is_builtins(char **command);
-void	execution(t_data *data);
-int		redirections_builtin(t_exec *node, int i);
-int		builtin_process(t_exec *node, int i, t_data *data);
+
+/**
+ * @brief Sets the correct order of opening fds
+ * @param node Pointer to the current node.
+ * @param i Counter of the current node on the pipeline.
+ * @return True if no error found.
+ */
 bool	open_fds(t_exec *node, int i);
-void	close_builtin(t_exec *node);
+
+/**
+ * @brief Iterate to the infiles to be open.
+ * @param node Pointer to the current node.
+ * @return True on succesfully opening fds.
+ */
+bool	open_fds_in(t_exec *node);
+
+/**
+ * @brief Iterate to the outfiles to be open.
+ * @param node Pointer to the current node.
+ * @return True on succesfully opening fds.
+ */
+bool	open_fds_out(t_exec *node);
+
+/**
+ * @brief Open the infile.
+ * @param node Pointer to the current node.
+ * @param j Index of the infile on current node.
+ * @return True on succesfully opening fd.
+ */
 bool	safe_open_in(t_exec *node, int j);
-bool	safe_open_out(t_exec *current, int j);
-void	clean_and_exit(t_data *data, t_exec *node, int exit_code);
-void	parent_fds(t_exec *node);
-void	close_all_fds(t_data *data, t_exec *node);
-void	check_dir(char *is_path, t_exec *node, t_data *data);
+
+/**
+ * @brief Open the outfile.
+ * @param node Pointer to the current node.
+ * @param j Index of the outfile on current node.
+ * @return True on succesfully opening fd.
+ */
+bool	safe_open_out(t_exec *node, int j);
+
+/**
+ * @brief Wait for the result of all child processes
+ * @param pid Pointer to the array o child's pid numbers
+ * @param data Pointer to data structure.
+ * @return True success.
+ */
+bool	wait_process(pid_t *pid, t_data *data);
+
+/**
+ * @brief Retrieve from environment path and join the command
+ * @param command Command on current node.
+ * @param env enviroment path
+ * @return The full path of the command called.
+ */
+char	*path_finder(char **command, char **env);
+
+/**
+ * @brief Rebuild the enviroment on the current pipeline
+ * @param data Pointer to data structure.
+ * @return The environment path.
+ */
+char	**rebuild_env(t_data *data);
+
+/**
+ * @brief Execute the builtin command on a pipeline or alone. 
+ * @param node Pointer to the current node.
+ * @param i index of current command on the pipeline.
+ * @param data Pointer to the data structure.
+ * @return zero on success.
+ */
+int		builtin_process(t_exec *node, int i, t_data *data);
+
+/**
+ * @brief Redirect the command to correct fds.
+ * @param node Pointer to the current node.
+ * @param i index of current command on the pipeline.
+ * @return zero on success.
+ */
+int		redirections_builtin(t_exec *node, int i);
+
+/**
+ * @brief Redirect infile and outfiles of the subprocess.
+ * @param node Pointer to the current node.
+ * @param i index of current command on the pipeline.
+ * @return zero on success.
+ */
+int		redirections_io(t_exec *node, int i);
+
+/**
+ * @brief Close the fd and set to -1.
+ * @param fd Pointer to the fd.
+ * @return Pointer to fd.
+ */
+int		safe_close(int *fd);
+
+/**
+ * @brief Dup the oldfd to the newfd and close the oldfd.
+ * @param oldfd fd to be dup to stdin or stdout
+ * @param newfd stdin or stdout
+ * @return newfd.
+ */
+int		safe_dup(int *oldfd, int newfd);
+
+/**
+ * @brief Check if the path does not have permissions or don't exist 
+ * @param is_path command on the current node.
+ * @param node Pointer to the current node.
+ * @param data Pointer to the data structure.
+ */
 void	check_access(char *is_path, t_exec *node, t_data *data);
+
+/**
+ * @brief Print the message of command not found.
+ * @param node Pointer to the current node.
+ * @param data Pointer to the data structure.
+ */
 void	check_cmd(t_exec *node, t_data *data);
+
+/**
+ * @brief Print if command is a directory or . or not found.
+ * @param is_path command on the current node.
+ * @param node Pointer to the current node.
+ * @param data Pointer to the data structure.
+ */
+void	check_dir(char *is_path, t_exec *node, t_data *data);
+
+/**
+ * @brief Print the message of command not found.
+ * @param node Pointer to the current node.
+ * @param data Pointer to the data structure.
+ */
 void	check_empty(t_exec *node, t_data *data);
+
+/**
+ * @brief Execute the command on a child subprocess. 
+ * @param node Pointer to the current node.
+ * @param i index of current command on the pipeline.
+ * @param data Pointer to the data structure.
+ */
+void	child_process(t_exec *node, int i, t_data *data);
+
+/**
+ * @brief Clean all the structures and return the exit code
+ * @param node Pointer to the current node.
+ * @param data Pointer to the data structure.
+ * @param exit_code exit code of the process.
+ */
+void	clean_and_exit(t_data *data, t_exec *node, int exit_code);
+
+/**
+ * @brief Close all fds that are not closed.
+ * @param data Pointer to the data structure.
+ * @param node Pointer to the current node.
+ */
+void	close_all_fds(t_data *data, t_exec *node);
+
+/**
+ * @brief Restore fds stdin and stdout.
+ * @param node Pointer to the current node.
+ */
+void	restore_fds(t_exec *node);
+
+/**
+ * @brief Create a a builtin or a child subprocess
+ * @param data Pointer to the data structure.
+ * @param node Pointer to the current node.
+ * @param i counter of current command on the pipeline.
+ */
 void	create_process(t_data *data, t_exec *node, int i);
 
-// bool	simple_builtin(t_exec *node, int i);
-// bool	pipeline_builtin(t_exec *node, int i);
-// char	*path_joiner(char **paths, char **command, int i);
-// void	execute_child(t_exec *node, int i, t_data *data);
-// void	initialize_execution(t_data *data, t_exec *node);
+/**
+ * @brief Begin the execution process.
+ * @param node Pointer to the data structure.
+ */
+void	execution(t_data *data);
+
+/**
+ * @brief Close fds and update the tmp_fd on data structure.
+ * @param node Pointer to the current node.
+ */
+void	parent_fds(t_exec *node);
+
 #endif
