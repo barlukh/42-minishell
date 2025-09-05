@@ -37,6 +37,7 @@ int	builtin_process(t_exec *node, int i, t_data *data)
 	return (0);
 }
 
+// Runs the builtin on a pipeline
 static bool	pipeline_builtin(t_exec *node, int i)
 {
 	t_data *data;
@@ -63,6 +64,7 @@ static bool	pipeline_builtin(t_exec *node, int i)
 	return (true);
 }
 
+// Runs the builtin as a single command 
 static bool	simple_builtin(t_exec *node, int i)
 {
 	node->saved_stdin = dup(STDIN_FILENO);

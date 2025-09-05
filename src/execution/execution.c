@@ -71,6 +71,7 @@ bool	open_fds(t_exec *node, int i)
 	return (true);
 }
 
+// Initialize the node fds, and pids array.
 static void	initialize_execution(t_data *data, t_exec *node)
 {
 	ft_memset(node->fd, -1, sizeof(int) * 2);
@@ -100,6 +101,7 @@ void	child_process(t_exec *node, int i, t_data *data)
 		parent_fds(node);
 }
 
+// Run a command that is not a builtin as subprocess. (child)
 static void	execute_child(t_exec *node, int i, t_data *data)
 {
 	char			*is_path;

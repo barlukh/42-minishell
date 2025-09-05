@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wrappers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: edlucca <edlucca@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/04 14:07:57 by bgazur            #+#    #+#             */
-/*   Updated: 2025/09/04 14:07:59 by bgazur           ###   ########.fr       */
+/*   Created: 2025/09/05 14:38:47 by edlucca           #+#    #+#             */
+/*   Updated: 2025/09/05 14:38:48 by edlucca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ bool	safe_open_out(t_exec *node, int j)
 	return (true);
 }
 
+// Check if the outfile is an append
 static bool	is_out_append(char *out_file)
 {
 	char	**app_arr;

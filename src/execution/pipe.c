@@ -6,7 +6,7 @@
 /*   By: edlucca <edlucca@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 15:37:39 by edlucca           #+#    #+#             */
-/*   Updated: 2025/09/04 15:40:31 by edlucca          ###   ########.fr       */
+/*   Updated: 2025/09/05 14:38:27 by edlucca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	redirections_io(t_exec *node, int i)
 		safe_dup(&node->fd[WRITE], STDOUT_FILENO);
 	if (node->fd[READ] > 2)
 		safe_close(&node->fd[READ]);
+	safe_close(&get_data()->tmp_fd);
 	return (0);
 }
 

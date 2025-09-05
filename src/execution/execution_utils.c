@@ -42,6 +42,7 @@ char	**rebuild_env(t_data *data)
 	return (env);
 }
 
+// Exit if the env has some erros
 static void	error_env_rebuild(char **env, t_data *data)
 {
 	ft_lst_env_clear(&data->lst_env);
@@ -65,5 +66,6 @@ void	create_process(t_data *data, t_exec *node, int i)
 			child_process(node, i, data);
 	}
 	if (data->tok_count == 1 && data->tmp_fd > 2)
-		safe_close(&data->tmp_fd);
+		// safe_close(&data->tmp_fd);
+		close_all_fds(get_data(), node);
 }

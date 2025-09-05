@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: edlucca <edlucca@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/04 14:08:57 by bgazur            #+#    #+#             */
-/*   Updated: 2025/09/04 16:23:57 by edlucca          ###   ########.fr       */
+/*   Created: 2025/09/05 14:38:11 by edlucca           #+#    #+#             */
+/*   Updated: 2025/09/05 14:38:13 by edlucca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ char	*path_finder(char **command, char **env)
 	return (final_path);
 }
 
+// Retrieve the variable path form the env
 static char	*get_env_value(char **envp)
 {
 	char	*path;
@@ -66,6 +67,7 @@ static char	*get_env_value(char **envp)
 	return (path);
 }
 
+// Join the command with the path.
 static char	*path_joiner(char **paths, char **command, int i)
 {
 	char	*full;
