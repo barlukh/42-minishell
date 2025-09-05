@@ -86,36 +86,25 @@ static bool	simple_builtin(t_exec *node, int i)
 		builtins_check(node, get_data());
 	return (true);
 }
+
 void	restore_fds(t_exec *node)
 {
-	if ((dup2(node->saved_stdin, STDIN_FILENO) == -1)
-		|| (dup2(node->saved_stdout, STDOUT_FILENO) == -1))
-		return ;
-	safe_close(&node->saved_stdin);
-	safe_close(&node->saved_stdout);
+	if (node->saved_stdin > 2)
+	{
+		if ((dup2(node->saved_stdin, STDIN_FILENO) == -1))
+		{
+			ft_putendl_fd(ERR_MSG_DUP, STDERR_FILENO);
+			clean_and_exit(get_data(), node, 1);
+		}
+		safe_close(&node->saved_stdin);
+	}
+	if (node->saved_stdout > 2)
+	{
+		if ((dup2(node->saved_stdout, STDOUT_FILENO) == -1))
+		{
+			ft_putendl_fd(ERR_MSG_DUP, STDERR_FILENO);
+			clean_and_exit(get_data(), node, 1);
+		}
+		safe_close(&node->saved_stdout);
+	}
 }
-
-// void	restore_fds(t_exec *node)
-// {
-// 	// t_data *data;
-// 	//
-// 	// data = get_data();
-// 	if (node->saved_stdin > 2)
-// 	{
-// 		if ((dup2(node->saved_stdin, STDIN_FILENO) == -1))
-// 		{
-// 			ft_putendl_fd(ERR_MSG_DUP, STDERR_FILENO);
-// 			clean_and_exit(get_data(), node, 1);
-// 		}
-// 		safe_close(&node->saved_stdin);
-// 	}
-// 	if (node->saved_stdout > 2)
-// 	{
-// 		if ((dup2(node->saved_stdout, STDOUT_FILENO) == -1))
-// 		{
-// 			ft_putendl_fd(ERR_MSG_DUP, STDERR_FILENO);
-// 			clean_and_exit(get_data(), node, 1);
-// 		}
-// 		safe_close(&node->saved_stdout);
-// 	}
-// }

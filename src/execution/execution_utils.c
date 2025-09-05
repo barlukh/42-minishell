@@ -42,7 +42,6 @@ char	**rebuild_env(t_data *data)
 	return (env);
 }
 
-// Handles errors in rebuild_env() function.
 static void	error_env_rebuild(char **env, t_data *data)
 {
 	ft_lst_env_clear(&data->lst_env);
