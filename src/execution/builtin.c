@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edlucca <edlucca@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 15:35:57 by edlucca           #+#    #+#             */
-/*   Updated: 2025/09/04 16:23:06 by edlucca          ###   ########.fr       */
+/*   Updated: 2025/09/05 19:06:47 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	builtin_process(t_exec *node, int i, t_data *data)
 // Runs the builtin on a pipeline
 static bool	pipeline_builtin(t_exec *node, int i)
 {
-	t_data *data;
+	t_data	*data;
 
 	data = get_data();
 	node->saved_stdin = dup(STDIN_FILENO);

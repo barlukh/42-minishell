@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edlucca <edlucca@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 16:42:28 by edlucca           #+#    #+#             */
-/*   Updated: 2025/09/04 16:42:49 by edlucca          ###   ########.fr       */
+/*   Updated: 2025/09/05 19:06:32 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,5 @@ void	create_process(t_data *data, t_exec *node, int i)
 			child_process(node, i, data);
 	}
 	if (data->tok_count == 1 && data->tmp_fd > 2)
-		// safe_close(&data->tmp_fd);
 		close_all_fds(get_data(), node);
 }

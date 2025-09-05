@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 13:02:30 by bgazur            #+#    #+#             */
-/*   Updated: 2025/09/04 16:44:21 by edlucca          ###   ########.fr       */
+/*   Updated: 2025/09/05 19:17:50 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ bool	builtin_exit(t_exec *current, t_data *data)
 
 	if (ft_strcmp(current->cmd_arg[0], "exit") == 0)
 	{
-		// if (data->tok_count < 2)
-		// 	ft_putendl_fd(ERR_MSG_EXIT, STDOUT_FILENO);
+		if (data->tok_count < 2)
+			ft_putendl_fd(ERR_MSG_EXIT, STDOUT_FILENO);
 		if (!current->cmd_arg[1])
 			exit_without_arg(data);
 		if (current->cmd_arg[1])

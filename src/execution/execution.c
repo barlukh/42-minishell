@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edlucca <edlucca@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 15:38:40 by edlucca           #+#    #+#             */
-/*   Updated: 2025/09/04 16:45:35 by edlucca          ###   ########.fr       */
+/*   Updated: 2025/09/05 19:12:49 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,9 @@ void	child_process(t_exec *node, int i, t_data *data)
 {
 	data->pids[i] = fork();
 	if (data->pids[i] < 0)
-	{
 		clean_and_exit(data, node, 1);
-	}
 	if (data->pids[i] == 0)
-	{
 		execute_child(node, i, data);
-	}
 	if (get_data()->tok_count > 1)
 		parent_fds(node);
 }

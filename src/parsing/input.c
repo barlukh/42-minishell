@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 07:52:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/09/04 14:07:29 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/05 19:17:55 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	read_input(char **input, t_data *data)
 	{
 		ft_lst_env_clear(&data->lst_env);
 		clear_history();
-		// ft_putendl_fd(ERR_MSG_EXIT, STDOUT_FILENO);
+		ft_putendl_fd(ERR_MSG_EXIT, STDOUT_FILENO);
 		exit(data->exit_status);
 	}
 	if (ft_strlen(*input) > INPUT_MAX)
