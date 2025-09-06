@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: edlucca <edlucca@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/04 15:38:40 by edlucca           #+#    #+#             */
-/*   Updated: 2025/09/05 19:12:49 by bgazur           ###   ########.fr       */
+/*   Created: 2025/09/06 11:57:07 by edlucca           #+#    #+#             */
+/*   Updated: 2025/09/06 13:44:20 by edlucca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,6 @@ void	child_process(t_exec *node, int i, t_data *data)
 		clean_and_exit(data, node, 1);
 	if (data->pids[i] == 0)
 		execute_child(node, i, data);
-	if (get_data()->tok_count > 1)
-		parent_fds(node);
 }
 
 // Run a command that is not a builtin as subprocess. (child)
@@ -104,7 +102,8 @@ static void	execute_child(t_exec *node, int i, t_data *data)
 	char			*path;
 	struct stat		sb;
 
-	is_path = ft_strchr(node->cmd_arg[0], '/');
+	if (node->cmd_arg[0])
+		is_path = ft_strchr(node->cmd_arg[0], '/');
 	path = NULL;
 	signals_exec_child();
 	redirections_io(node, i);

@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 16:42:28 by edlucca           #+#    #+#             */
-/*   Updated: 2025/09/05 19:06:32 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/06 13:51:32 by edlucca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	create_process(t_data *data, t_exec *node, int i)
 		else
 			child_process(node, i, data);
 	}
+	parent_fds(node);
 	if (data->tok_count == 1 && data->tmp_fd > 2)
 		close_all_fds(get_data(), node);
 }
