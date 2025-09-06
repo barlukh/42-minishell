@@ -105,6 +105,7 @@ static void	execute_child(t_exec *node, int i, t_data *data)
 	if (node->cmd_arg[0])
 		is_path = ft_strchr(node->cmd_arg[0], '/');
 	path = NULL;
+	restore_fds(node);
 	signals_exec_child();
 	redirections_io(node, i);
 	path = path_finder(node->cmd_arg, data->env);

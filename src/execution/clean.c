@@ -38,6 +38,7 @@ void	parent_fds(t_exec *node)
 		safe_close(&node->infile);
 	if (node->outfile > 2)
 		safe_close(&node->outfile);
+	restore_fds(node);
 }
 
 void	close_all_fds(t_data *data, t_exec *node)

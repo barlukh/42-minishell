@@ -39,16 +39,6 @@ int	builtin_process(t_exec *node, int i, t_data *data)
 // Runs the builtin on a pipeline
 static bool	pipeline_builtin(t_exec *node, int i)
 {
-	t_data	*data;
-
-	data = get_data();
-	node->saved_stdin = dup(STDIN_FILENO);
-	node->saved_stdout = dup(STDOUT_FILENO);
-	if (node->saved_stdin == -1 || node->saved_stdout == -1)
-	{
-		ft_putendl_fd(ERR_MSG_DUP, STDERR_FILENO);
-		clean_and_exit(data, node, 1);
-	}
 	redirections_builtin(node, i);
 	if (ft_strcmp(node->cmd_arg[0], "exit") != 0)
 		builtins_check(node, get_data());
@@ -66,13 +56,6 @@ static bool	pipeline_builtin(t_exec *node, int i)
 // Runs the builtin as a single command 
 static bool	simple_builtin(t_exec *node, int i)
 {
-	node->saved_stdin = dup(STDIN_FILENO);
-	node->saved_stdout = dup(STDOUT_FILENO);
-	if (node->saved_stdin == -1 || node->saved_stdout == -1)
-	{
-		ft_putendl_fd(ERR_MSG_DUP, STDERR_FILENO);
-		clean_and_exit(get_data(), node, 1);
-	}
 	(void)i;
 	safe_close(&get_data()->tmp_fd);
 	if (node->infile > 2)

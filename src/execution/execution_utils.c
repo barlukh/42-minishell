@@ -61,7 +61,16 @@ void	create_process(t_data *data, t_exec *node, int i)
 	if (node->cmd_arg[0])
 	{
 		if (is_builtins(node->cmd_arg) == true)
+		{
+			node->saved_stdin = dup(STDIN_FILENO);
+			node->saved_stdout = dup(STDOUT_FILENO);
+			if (node->saved_stdin == -1 || node->saved_stdout == -1)
+			{
+				ft_putendl_fd(ERR_MSG_DUP, STDERR_FILENO);
+				clean_and_exit(get_data(), node, 1);
+			}
 			builtin_process(node, i, data);
+		}
 		else
 			child_process(node, i, data);
 	}
