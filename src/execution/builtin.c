@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 15:35:57 by edlucca           #+#    #+#             */
-/*   Updated: 2025/09/06 13:30:27 by edlucca          ###   ########.fr       */
+/*   Updated: 2025/09/06 14:13:09 by edlucca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	builtin_process(t_exec *node, int i, t_data *data)
 		if (simple_builtin(node, i) == false)
 			return (0);
 	}
-	parent_fds(node);
 	return (0);
 }
 
