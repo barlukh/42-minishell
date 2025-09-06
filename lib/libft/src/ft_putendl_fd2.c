@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 16:17:38 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/30 16:19:55 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/06 14:35:19 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 void	ft_putendl_fd2(char *s1, char *s2, int fd)
 {
-	while (*s1)
-		write(fd, s1++, 1);
+	if (*s1)
+		write(fd, s1, ft_strlen(s1));
 	if (s2)
-		while (*s2)
-			write(fd, s2++, 1);
+		write(fd, s2, ft_strlen(s2));
 	write(fd, "\n", 1);
 }
