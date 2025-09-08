@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:38:11 by edlucca           #+#    #+#             */
-/*   Updated: 2025/09/05 19:14:09 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/08 17:37:45 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ char	*path_finder(char **command, char **env)
 	int		i;
 
 	i = 0;
+	final_path = NULL;
 	if (!command || !command[0] || !command[0][0])
 		return (NULL);
 	if (ft_strchr(command[0], '/') != NULL || access(command[0], X_OK) == 0)

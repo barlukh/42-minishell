@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/09/04 16:22:59 by edlucca          ###   ########.fr       */
+/*   Updated: 2025/09/08 18:33:49 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -358,6 +358,14 @@ char	*home_get(t_data *data);
  * @return None.
  */
 void	merger(t_data *data);
+
+/**
+ * @brief Sets freed pointer from execution to NULL.
+ * @param pids Pids.
+ * @param env Env.
+ * @return None.
+ */
+void	null_exec_pointers(pid_t **pids, char ***env);
 
 /**
  * @brief Gets and returns the OLDPWD value from env.

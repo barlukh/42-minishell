@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:40:06 by bgazur            #+#    #+#             */
-/*   Updated: 2025/08/30 14:31:26 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/08 17:23:08 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	main(int argc, char **argv, char **env)
 		execution(data);
 		data->tok_count = 0;
 		ft_lst_exec_clear(&data->lst_exec);
+		data->lst_exec = NULL;
 	}
 	return (SUCCESS);
 }

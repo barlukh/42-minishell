@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 07:52:40 by bgazur            #+#    #+#             */
-/*   Updated: 2025/09/05 19:17:55 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/08 17:22:22 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,15 @@ bool	parse_input(char *input, t_data *data)
 	if (syntax_checker(data) != SUCCESS)
 	{
 		ft_lst_tok_clear(&data->lst_tok);
-		data->exit_status = 2;
-		return (FAILURE);
+		data->lst_tok = NULL;
+		return (data->exit_status = 2, FAILURE);
 	}
 	env_expander(data);
 	if (ambiguous_redir(data))
 	{
 		ft_lst_tok_clear(&data->lst_tok);
-		data->exit_status = 1;
-		return (FAILURE);
+		data->lst_tok = NULL;
+		return (data->exit_status = 1, FAILURE);
 	}
 	heredoc_identifier(data);
 	word_splitter(data);
@@ -74,8 +74,8 @@ bool	parse_input(char *input, t_data *data)
 	if (parsing_finalizer(NULL, data) != SUCCESS)
 	{
 		ft_lst_tok_clear(&data->lst_tok);
-		data->exit_status = 1;
-		return (FAILURE);
+		data->lst_tok = NULL;
+		return (data->exit_status = 1, FAILURE);
 	}
 	return (SUCCESS);
 }

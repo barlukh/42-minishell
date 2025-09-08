@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edlucca <edlucca@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 11:57:07 by edlucca           #+#    #+#             */
-/*   Updated: 2025/09/06 14:38:27 by edlucca          ###   ########.fr       */
+/*   Updated: 2025/09/08 18:35:22 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	execution(t_data *data)
 	wait_process(data->pids, data);
 	ft_free_array(data->env);
 	free(data->pids);
+	null_exec_pointers(&data->pids, &data->env);
 }
 
 bool	open_fds(t_exec *node, int i)

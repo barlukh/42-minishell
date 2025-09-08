@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 16:42:28 by edlucca           #+#    #+#             */
-/*   Updated: 2025/09/06 14:13:07 by edlucca          ###   ########.fr       */
+/*   Updated: 2025/09/08 18:32:14 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	**rebuild_env(t_data *data)
 	size_t	i;
 	t_env	*current;
 
-	env = malloc(sizeof(char *) * (ft_lst_env_size(data->lst_env) + 1));
+	env = ft_calloc((ft_lst_env_size(data->lst_env) + 1), sizeof(char *));
 	if (!env)
 		error_general_mem(data);
 	i = 0;
@@ -68,4 +68,10 @@ void	create_process(t_data *data, t_exec *node, int i)
 	parent_fds(node);
 	if (data->tok_count == 1 && data->tmp_fd > 2)
 		close_all_fds(get_data(), node);
+}
+
+void	null_exec_pointers(pid_t **pids, char ***env)
+{
+	*pids = NULL;
+	*env = NULL;
 }
