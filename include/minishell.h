@@ -6,7 +6,7 @@
 /*   By: bgazur <bgazur@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 09:41:27 by bgazur            #+#    #+#             */
-/*   Updated: 2025/09/08 18:33:49 by bgazur           ###   ########.fr       */
+/*   Updated: 2025/09/10 08:57:06 by bgazur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@
 
 # include "libft.h"
 
-# include <stdio.h> // UNUSED, REMOVE BEFORE SUBMISSION !!!!!!!!!!!!!!!!!!!!!
 # include <errno.h>
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
 # include <stdbool.h>
+# include <stdio.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
 
@@ -81,6 +81,7 @@ extern volatile sig_atomic_t	g_signal;
 // fd values (execution).
 # define READ 0
 # define WRITE 1
+
 //------------------------------------------------------------------------------
 // Type Definitions
 //------------------------------------------------------------------------------
