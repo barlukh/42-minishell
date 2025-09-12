@@ -16,4 +16,4 @@ The project emphasizes robust parsing, process creation, and error handling, pus
 This repository is mostly just an archive of my studies, and can serve as a reference for future students in a time of need. However, I strongly encourage students to avoid just copy-pasting.
 
 ## Collaboration
-Minishell project is a team effort and is currently being worked on by me and my classmate [Eduardo](https://github.com/EzLucca).
+Minishell project is a team effort and was done by me and my classmate [Eduardo](https://github.com/EzLucca).
